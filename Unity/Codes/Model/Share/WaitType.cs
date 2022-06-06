@@ -30,5 +30,16 @@
                 set;
             }
         }
+        
+        public struct Wait_Create2DWorld: IWaitType
+        {
+            public int Error
+            {
+                get;
+                set;
+            }
+
+            public M2C_CreateMyUnit Message;
+        }
     }
 }

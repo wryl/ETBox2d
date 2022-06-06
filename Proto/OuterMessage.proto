@@ -251,3 +251,43 @@ message M2C_TransferMap // IActorLocationResponse
 	string Message = 92;
 }
  
+message C2B_AddForce // IActorLocationRequest
+{
+	int32 RpcId = 1;
+}
+message B2C_AddForce // IActorLocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+message B2C_OnEntityChanged // IActorLocationMessage
+{
+	int64 Id = 3;
+	int64 EntityId = 4;
+	int32 X = 9;
+	int32 Y = 10;
+	int32 AngleY = 12;
+}
+message C2B_Enter2D // IActorLocationRequest
+{
+	int32 RpcId = 1;
+}
+message B2C_Enter2D // IActorLocationResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+message B2DEntity // IActorLocationMessage
+{
+	int64 Id = 3;
+	int64 EntityId = 4;
+	int32 X = 9;
+	int32 Y = 10;
+	int32 AngleY = 12;
+}
+message B2C_Create2DWorld // IActorLocationMessage
+{
+	repeated B2DEntity Entitys = 1;
+}

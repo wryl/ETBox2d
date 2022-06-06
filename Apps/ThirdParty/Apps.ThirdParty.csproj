@@ -32,7 +32,9 @@
     <Compile Include="..\..\Unity\Assets\ThirdParty\ETTask\**\*.cs">
         <Link>ETTask/%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
-
+        <Compile Include="..\..\Unity\Assets\ThirdParty\Box2D\**\*.cs">
+            <Link>Box2D/%(RecursiveDir)%(FileName)%(Extension)</Link>
+        </Compile>
     <Compile Include="..\..\Unity\Assets\ThirdParty\ShareLib\Kcp\Kcp.cs">
       <Link>Kcp\Kcp.cs</Link>
     </Compile>
