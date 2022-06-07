@@ -517,4 +517,103 @@ namespace ET
 
 	}
 
+	[Message(OuterOpcode.C2B_AddForce)]
+	[ProtoContract]
+	public partial class C2B_AddForce: Object, IActorLocationRequest
+	{
+		[ProtoMember(1)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.B2C_AddForce)]
+	[ProtoContract]
+	public partial class B2C_AddForce: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+	[Message(OuterOpcode.B2C_OnEntityChanged)]
+	[ProtoContract]
+	public partial class B2C_OnEntityChanged: Object, IActorLocationMessage
+	{
+		[ProtoMember(3)]
+		public long Id { get; set; }
+
+		[ProtoMember(4)]
+		public long EntityId { get; set; }
+
+		[ProtoMember(9)]
+		public int X { get; set; }
+
+		[ProtoMember(10)]
+		public int Y { get; set; }
+
+		[ProtoMember(12)]
+		public int AngleY { get; set; }
+
+	}
+
+	[Message(OuterOpcode.C2B_Enter2D)]
+	[ProtoContract]
+	public partial class C2B_Enter2D: Object, IActorLocationRequest
+	{
+		[ProtoMember(1)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.B2C_Enter2D)]
+	[ProtoContract]
+	public partial class B2C_Enter2D: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+	[Message(OuterOpcode.B2DEntity)]
+	[ProtoContract]
+	public partial class B2DEntity: Object, IActorLocationMessage
+	{
+		[ProtoMember(3)]
+		public long Id { get; set; }
+
+		[ProtoMember(4)]
+		public long EntityId { get; set; }
+
+		[ProtoMember(9)]
+		public int X { get; set; }
+
+		[ProtoMember(10)]
+		public int Y { get; set; }
+
+		[ProtoMember(12)]
+		public int AngleY { get; set; }
+
+	}
+
+	[Message(OuterOpcode.B2C_Create2DWorld)]
+	[ProtoContract]
+	public partial class B2C_Create2DWorld: Object, IActorLocationMessage
+	{
+		[ProtoMember(1)]
+		public List<B2DEntity> Entitys = new List<B2DEntity>();
+
+	}
+
 }

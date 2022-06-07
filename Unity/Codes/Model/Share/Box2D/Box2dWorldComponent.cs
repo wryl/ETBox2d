@@ -3,6 +3,7 @@ using Box2DSharp.Dynamics;
 
 namespace ET
 {
+    [ChildType(typeof (Boss2D))]
     public class Box2dWorldComponent: Entity, IAwake, IDestroy, IUpdate
     {
         public World World;

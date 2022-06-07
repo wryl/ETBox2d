@@ -46,6 +46,10 @@ namespace ET.Server
                     scene.AddComponent<RobotManagerComponent>();
                     
                     break;
+                case SceneType.Box2dWorld:
+                    var world=scene.AddComponent<Box2dWorldComponent>();
+                    world.AddChild<Boss2D>();
+                    break;
             }
 
             return scene;

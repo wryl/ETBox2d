@@ -11,7 +11,7 @@
 		Map = 6,
 		Router = 7,
 		RouterManager = 8,
-
+		Box2dWorld = 9,
 		// 客户端Model层
 		Client = 30,
 		Zone = 31,

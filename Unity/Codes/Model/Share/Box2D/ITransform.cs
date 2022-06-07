@@ -7,6 +7,6 @@ namespace ET
         Vector3 LastPosition { get; set; }
         Vector3 Position { get; set; }
         float Angle { get; set; }
-        TransformComponent TransformComponent { get; }
+
     }
 }

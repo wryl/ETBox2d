@@ -12,6 +12,9 @@ namespace ET
 		public Box2dWorldComponent Box2DWorldComponent { get; set; }
 		public System.Action<Body2dComponent> OnBeginContactAction { get; set; }
 		public Body Body { get; set; }
+		/// <summary>
+		/// 是否受到力影响
+		/// </summary>
 		public bool IsBeForce{ get; set; }
 		public Vector2 Position
 		{
