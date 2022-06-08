@@ -47,8 +47,9 @@ namespace ET.Server
                     
                     break;
                 case SceneType.Box2dWorld:
+                    scene.AddComponent<Unit2DComponent>();
                     var world=scene.AddComponent<Box2dWorldComponent>();
-                    world.AddChild<Boss2D>();
+                    UnitFactory.Create2D(scene, IdGenerater.Instance.GenerateId(), UnitType.Monster);
                     break;
             }
 

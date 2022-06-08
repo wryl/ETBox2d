@@ -26,8 +26,10 @@ namespace ET.Client
         {
             try
             {
+                G2C_Enter2D g2CEnterMap = await zoneScene.GetComponent<SessionComponent>().Session.Call(new C2G_Enter2D()) as G2C_Enter2D;
+                zoneScene.GetComponent<PlayerComponent>().MyId = g2CEnterMap.MyId;
                 await zoneScene.GetComponent<ObjectWait>().Wait<WaitType.Wait_SceneChangeFinish>();
-                Game.EventSystem.Publish(zoneScene, new EventType.EnterMapFinish());
+                Game.EventSystem.Publish(zoneScene, new EventType.Enter2DFinish());
             }
             catch (Exception e)
             {

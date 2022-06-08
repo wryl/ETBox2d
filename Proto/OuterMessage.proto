@@ -261,33 +261,39 @@ message B2C_AddForce // IActorLocationResponse
 	int32 Error = 91;
 	string Message = 92;
 }
-message B2C_OnEntityChanged // IActorLocationMessage
+message B2C_OnEntityChanged // IActorMessage
 {
+	int32 RpcId = 1;
 	int64 Id = 3;
-	int64 EntityId = 4;
 	int32 X = 9;
 	int32 Y = 10;
 	int32 AngleY = 12;
 }
-message C2B_Enter2D // IActorLocationRequest
+message C2G_Enter2D // IRequest
 {
 	int32 RpcId = 1;
 }
-message B2C_Enter2D // IActorLocationResponse
+message G2C_Enter2D // IResponse
 {
 	int32 RpcId = 90;
 	int32 Error = 91;
 	string Message = 92;
+	// 自己unitId
+	int64 MyId = 4;
 }
-message B2DEntity // IActorLocationMessage
+message B2DEntity 
 {
-	int64 Id = 3;
-	int64 EntityId = 4;
+	int32 EntityType = 3;
+	int64 Id = 4;
 	int32 X = 9;
 	int32 Y = 10;
 	int32 AngleY = 12;
 }
-message B2C_Create2DWorld // IActorLocationMessage
+message B2C_Create2DWorld // IActorMessage
 {
 	repeated B2DEntity Entitys = 1;
+}
+message M2C_CreateMyUnit2D // IActorMessage
+{
+	UnitInfo Unit = 1;
 }

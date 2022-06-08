@@ -27,7 +27,7 @@ namespace ET.Client
         }
         public static async ETTask Enter2D(this UILobbyComponent self)
         {
-            await EnterMapHelper.EnterMapAsync(self.ZoneScene());
+            await EnterMapHelper.Enter2DAsync(self.ZoneScene());
             await UIHelper.Remove(self.ZoneScene(), UIType.UILobby);
         }
     }

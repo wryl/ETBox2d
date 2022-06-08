@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace ET
 {
+	[ComponentOf()]
 	public class Body2dComponent : Entity, IAwake, IUpdate, IDestroy
 	{
 		public Box2dWorldComponent Box2DWorldComponent { get; set; }

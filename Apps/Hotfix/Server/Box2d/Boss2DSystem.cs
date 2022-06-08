@@ -6,10 +6,7 @@
         {
             public override void Awake(Boss2D self)
             {
-                var body2d=self.AddComponent<Body2dComponent>();
-                body2d.IsBeForce = true;
-                body2d.CreateBody(1, 1);
-                body2d.OnBeginContactAction += self.OnBeginContact;
+
             }
         }
         public static void OnBeginContact(this Boss2D self, Body2dComponent other)
@@ -17,6 +14,27 @@
             try
             {
                 Log.Debug("Boss2D OnBeginContact");
+            }
+            catch (System.Exception e)
+            {
+                Log.Error(e);
+            }
+        }
+    }
+    public static class Player2DSystem
+    {
+        public class Player2DAwakeSystem : AwakeSystem<Player2D>
+        {
+            public override void Awake(Player2D self)
+            {
+
+            }
+        }
+        public static void OnBeginContact(this Player2D self, Body2dComponent other)
+        {
+            try
+            {
+                Log.Debug("Player2D OnBeginContact");
             }
             catch (System.Exception e)
             {

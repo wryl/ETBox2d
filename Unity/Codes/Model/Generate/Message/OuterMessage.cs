@@ -543,13 +543,13 @@ namespace ET
 
 	[Message(OuterOpcode.B2C_OnEntityChanged)]
 	[ProtoContract]
-	public partial class B2C_OnEntityChanged: Object, IActorLocationMessage
+	public partial class B2C_OnEntityChanged: Object, IActorMessage
 	{
+		[ProtoMember(1)]
+		public int RpcId { get; set; }
+
 		[ProtoMember(3)]
 		public long Id { get; set; }
-
-		[ProtoMember(4)]
-		public long EntityId { get; set; }
 
 		[ProtoMember(9)]
 		public int X { get; set; }
@@ -562,18 +562,18 @@ namespace ET
 
 	}
 
-	[Message(OuterOpcode.C2B_Enter2D)]
+	[Message(OuterOpcode.C2G_Enter2D)]
 	[ProtoContract]
-	public partial class C2B_Enter2D: Object, IActorLocationRequest
+	public partial class C2G_Enter2D: Object, IRequest
 	{
 		[ProtoMember(1)]
 		public int RpcId { get; set; }
 
 	}
 
-	[Message(OuterOpcode.B2C_Enter2D)]
+	[Message(OuterOpcode.G2C_Enter2D)]
 	[ProtoContract]
-	public partial class B2C_Enter2D: Object, IActorLocationResponse
+	public partial class G2C_Enter2D: Object, IResponse
 	{
 		[ProtoMember(90)]
 		public int RpcId { get; set; }
@@ -584,17 +584,21 @@ namespace ET
 		[ProtoMember(92)]
 		public string Message { get; set; }
 
+// 自己unitId
+		[ProtoMember(4)]
+		public long MyId { get; set; }
+
 	}
 
 	[Message(OuterOpcode.B2DEntity)]
 	[ProtoContract]
-	public partial class B2DEntity: Object, IActorLocationMessage
+	public partial class B2DEntity: Object
 	{
 		[ProtoMember(3)]
-		public long Id { get; set; }
+		public int EntityType { get; set; }
 
 		[ProtoMember(4)]
-		public long EntityId { get; set; }
+		public long Id { get; set; }
 
 		[ProtoMember(9)]
 		public int X { get; set; }
@@ -609,10 +613,19 @@ namespace ET
 
 	[Message(OuterOpcode.B2C_Create2DWorld)]
 	[ProtoContract]
-	public partial class B2C_Create2DWorld: Object, IActorLocationMessage
+	public partial class B2C_Create2DWorld: Object, IActorMessage
 	{
 		[ProtoMember(1)]
 		public List<B2DEntity> Entitys = new List<B2DEntity>();
+
+	}
+
+	[Message(OuterOpcode.M2C_CreateMyUnit2D)]
+	[ProtoContract]
+	public partial class M2C_CreateMyUnit2D: Object, IActorMessage
+	{
+		[ProtoMember(1)]
+		public UnitInfo Unit { get; set; }
 
 	}
 

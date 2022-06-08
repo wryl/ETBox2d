@@ -44,5 +44,26 @@ namespace ET.Client
 	        Game.EventSystem.Publish(unit, new EventType.AfterUnitCreate());
             return unit;
         }
+        public static Unit2D Create2D(Scene currentScene, UnitInfo unitInfo)
+        {
+	        Unit2DComponent unitComponent = currentScene.GetComponent<Unit2DComponent>();
+	        Unit2D unit = unitComponent.AddChildWithId<Unit2D, int>(unitInfo.UnitId, unitInfo.ConfigId);
+	        unitComponent.Add(unit);
+	        
+	        unit.Position = new Vector3(unitInfo.X, unitInfo.Y, unitInfo.Z);
+	        
+	        NumericComponent numericComponent = unit.AddComponent<NumericComponent>();
+	        for (int i = 0; i < unitInfo.Ks.Count; ++i)
+	        {
+		        numericComponent.Set(unitInfo.Ks[i], unitInfo.Vs[i]);
+	        }
+	        
+	      
+
+	        unit.AddComponent<ObjectWait>();
+	        
+	        Game.EventSystem.Publish(unit, new EventType.AfterUnitCreate());
+	        return unit;
+        }
     }
 }

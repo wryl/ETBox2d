@@ -39,7 +39,7 @@
                 set;
             }
 
-            public M2C_CreateMyUnit Message;
+            public M2C_CreateMyUnit2D Message;
         }
     }
 }

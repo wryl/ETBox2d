@@ -74,5 +74,14 @@ namespace ET
         public struct AfterUnitCreate
         {
         }
+        public struct ChangePosition2D
+        {
+            public Vector3 OldPos;
+        }
+        
+        public struct Enter2DFinish
+        {
+        }
+
     }
 }

@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-namespace ET
+namespace ET.Server
 {
-	[ObjectSystem]
 	public class EntitySyncComponentAwakeSystem : AwakeSystem<EntitySyncComponent>
 	{
 		public override void Awake(EntitySyncComponent self)
@@ -13,7 +12,6 @@ namespace ET
 		}
 	}
 
-	[ObjectSystem]
 	public class EntitySyncComponentUpdateSystem : UpdateSystem<EntitySyncComponent>
 	{
 		public override void Update(EntitySyncComponent self)
@@ -34,21 +32,17 @@ namespace ET
 			if (TimeHelper.ServerNow() - self.Timer > self.Interval)
 			{
 				self.Timer = TimeHelper.ServerNow();
-				var transform = self.Parent.GetComponent<TransformComponent>();
-				var lp = transform.lastPosition;
-				var p = transform.position;
+				var transform = self.GetParent<Unit2D>();
+				var lp = transform.LastPosition;
+				var p = transform.Position;
 				if (Vector3.Distance(lp, p) < 0.1f)
 					return;
-				transform.lastPosition = p;
-
+				transform.LastPosition = p;
 				var msg = new B2C_OnEntityChanged();
-				msg.EntityId = self.Id;
-				msg.EntityType = EntityDefine.GetTypeId(self.Parent.GetType());
-
+				msg.Id = self.Id;
 				msg.X = (int)(p.x * 100);
 				msg.Y = (int)(p.y * 100);
-				msg.Z = (int)(p.z * 100);
-				MessageHelper.Broadcast(self.Domain, msg);
+				MessageHelper.BroadcastToAll(self.Domain, msg);
 			}
 		}
 	}
