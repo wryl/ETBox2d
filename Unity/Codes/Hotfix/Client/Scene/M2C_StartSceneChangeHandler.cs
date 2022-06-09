@@ -5,7 +5,7 @@
 	{
 		protected override async ETTask Run(Session session, M2C_StartSceneChange message)
 		{
-			await SceneChangeHelper.SceneChangeTo(session.ClientScene(), message.SceneName, message.SceneInstanceId);
+			await SceneChangeHelper.SceneChangeTo2D(session.ClientScene(), message.SceneName, message.SceneInstanceId);
 		}
 	}
 }

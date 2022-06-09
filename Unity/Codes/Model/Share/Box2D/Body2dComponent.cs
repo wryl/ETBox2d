@@ -21,12 +21,12 @@ namespace ET
 		{
 			get
 			{
-				var p3 = (GetParent<Entity>() as ITransform).Position;
-				return new Vector2(p3.x, p3.z);
+				var p3 = GetParent<Unit2D>().Position;
+				return new Vector2(p3.x, p3.y);
 			}
 			set
 			{
-				(GetParent<Entity>() as ITransform).Position = new Vector3(value.x, 0, value.y);
+				GetParent<Unit2D>().Position = new Vector3(value.x,value.y, 0 );
 			}
 		}
 
@@ -34,11 +34,11 @@ namespace ET
 		{
 			get
 			{
-				return (GetParent<Entity>() as ITransform).Angle;
+				return GetParent<Unit2D>().Angle;
 			}
 			set
 			{
-				(GetParent<Entity>() as ITransform).Angle = value;
+				GetParent<Unit2D>().Angle = value;
 			}
 		}
 		public Vector2 lastPosition { get; set; }

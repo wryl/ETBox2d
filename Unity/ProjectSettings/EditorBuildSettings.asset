@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Map2.unity
     guid: 064123f1e5067b249a9fd8967ddbde09
+  - enabled: 1
+    path: Assets/Scenes/box2dworld1.unity
+    guid: b16bc5cfd2213764e80003ce73e909dd
   m_configObjects: {}

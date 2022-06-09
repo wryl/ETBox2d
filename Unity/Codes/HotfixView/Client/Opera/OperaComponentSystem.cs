@@ -53,6 +53,11 @@ namespace ET.Client
                 C2M_TransferMap c2MTransferMap = new C2M_TransferMap();
                 self.ClientScene().GetComponent<SessionComponent>().Session.Call(c2MTransferMap).Coroutine();
             }
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                C2B_AddForce addForce = new C2B_AddForce();
+                self.ClientScene().GetComponent<SessionComponent>().Session.Call(addForce).Coroutine();
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ namespace ET
     [ComponentOf(typeof (Scene))]
     public class Box2dWorldComponent: Entity, IAwake, IDestroy, IUpdate
     {
-        public World World;
+        public World World{ get; set; }
         public Box2dWorldContactListener Listener;
         public int FrameCount = 2000;
         public Profile MaxProfile = new Profile();

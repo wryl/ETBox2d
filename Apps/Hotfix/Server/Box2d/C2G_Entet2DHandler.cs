@@ -1,5 +1,6 @@
 ﻿using System;
-using UnityEngine;
+using System.Numerics;
+using Vector3 = UnityEngine.Vector3;
 
 namespace ET.Server
 {
@@ -28,7 +29,7 @@ namespace ET.Server
 			// 这里可以从DB中加载Unit
 			Unit2D unit = Server.UnitFactory.Create2D(scene, player.Id, UnitType.Player);
 			unit.AddComponent<UnitGateComponent, long>(session.InstanceId);
-			StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "Box2DWorld1");
+			StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "Box2dWorld1");
 			response.MyId = unit.Id;
 			reply();
 			
@@ -75,7 +76,7 @@ namespace ET.Server
 			{
 				unit.AddComponent(entity);
 			}
-			unit.Position = new Vector3(5, 10, 0);
+			unit.Position = new Vector3(0, 3, 0);
 
 			unit.AddComponent<MailBoxComponent>();
 			unit.AddComponent<Player2D>();
@@ -84,6 +85,27 @@ namespace ET.Server
 			m2CCreateUnits.Unit = Server.Unit2DHelper.CreateUnitInfo(unit);
 			MessageHelper.SendToClient(unit, m2CCreateUnits);
 			response.NewInstanceId = unit.InstanceId;
+			reply();
+		}
+
+		
+	}
+	[ActorMessageHandler(SceneType.Box2dWorld)]
+	public class C2B_AddForceHandler: AMActorLocationRpcHandler<Unit2D, C2B_AddForce, B2C_AddForce>
+	{
+		protected override async ETTask Run(Unit2D unit, C2B_AddForce request, B2C_AddForce response, Action reply)
+		{
+			await ETTask.CompletedTask;
+			Unit2DComponent unitComponent = unit.Domain.GetComponent<Unit2DComponent>();
+			foreach (Unit2D entity in unitComponent.Children.Values)
+			{
+				if (entity.GetComponent<Boss2D>()!=null)
+				{
+					Log.Debug("force");
+					entity.GetComponent<Body2dComponent>().Body.ApplyForceToCenter(new Vector2(0,1),true);
+					entity.GetComponent<Body2dComponent>().Body.ApplyLinearImpulseToCenter(new Vector2(0,1),true);
+				}
+			}
 			reply();
 		}
 

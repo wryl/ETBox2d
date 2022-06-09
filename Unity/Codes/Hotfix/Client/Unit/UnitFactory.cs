@@ -57,12 +57,9 @@ namespace ET.Client
 	        {
 		        numericComponent.Set(unitInfo.Ks[i], unitInfo.Vs[i]);
 	        }
-	        
-	      
-
 	        unit.AddComponent<ObjectWait>();
 	        
-	        Game.EventSystem.Publish(unit, new EventType.AfterUnitCreate());
+	        Game.EventSystem.Publish(unit, new EventType.AfterUnitCreate2D());
 	        return unit;
         }
     }

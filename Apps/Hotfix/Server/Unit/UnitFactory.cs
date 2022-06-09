@@ -45,7 +45,7 @@ namespace ET.Server
                 }
                 case UnitType.Monster:
                     Unit2D monster = unitComponent.AddChildWithId<Unit2D, int>(id, 1002);
-                    monster.Position = new Vector3(15, 10, 0);
+                    monster.Position = new Vector3(5, 10, 0);
                     var nc=monster.AddComponent<NumericComponent>();
                     nc.Set(NumericType.Speed, 8f); 
                     unitComponent.Add(monster);

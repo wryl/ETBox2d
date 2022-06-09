@@ -82,6 +82,9 @@ namespace ET
         public struct Enter2DFinish
         {
         }
-
+        
+        public struct AfterUnitCreate2D
+        {
+        }
     }
 }

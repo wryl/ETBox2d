@@ -517,6 +517,7 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(B2C_AddForce))]
 	[Message(OuterOpcode.C2B_AddForce)]
 	[ProtoContract]
 	public partial class C2B_AddForce: Object, IActorLocationRequest
@@ -562,6 +563,7 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(G2C_Enter2D))]
 	[Message(OuterOpcode.C2G_Enter2D)]
 	[ProtoContract]
 	public partial class C2G_Enter2D: Object, IRequest

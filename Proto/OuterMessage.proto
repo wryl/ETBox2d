@@ -250,7 +250,7 @@ message M2C_TransferMap // IActorLocationResponse
 	int32 Error = 91;
 	string Message = 92;
 }
- 
+//ResponseType B2C_AddForce
 message C2B_AddForce // IActorLocationRequest
 {
 	int32 RpcId = 1;
@@ -269,6 +269,7 @@ message B2C_OnEntityChanged // IActorMessage
 	int32 Y = 10;
 	int32 AngleY = 12;
 }
+//ResponseType G2C_Enter2D
 message C2G_Enter2D // IRequest
 {
 	int32 RpcId = 1;

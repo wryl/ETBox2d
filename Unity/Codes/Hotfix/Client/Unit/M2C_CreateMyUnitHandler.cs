@@ -10,7 +10,7 @@
 			await ETTask.CompletedTask;
 		}
 	}
-	[MessageHandler(SceneType.Zone)]
+	[MessageHandler(SceneType.Client)]
 	public class M2C_CreateMyUnit2DHandler : AMHandler<M2C_CreateMyUnit2D>
 	{
 		protected override async ETTask Run(Session session, M2C_CreateMyUnit2D message)

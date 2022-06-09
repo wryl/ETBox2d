@@ -64,8 +64,7 @@ namespace ET.Server
         }
         public static void BroadcastToAll(Entity domain, IActorMessage message)
         {
-           
-            foreach (var unit in domain.GetComponent<UnitComponent>().Children)
+            foreach (var unit in domain.GetComponent<Unit2DComponent>().Children)
             {
                 var gatesession = unit.Value.GetComponent<UnitGateComponent>()?.GateSessionActorId;
                 if (gatesession.HasValue)
