@@ -31,7 +31,7 @@
             }
         }
         
-        public struct Wait_Create2DWorld: IWaitType
+        public struct Wait_CreateMyUnit2D: IWaitType
         {
             public int Error
             {

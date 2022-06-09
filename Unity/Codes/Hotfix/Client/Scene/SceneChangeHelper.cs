@@ -40,7 +40,7 @@
             Game.EventSystem.Publish(zoneScene, new EventType.SceneChangeStart());
 
             // 等待CreateMyUnit的消息
-            WaitType.Wait_Create2DWorld waitCreateMyUnit = await zoneScene.GetComponent<ObjectWait>().Wait<WaitType.Wait_Create2DWorld>();
+            WaitType.Wait_CreateMyUnit2D waitCreateMyUnit = await zoneScene.GetComponent<ObjectWait>().Wait<WaitType.Wait_CreateMyUnit2D>();
             M2C_CreateMyUnit2D m2CCreateMyUnit = waitCreateMyUnit.Message;
             Unit2D unit = Client.UnitFactory.Create2D(currentScene, m2CCreateMyUnit.Unit);
             unitComponent.Add(unit);

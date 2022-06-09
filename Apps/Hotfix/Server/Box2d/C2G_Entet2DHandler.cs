@@ -80,7 +80,7 @@ namespace ET.Server
 			unit.AddComponent<MailBoxComponent>();
 			unit.AddComponent<Player2D>();
 			// 通知客户端创建My Unit
-			M2C_CreateMyUnit m2CCreateUnits = new M2C_CreateMyUnit();
+			M2C_CreateMyUnit2D m2CCreateUnits = new M2C_CreateMyUnit2D();
 			m2CCreateUnits.Unit = Server.Unit2DHelper.CreateUnitInfo(unit);
 			MessageHelper.SendToClient(unit, m2CCreateUnits);
 			response.NewInstanceId = unit.InstanceId;
