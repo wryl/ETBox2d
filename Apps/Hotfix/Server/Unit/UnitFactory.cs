@@ -37,14 +37,14 @@ namespace ET.Server
                 case UnitType.Player:
                 {
                     Unit2D unit = unitComponent.AddChildWithId<Unit2D, int>(id, 1001);
-                    unit.Position = new Vector3(10, 10, 0);
+                    unit.Position = new Vector3(0, 0, 0);
                     NumericComponent numericComponent = unit.AddComponent<NumericComponent>();
                     numericComponent.Set(NumericType.Speed, 6f); // 速度是6米每秒
                     unitComponent.Add(unit);
                     return unit;
                 }
                 case UnitType.Monster:
-                    Unit2D monster = unitComponent.AddChildWithId<Unit2D, int>(id, 1002);
+                    Unit2D monster = unitComponent.AddChildWithId<Unit2D, int>(id, 1001);
                     monster.Position = new Vector3(5, 10, 0);
                     var nc=monster.AddComponent<NumericComponent>();
                     nc.Set(NumericType.Speed, 8f); 

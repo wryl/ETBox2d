@@ -42,5 +42,6 @@ namespace ET
 		 public const ushort B2DEntity = 10039;
 		 public const ushort B2C_Create2DWorld = 10040;
 		 public const ushort M2C_CreateMyUnit2D = 10041;
+		 public const ushort M2C_CreateUnit2Ds = 10042;
 	}
 }

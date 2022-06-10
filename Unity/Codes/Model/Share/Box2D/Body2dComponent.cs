@@ -10,7 +10,6 @@ namespace ET
 	[ComponentOf()]
 	public class Body2dComponent : Entity, IAwake, IUpdate, IDestroy
 	{
-		public Box2dWorldComponent Box2DWorldComponent { get; set; }
 		public System.Action<Body2dComponent> OnBeginContactAction { get; set; }
 		public Body Body { get; set; }
 		/// <summary>

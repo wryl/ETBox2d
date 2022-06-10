@@ -298,3 +298,7 @@ message M2C_CreateMyUnit2D // IActorMessage
 {
 	UnitInfo Unit = 1;
 }
+message M2C_CreateUnit2Ds // IActorMessage
+{
+	repeated UnitInfo Units = 2;
+}

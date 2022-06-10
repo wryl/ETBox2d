@@ -35,13 +35,13 @@ namespace ET
         {
             public override void Awake(Box2dWorldComponent self)
             {
-                self.World = new World(new Vector2(0, -10));
+                self.World = new World(new Vector2(0, -5));
                 self.Listener = new Box2dWorldContactListener(self);
                 self.World.AllowSleep = false;
                 self.World.SetContactListener(self.Listener);
                 
                 var groundBodyDef = new BodyDef {BodyType = BodyType.StaticBody};
-                groundBodyDef.Position.Set(0.0f, -10.0f);
+                groundBodyDef.Position.Set(0.0f, -5f);
                 var groundBody = self.World.CreateBody(groundBodyDef);
                 var groundBox = new PolygonShape();
                 groundBox.SetAsBox(1000.0f, 5.0f);
@@ -57,7 +57,8 @@ namespace ET
             var bd = new BodyDef
             {
                 BodyType = BodyType.DynamicBody,
-                Position = new Vector2(x, y)
+                Position = new Vector2(x, y),
+                AllowSleep = false
             };
             var body = self.World.CreateBody(bd);
             body.IsBullet = false;

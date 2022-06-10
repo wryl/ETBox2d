@@ -4,15 +4,7 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace ET.Server
 {
-	[Event(SceneType.Map)]
-	public class ChangePosition2D: AEvent<Unit, ET.EventType.ChangePosition2D>
-	{
-		protected override async ETTask Run(Unit unit, ET.EventType.ChangePosition2D args)
-		{
-			Vector3 oldPos = args.OldPos;
-			await ETTask.CompletedTask;
-		}
-	}
+
 	[MessageHandler(SceneType.Gate)]
 	public class C2G_Enter2DHandler : AMRpcHandler<C2G_Enter2D, G2C_Enter2D>
 	{
@@ -58,7 +50,7 @@ namespace ET.Server
 			await LocationProxyComponent.Instance.Lock(unit.Id, unit.InstanceId);
 			M2M_Unit2DTransferResponse response = await ActorMessageSenderComponent.Instance.Call(sceneInstanceId, request) as M2M_Unit2DTransferResponse;
 			await LocationProxyComponent.Instance.UnLock(unit.Id, oldInstanceId, response.NewInstanceId);
-			unit.Dispose();
+			unit.Domain.Dispose();
 		}
 	}
 
@@ -76,7 +68,7 @@ namespace ET.Server
 			{
 				unit.AddComponent(entity);
 			}
-			unit.Position = new Vector3(0, 3, 0);
+			unit.Position = new Vector3(0, 0, 0);
 
 			unit.AddComponent<MailBoxComponent>();
 			unit.AddComponent<Player2D>();
@@ -84,6 +76,15 @@ namespace ET.Server
 			M2C_CreateMyUnit2D m2CCreateUnits = new M2C_CreateMyUnit2D();
 			m2CCreateUnits.Unit = Server.Unit2DHelper.CreateUnitInfo(unit);
 			MessageHelper.SendToClient(unit, m2CCreateUnits);
+			M2C_CreateUnit2Ds createUnits = new M2C_CreateUnit2Ds();
+			foreach (Unit2D otherunit in unitComponent.Children.Values)
+			{
+				if (otherunit.GetComponent<Boss2D>()!=null)
+				{
+					createUnits.Units.Add(Server.Unit2DHelper.CreateUnitInfo(otherunit));
+				}
+			}
+			MessageHelper.SendToClient(unit, createUnits);
 			response.NewInstanceId = unit.InstanceId;
 			reply();
 		}
@@ -101,9 +102,9 @@ namespace ET.Server
 			{
 				if (entity.GetComponent<Boss2D>()!=null)
 				{
-					Log.Debug("force");
-					entity.GetComponent<Body2dComponent>().Body.ApplyForceToCenter(new Vector2(0,1),true);
-					entity.GetComponent<Body2dComponent>().Body.ApplyLinearImpulseToCenter(new Vector2(0,1),true);
+					entity.GetComponent<Body2dComponent>().Body.SetLinearVelocity(new Vector2(0,6));
+					//entity.GetComponent<Body2dComponent>().Body.ApplyForce(new Vector2(0,200),new Vector2(0,0),true);
+					//entity.GetComponent<Body2dComponent>().Body.ApplyLinearImpulseToCenter(new Vector2(0,1),true);
 				}
 			}
 			reply();

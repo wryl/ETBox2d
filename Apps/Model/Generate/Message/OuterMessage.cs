@@ -631,4 +631,13 @@ namespace ET
 
 	}
 
+	[Message(OuterOpcode.M2C_CreateUnit2Ds)]
+	[ProtoContract]
+	public partial class M2C_CreateUnit2Ds: Object, IActorMessage
+	{
+		[ProtoMember(2)]
+		public List<UnitInfo> Units = new List<UnitInfo>();
+
+	}
+
 }
