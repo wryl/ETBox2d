@@ -15,7 +15,7 @@ namespace ET.Server
             }
         }
         
-        public static void SendToClient(Unit unit, IActorMessage message)
+        public static void SendToClient(Entity unit, IActorMessage message)
         {
             SendActor(unit.GetComponent<UnitGateComponent>().GateSessionActorId, message);
         }
@@ -61,6 +61,17 @@ namespace ET.Server
         public static async ETTask<IActorResponse> CallLocationActor(long id, IActorLocationRequest message)
         {
             return await ActorLocationSenderComponent.Instance.Call(id, message);
+        }
+        public static void BroadcastToAll(Entity domain, IActorMessage message)
+        {
+            foreach (var unit in domain.GetComponent<Unit2DComponent>().Children)
+            {
+                var gatesession = unit.Value.GetComponent<UnitGateComponent>()?.GateSessionActorId;
+                if (gatesession.HasValue)
+                {
+                    SendActor(gatesession.Value, message);
+                }
+            }
         }
     }
 }

@@ -37,4 +37,20 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(M2M_Unit2DTransferResponse))]
+	[Message(MongoOpcode.M2M_Unit2DTransferRequest)]
+	[ProtoContract]
+	public partial class M2M_Unit2DTransferRequest: Object, IActorRequest
+	{
+		[ProtoMember(1)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(2)]
+		public Unit2D Unit { get; set; }
+
+		[ProtoMember(3)]
+		public List<Entity> Entitys = new List<Entity>();
+
+	}
+
 }

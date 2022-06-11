@@ -14,6 +14,8 @@ namespace ET
 
         [BsonElement]
         private Vector3 position; //坐标
+        [BsonIgnore]
+        public Vector3 LastSyncPosition; //上次同步后的坐标
 
         [BsonIgnore]
         public Vector3 Position

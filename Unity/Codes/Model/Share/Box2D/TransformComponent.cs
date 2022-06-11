@@ -18,7 +18,7 @@ namespace ET
 
 	public class TransformComponent : Entity, ISerializeToEntity
 	{
-#if !SERVER
+#if !NOT_UNITY
 		[BsonIgnore]
 		public Transform transform { get; set; }
 #endif

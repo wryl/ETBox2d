@@ -36,12 +36,10 @@ namespace ET
 
         public void PreSolve(Contact contact, in Manifold oldManifold)
         {
-            throw new NotImplementedException();
         }
 
         public void PostSolve(Contact contact, in ContactImpulse impulse)
         {
-            throw new NotImplementedException();
         }
     }
 }

@@ -31,7 +31,7 @@
             }
         }
         
-        public struct Wait_Create2DWorld: IWaitType
+        public struct Wait_CreateMyUnit2D: IWaitType
         {
             public int Error
             {
@@ -39,7 +39,7 @@
                 set;
             }
 
-            public M2C_CreateMyUnit Message;
+            public M2C_CreateMyUnit2D Message;
         }
     }
 }

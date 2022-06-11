@@ -71,7 +71,7 @@ namespace ET
 
 			if (isPublicEvent)
 			{
-				Game.EventSystem.Publish(self.GetParent<Unit>(), new NumbericChange() {New = value, Old = oldValue, NumericType = numericType});
+				Game.EventSystem.Publish(self.GetParent<Unit2D>(), new NumbericChange() {New = value, Old = oldValue, NumericType = numericType});
 			}
 		}
 		
@@ -98,7 +98,7 @@ namespace ET
 		}
 	}
 	
-	[ComponentOf(typeof(Unit))]
+	[ComponentOf]
 	public class NumericComponent: Entity, IAwake, ITransfer
 	{
 		[BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]

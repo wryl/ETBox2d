@@ -34,5 +34,14 @@ namespace ET
 		 public const ushort M2C_TestRobotCase = 10031;
 		 public const ushort C2M_TransferMap = 10032;
 		 public const ushort M2C_TransferMap = 10033;
+		 public const ushort C2B_AddForce = 10034;
+		 public const ushort B2C_AddForce = 10035;
+		 public const ushort B2C_OnEntityChanged = 10036;
+		 public const ushort C2G_Enter2D = 10037;
+		 public const ushort G2C_Enter2D = 10038;
+		 public const ushort B2DEntity = 10039;
+		 public const ushort B2C_Create2DWorld = 10040;
+		 public const ushort M2C_CreateMyUnit2D = 10041;
+		 public const ushort M2C_CreateUnit2Ds = 10042;
 	}
 }

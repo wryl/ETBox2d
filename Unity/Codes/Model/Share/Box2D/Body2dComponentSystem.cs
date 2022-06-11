@@ -27,16 +27,6 @@ namespace ET
         }
         public static void Update(this Body2dComponent self)
         {
-            if (self.Parent.GetComponent<TransformComponent>() == null)
-            {
-                return;
-            }
-            if (self.Position != self.lastPosition)
-            {
-                //Log.Debug("Position = " + Position.ToString());
-                self.lastPosition = self.Position;
-            }
-
             if (!self.IsBeForce)
             {
                 self.Body.SetTransform(new System.Numerics.Vector2(self.Position.x, self.Position.y), self.Angle);
@@ -46,6 +36,7 @@ namespace ET
                 var position = self.Body.GetPosition();
                 self.Position = new Vector2(position.X, position.Y);
                 self.Angle = self.Body.GetAngle();
+                self.GetParent<Unit2D>().Position = new Vector3(self.Position.x, self.Position.y, 0);
             }
         }
         public static Body2dComponent CreateBody(this Body2dComponent self,float hx, float hy)

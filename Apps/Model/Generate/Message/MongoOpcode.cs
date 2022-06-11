@@ -4,5 +4,6 @@ namespace ET
 	{
 		 public const ushort ObjectQueryResponse = 30002;
 		 public const ushort M2M_UnitTransferRequest = 30003;
+		 public const ushort M2M_Unit2DTransferRequest = 30004;
 	}
 }

@@ -154,3 +154,10 @@ message G2M_SessionDisconnect // IActorLocationMessage
 {
 	int32 RpcId = 90;
 }
+message M2M_Unit2DTransferResponse // IActorResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	int64 NewInstanceId = 4;
+}

@@ -517,4 +517,127 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(B2C_AddForce))]
+	[Message(OuterOpcode.C2B_AddForce)]
+	[ProtoContract]
+	public partial class C2B_AddForce: Object, IActorLocationRequest
+	{
+		[ProtoMember(1)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.B2C_AddForce)]
+	[ProtoContract]
+	public partial class B2C_AddForce: Object, IActorLocationResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+	[Message(OuterOpcode.B2C_OnEntityChanged)]
+	[ProtoContract]
+	public partial class B2C_OnEntityChanged: Object, IActorMessage
+	{
+		[ProtoMember(1)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(3)]
+		public long Id { get; set; }
+
+		[ProtoMember(9)]
+		public int X { get; set; }
+
+		[ProtoMember(10)]
+		public int Y { get; set; }
+
+		[ProtoMember(12)]
+		public int AngleY { get; set; }
+
+	}
+
+	[ResponseType(nameof(G2C_Enter2D))]
+	[Message(OuterOpcode.C2G_Enter2D)]
+	[ProtoContract]
+	public partial class C2G_Enter2D: Object, IRequest
+	{
+		[ProtoMember(1)]
+		public int RpcId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.G2C_Enter2D)]
+	[ProtoContract]
+	public partial class G2C_Enter2D: Object, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+// 自己unitId
+		[ProtoMember(4)]
+		public long MyId { get; set; }
+
+	}
+
+	[Message(OuterOpcode.B2DEntity)]
+	[ProtoContract]
+	public partial class B2DEntity: Object
+	{
+		[ProtoMember(3)]
+		public int EntityType { get; set; }
+
+		[ProtoMember(4)]
+		public long Id { get; set; }
+
+		[ProtoMember(9)]
+		public int X { get; set; }
+
+		[ProtoMember(10)]
+		public int Y { get; set; }
+
+		[ProtoMember(12)]
+		public int AngleY { get; set; }
+
+	}
+
+	[Message(OuterOpcode.B2C_Create2DWorld)]
+	[ProtoContract]
+	public partial class B2C_Create2DWorld: Object, IActorMessage
+	{
+		[ProtoMember(1)]
+		public List<B2DEntity> Entitys = new List<B2DEntity>();
+
+	}
+
+	[Message(OuterOpcode.M2C_CreateMyUnit2D)]
+	[ProtoContract]
+	public partial class M2C_CreateMyUnit2D: Object, IActorMessage
+	{
+		[ProtoMember(1)]
+		public UnitInfo Unit { get; set; }
+
+	}
+
+	[Message(OuterOpcode.M2C_CreateUnit2Ds)]
+	[ProtoContract]
+	public partial class M2C_CreateUnit2Ds: Object, IActorMessage
+	{
+		[ProtoMember(2)]
+		public List<UnitInfo> Units = new List<UnitInfo>();
+
+	}
+
 }

@@ -19,3 +19,10 @@ message M2M_UnitTransferRequest // IActorRequest
 	Unit Unit = 2;
 	repeated Entity Entitys = 3;
 }
+//ResponseType M2M_Unit2DTransferResponse
+message M2M_Unit2DTransferRequest // IActorRequest
+{
+	int32 RpcId = 1;
+	Unit2D Unit = 2;
+	repeated Entity Entitys = 3;
+}
