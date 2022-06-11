@@ -16,7 +16,6 @@ namespace ET.Server
             Game.Scene.AddComponent<TimerComponent>();
             Game.Scene.AddComponent<OpcodeTypeComponent>();
             Game.Scene.AddComponent<MessageDispatcherComponent>();
-            Game.Scene.AddComponent<SessionStreamDispatcher>();
             Game.Scene.AddComponent<CoroutineLockComponent>();
             // 发送普通actor消息
             Game.Scene.AddComponent<ActorMessageSenderComponent>();
@@ -32,7 +31,7 @@ namespace ET.Server
 
             #region 机器人使用
 
-            Game.Scene.AddComponent<ZoneSceneManagerComponent>();
+            Game.Scene.AddComponent<ClientSceneManagerComponent>();
             Game.Scene.AddComponent<RobotCaseDispatcherComponent>();
             Game.Scene.AddComponent<RobotCaseComponent>();
 
