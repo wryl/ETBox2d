@@ -37,10 +37,9 @@ namespace ET.Server
                 case UnitType.Player:
                 {
                     Unit2D unit = unitComponent.AddChildWithId<Unit2D, int>(id, 1001);
-                    unit.Position = new Vector3(0, 0, 0);
+                    unit.Position = new Vector3(0, 5, 0);
                     NumericComponent numericComponent = unit.AddComponent<NumericComponent>();
                     numericComponent.Set(NumericType.Speed, 6f); // 速度是6米每秒
-                    unitComponent.Add(unit);
                     return unit;
                 }
                 case UnitType.Monster:
@@ -48,7 +47,6 @@ namespace ET.Server
                     monster.Position = new Vector3(5, 10, 0);
                     var nc=monster.AddComponent<NumericComponent>();
                     nc.Set(NumericType.Speed, 8f); 
-                    unitComponent.Add(monster);
                     monster.AddComponent<Boss2D>();
                     var body2d=monster.AddComponent<Body2dComponent>();
                     body2d.IsBeForce = true;

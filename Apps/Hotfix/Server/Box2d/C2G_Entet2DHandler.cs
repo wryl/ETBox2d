@@ -63,7 +63,6 @@ namespace ET.Server
 			Unit2DComponent unitComponent = scene.GetComponent<Unit2DComponent>();
 			Unit2D unit = request.Unit;
 			unitComponent.AddChild(unit);
-			unitComponent.Add(unit);
 			foreach (Entity entity in request.Entitys)
 			{
 				unit.AddComponent(entity);

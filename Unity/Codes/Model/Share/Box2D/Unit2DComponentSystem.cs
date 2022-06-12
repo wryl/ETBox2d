@@ -18,9 +18,7 @@
 	
 	public static class Unit2DComponentSystem
 	{
-		public static void Add(this Unit2DComponent self, Unit2D unit)
-		{
-		}
+
 
 		public static Unit2D Get(this Unit2DComponent self, long id)
 		{

@@ -35,7 +35,6 @@ namespace ET.Server
 				var transform = self.GetParent<Unit2D>();
 				var lp = transform.LastPosition;
 				var p = transform.Position;
-				//Log.Debug(self.Id.ToString()+p.ToString());
 				if (Vector3.Distance(lp, p) < 0.1f)
 					return;
 				transform.LastPosition = p;

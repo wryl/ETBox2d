@@ -19,7 +19,7 @@ namespace ET
 #if ENABLE_IL2CPP
 			this.CodeMode = CodeMode.ILRuntime;
 #endif
-			
+			Application.targetFrameRate = 60;
 			System.AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
 			{
 				Log.Error(e.ExceptionObject.ToString());

@@ -48,7 +48,6 @@ namespace ET.Client
         {
 	        Unit2DComponent unitComponent = currentScene.GetComponent<Unit2DComponent>();
 	        Unit2D unit = unitComponent.AddChildWithId<Unit2D, int>(unitInfo.UnitId, unitInfo.ConfigId);
-	        unitComponent.Add(unit);
 	        
 	        unit.Position = new Vector3(unitInfo.X, unitInfo.Y, unitInfo.Z);
 	        
@@ -58,8 +57,9 @@ namespace ET.Client
 		        numericComponent.Set(unitInfo.Ks[i], unitInfo.Vs[i]);
 	        }
 	        unit.AddComponent<ObjectWait>();
-	        
-	        Game.EventSystem.Publish(unit, new EventType.AfterUnitCreate2D());
+			unit.AddComponent<Body2dComponent>().CreateBody(1,1);
+
+			Game.EventSystem.Publish(unit, new EventType.AfterUnitCreate2D());
 	        return unit;
         }
     }

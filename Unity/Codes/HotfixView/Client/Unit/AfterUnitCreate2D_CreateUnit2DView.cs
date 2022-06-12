@@ -13,6 +13,7 @@ namespace ET.Client
             GameObject go = UnityEngine.Object.Instantiate(bundleGameObject, GlobalComponent.Instance.Unit, true);
             go.transform.position = unit.Position;
             unit.AddComponent<GameObjectComponent>().GameObject = go;
+            unit.AddComponent<PositionFollowComponent,Vector3>(unit.Position);
             //unit.AddComponent<AnimatorComponent>();
             await ETTask.CompletedTask;
         }
