@@ -9,12 +9,21 @@ namespace ET.Client
         {
             // Unit View层
             // 这里可以改成异步加载，demo就不搞了
-            GameObject bundleGameObject = (GameObject)ResourcesComponent.Instance.GetAsset("Unit.unity3d", "Unit000");
+            GameObject bundleGameObject = (GameObject) ResourcesComponent.Instance.GetAsset("Unit.unity3d", "Unit000");
             GameObject go = UnityEngine.Object.Instantiate(bundleGameObject, GlobalComponent.Instance.Unit, true);
             go.transform.position = unit.Position;
             unit.AddComponent<GameObjectComponent>().GameObject = go;
-            unit.AddComponent<PositionFollowComponent,Vector3>(unit.Position);
             //unit.AddComponent<AnimatorComponent>();
+            await ETTask.CompletedTask;
+        }
+    }
+
+    [Event(SceneType.Current)]
+    public class AfterUnitCreate2D_CreateUnit2DSelfView: AEvent<Unit2D, EventType.AfterUnitCreate2DMyself>
+    {
+        protected override async ETTask Run(Unit2D unit, EventType.AfterUnitCreate2DMyself args)
+        {
+            unit.AddComponent<Controller2DComponent>();
             await ETTask.CompletedTask;
         }
     }

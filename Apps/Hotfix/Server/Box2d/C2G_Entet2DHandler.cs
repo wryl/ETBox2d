@@ -67,7 +67,7 @@ namespace ET.Server
 			{
 				unit.AddComponent(entity);
 			}
-			unit.Position = new Vector3(0, 0, 0);
+			//unit.Position = new Vector3(0, 0, 0);
 
 			unit.AddComponent<MailBoxComponent>();
 			unit.AddComponent<Player2D>();

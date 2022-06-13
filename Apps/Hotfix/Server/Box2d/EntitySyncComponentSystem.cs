@@ -35,7 +35,7 @@ namespace ET.Server
 				var transform = self.GetParent<Unit2D>();
 				var lp = transform.LastPosition;
 				var p = transform.Position;
-				if (Vector3.Distance(lp, p) < 0.1f)
+				if (Vector3.Distance(lp, p) < 0.01f)
 					return;
 				transform.LastPosition = p;
 				var msg = new B2C_OnEntityChanged();

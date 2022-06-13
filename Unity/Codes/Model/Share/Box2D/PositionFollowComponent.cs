@@ -21,7 +21,7 @@ namespace ET
                 {
                     self.GetParent<Unit2D>().Position = Vector3.Lerp(self.StartPoint, self.TargetPoint, newtime / self.FrameTime) ;
                 }
-                else if(self.GetParent<Unit2D>().Position!=self.TargetPoint)
+                else if(Vector3.Distance(self.GetParent<Unit2D>().Position,self.TargetPoint)>0.01f)
                 {
                     self.GetParent<Unit2D>().Position = self.TargetPoint;
                 }

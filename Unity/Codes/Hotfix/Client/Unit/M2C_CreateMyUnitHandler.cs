@@ -34,7 +34,7 @@
 				{
 					continue;
 				}
-				Unit2D unit = UnitFactory.Create2D(currentScene, unitInfo);
+				Unit2D unit = UnitFactory.Create2D(currentScene, unitInfo,false);
 			}
 			await ETTask.CompletedTask;
 		}
