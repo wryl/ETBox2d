@@ -20,7 +20,6 @@ namespace ET
             {
                 self.World.Dispose();
                 self.World = null;
-                self.Listener = null;
                 self.FixedUpdate = null;
             }
         }
@@ -36,9 +35,8 @@ namespace ET
             public override void Awake(Box2dWorldComponent self)
             {
                 self.World = new World(new Vector2(0, -5));
-                self.Listener = new Box2dWorldContactListener(self);
                 self.World.AllowSleep = false;
-                self.World.SetContactListener(self.Listener);
+                self.World.SetContactListener(new Box2dWorldContactListener(self));
                 
                 var groundBodyDef = new BodyDef {BodyType = BodyType.StaticBody};
                 groundBodyDef.Position.Set(0.0f, -5f);

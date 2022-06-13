@@ -10,7 +10,7 @@ namespace ET
             self.ConfigId = configId;
         }
     }
-    public class Unit2D: Entity, IAwake<int>,ITransform
+    public class Unit2D: Entity, IAwake<int>
     {
         public int ConfigId { get; set; } //配置表id
 
