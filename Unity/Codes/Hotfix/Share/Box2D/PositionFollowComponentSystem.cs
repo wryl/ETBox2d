@@ -28,6 +28,7 @@ namespace ET
             }
         }
 
+
         public static void CalcLerp(this PositionFollowComponent self, Vector3 old, Vector3 newposiont)
         {
             self.StartPoint = old;

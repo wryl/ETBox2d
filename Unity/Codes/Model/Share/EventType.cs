@@ -89,5 +89,8 @@ namespace ET
         public struct AfterUnitCreate2DMyself
         {
         }
+        public struct After2DWorldCreate
+        {
+        }
     }
 }

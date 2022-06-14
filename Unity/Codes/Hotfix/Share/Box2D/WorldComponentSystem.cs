@@ -30,6 +30,13 @@ namespace ET
                 self.FixedUpdate.Update();
             }
         }
+        public class Box2dWorldComponentLateUpdateSystem : LateUpdateSystem<Box2dWorldComponent>
+        {
+            public override void LateUpdate(Box2dWorldComponent self)
+            {
+                self.World.DebugDraw();
+            }
+        }
         public class WorldComponentAwakeSystem: AwakeSystem<Box2dWorldComponent>
         {
             public override void Awake(Box2dWorldComponent self)
@@ -37,14 +44,13 @@ namespace ET
                 self.World = new World(new Vector2(0, -5));
                 self.World.AllowSleep = false;
                 self.World.SetContactListener(new Box2dWorldContactListener(self));
-                
                 var groundBodyDef = new BodyDef {BodyType = BodyType.StaticBody};
                 groundBodyDef.Position.Set(0.0f, -5f);
                 var groundBody = self.World.CreateBody(groundBodyDef);
                 var groundBox = new PolygonShape();
                 groundBox.SetAsBox(1000.0f, 5.0f);
-
                 groundBody.CreateFixture(groundBox, 0.0f);
+                Game.EventSystem.Publish(self, new EventType.After2DWorldCreate() {});
                 self.FixedUpdate = new FixedUpdate(TimeSpan.FromSeconds(0.01d), () => { self.Step(); });
                 self.FixedUpdate.Start();
             }

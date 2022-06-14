@@ -49,21 +49,5 @@ namespace ET
             self.Body = self.Domain.GetComponent<Box2dWorldComponent>().CreateBoxCollider(self, self.ParentUnit.Position.x, self.ParentUnit.Position.y, hx, hy);
             return self;
         }
-        public static void BeginContact(this Body2dComponent self, Contact contact, Body2dComponent other)
-        {
-            Log.Debug($"Body2dComponent BeginContact");
-            try
-            {
-                self.OnBeginContactAction?.Invoke(other);
-            }
-            catch (System.Exception e)
-            {
-                Log.Error(e);
-            }
-        }
-
-        public static void EndContact(this Body2dComponent self, Contact contact)
-        {
-        }
     }
 }

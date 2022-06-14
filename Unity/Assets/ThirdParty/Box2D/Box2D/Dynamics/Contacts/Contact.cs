@@ -51,6 +51,8 @@ namespace Box2DSharp.Dynamics.Contacts
 
         internal float Restitution;
 
+        internal float RestitutionThreshold;
+
         internal float TangentSpeed;
 
         internal float Toi;
@@ -72,7 +74,7 @@ namespace Box2DSharp.Dynamics.Contacts
 
             Friction = MixFriction(FixtureA.Friction, FixtureB.Friction);
             Restitution = MixRestitution(FixtureA.Restitution, FixtureB.Restitution);
-
+            RestitutionThreshold = MixRestitutionThreshold(FixtureA.RestitutionThreshold, FixtureB.RestitutionThreshold);
             TangentSpeed = 0.0f;
         }
 
@@ -109,6 +111,13 @@ namespace Box2DSharp.Dynamics.Contacts
             return restitution1 > restitution2 ? restitution1 : restitution2;
         }
 
+        /// Restitution mixing law. This picks the lowest value.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private static float MixRestitutionThreshold(float threshold1, float threshold2)
+        {
+            return threshold1 < threshold2 ? threshold1 : threshold2;
+        }
+
         /// Get the world manifold.
         public void GetWorldManifold(out WorldManifold worldManifold)
         {
@@ -130,7 +139,7 @@ namespace Box2DSharp.Dynamics.Contacts
         public bool IsTouching
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => Flags.HasFlag(ContactFlag.TouchingFlag);
+            get => Flags.IsSet(ContactFlag.TouchingFlag);
         }
 
         /// Enable/disable this contact. This can be used inside the pre-solve
@@ -153,7 +162,7 @@ namespace Box2DSharp.Dynamics.Contacts
         public bool IsEnabled
         {
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            get => Flags.HasFlag(ContactFlag.EnabledFlag);
+            get => Flags.IsSet(ContactFlag.EnabledFlag);
         }
 
         /// Override the default friction mixture. You can call this in b2ContactListener::PreSolve.
@@ -200,6 +209,28 @@ namespace Box2DSharp.Dynamics.Contacts
             Restitution = MixRestitution(FixtureA.Restitution, FixtureB.Restitution);
         }
 
+        /// Override the default restitution velocity threshold mixture. You can call this in b2ContactListener::PreSolve.
+        /// The value persists until you set or reset.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void SetRestitutionThreshold(float threshold)
+        {
+            RestitutionThreshold = threshold;
+        }
+
+        /// Get the restitution threshold.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public float GetRestitutionThreshold()
+        {
+            return RestitutionThreshold;
+        }
+
+        /// Reset the restitution threshold to the default value.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void ResetRestitutionThreshold()
+        {
+            RestitutionThreshold = MixRestitutionThreshold(FixtureA.RestitutionThreshold, FixtureB.RestitutionThreshold);
+        }
+
         /// Set the desired tangent speed for a conveyor belt behavior. In meters per second.
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SetTangentSpeed(float speed)
@@ -233,7 +264,7 @@ namespace Box2DSharp.Dynamics.Contacts
             Flags |= ContactFlag.EnabledFlag;
 
             var touching = false;
-            var wasTouching = Flags.HasFlag(ContactFlag.TouchingFlag);
+            var wasTouching = Flags.IsSet(ContactFlag.TouchingFlag);
 
             var sensorA = FixtureA.IsSensor;
             var sensorB = FixtureB.IsSensor;

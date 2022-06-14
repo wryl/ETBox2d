@@ -9,7 +9,7 @@
 
             }
         }
-        public static void OnBeginContact(this Boss2D self, Body2dComponent other)
+        public static void OnBeginContact(this Boss2D self, Body2dComponent selfbody,Body2dComponent other)
         {
             try
             {

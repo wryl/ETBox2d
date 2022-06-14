@@ -4,7 +4,7 @@ using Box2DSharp.Dynamics;
 namespace ET
 {
     [ComponentOf(typeof (Scene))]
-    public class Box2dWorldComponent: Entity, IAwake, IDestroy, IUpdate
+    public class Box2dWorldComponent: Entity, IAwake, IDestroy, IUpdate, ILateUpdate
     {
         public World World{ get; set; }
         public int FrameCount = 2000;

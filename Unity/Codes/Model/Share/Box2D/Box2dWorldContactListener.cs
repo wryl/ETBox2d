@@ -2,11 +2,11 @@
 using Box2DSharp.Collision.Collider;
 using Box2DSharp.Dynamics;
 using Box2DSharp.Dynamics.Contacts;
-
 namespace ET
 {
     public class Box2dWorldContactListener:IContactListener
     {
+
         public Box2dWorldContactListener(Box2dWorldComponent world)
         {
             this.worldComponent = world;
@@ -18,19 +18,19 @@ namespace ET
             {
                 var bodyA = this.worldComponent.bodyComponents[contact.FixtureA.Body];
                 var bodyB = this.worldComponent.bodyComponents[contact.FixtureB.Body];
-                //if (bodyA.Parent?.GetType() != bodyB.Parent?.GetType())
-                {
-                    bodyA.BeginContact(contact, bodyB);
-                    bodyB.BeginContact(contact, bodyA);
-                }
+                bodyA.OnBeginContactAction?.Invoke(bodyA,bodyB);
+                bodyB.OnBeginContactAction?.Invoke(bodyB,bodyA);
             }
         }
 
         public void EndContact(Contact contact)
         {
-            if (this.worldComponent.bodyComponents.ContainsKey(contact.FixtureA.Body))
+            if (this.worldComponent.bodyComponents.ContainsKey(contact.FixtureA.Body) && this.worldComponent.bodyComponents.ContainsKey(contact.FixtureB.Body))
             {
-                this.worldComponent.bodyComponents[contact.FixtureA.Body].EndContact(contact);
+                var bodyA = this.worldComponent.bodyComponents[contact.FixtureA.Body];
+                var bodyB = this.worldComponent.bodyComponents[contact.FixtureB.Body];
+                bodyA.OnEndContactAction?.Invoke(bodyA,bodyB);
+                bodyB.OnEndContactAction?.Invoke(bodyB,bodyA);
             }
         }
 

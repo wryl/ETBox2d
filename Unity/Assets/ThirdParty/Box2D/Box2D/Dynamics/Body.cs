@@ -22,9 +22,6 @@ namespace Box2DSharp.Dynamics
         KinematicBody = 1,
 
         DynamicBody = 2
-
-        // TODO_ERIN
-        //b2_bulletBody,
     }
 
     /// A body definition holds all the data needed to construct a rigid body.
@@ -401,7 +398,7 @@ namespace Box2DSharp.Dynamics
         /// Is this body treated like a bullet for continuous collision detection?
         public bool IsBullet
         {
-            get => Flags.HasFlag(BodyFlags.IsBullet);
+            get => Flags.IsSet(BodyFlags.IsBullet);
             set
             {
                 if (value)
@@ -420,7 +417,7 @@ namespace Box2DSharp.Dynamics
         /// Is this body allowed to sleep
         public bool IsSleepingAllowed
         {
-            get => Flags.HasFlag(BodyFlags.AutoSleep);
+            get => Flags.IsSet(BodyFlags.AutoSleep);
             set
             {
                 if (value)
@@ -444,7 +441,7 @@ namespace Box2DSharp.Dynamics
         /// </summary>
         public bool IsAwake
         {
-            get => Flags.HasFlag(BodyFlags.IsAwake);
+            get => Flags.IsSet(BodyFlags.IsAwake);
             set
             {
                 if (BodyType == BodyType.StaticBody)
@@ -488,7 +485,7 @@ namespace Box2DSharp.Dynamics
         public bool IsEnabled
 
         {
-            get => Flags.HasFlag(BodyFlags.IsEnabled);
+            get => Flags.IsSet(BodyFlags.IsEnabled);
             set
             {
                 Debug.Assert(_world.IsLocked == false);
@@ -544,11 +541,11 @@ namespace Box2DSharp.Dynamics
         /// to be reset.
         public bool IsFixedRotation
         {
-            get => Flags.HasFlag(BodyFlags.FixedRotation);
+            get => Flags.IsSet(BodyFlags.FixedRotation);
             set
             {
                 // 物体已经有固定旋转,不需要设置
-                if (Flags.HasFlag(BodyFlags.FixedRotation) && value)
+                if (Flags.IsSet(BodyFlags.FixedRotation) && value)
                 {
                     return;
                 }
@@ -641,7 +638,7 @@ namespace Box2DSharp.Dynamics
 
             var fixture = Fixture.Create(this, def);
 
-            if (Flags.HasFlag(BodyFlags.IsEnabled))
+            if (Flags.IsSet(BodyFlags.IsEnabled))
             {
                 var broadPhase = _world.ContactManager.BroadPhase;
                 fixture.CreateProxies(broadPhase, Transform);
@@ -674,7 +671,7 @@ namespace Box2DSharp.Dynamics
         /// 创建夹具
         public Fixture CreateFixture(Shape shape, float density)
         {
-            var def = new FixtureDef {Shape = shape, Density = density};
+            var def = new FixtureDef { Shape = shape, Density = density };
 
             return CreateFixture(def);
         }
@@ -710,6 +707,7 @@ namespace Box2DSharp.Dynamics
             // You tried to remove a shape that is not attached to this body.
             // 确定该夹具存在于物体的夹具列表中
             Debug.Assert(Fixtures.Any(e => e == fixture));
+            var density = fixture.Density;
 
             // Destroy any contacts associated with the fixture.
             // 销毁关联在夹具上的接触点
@@ -727,7 +725,7 @@ namespace Box2DSharp.Dynamics
             }
 
             // 如果物体处于活跃状态,销毁夹具的粗检测代理对象
-            if (Flags.HasFlag(BodyFlags.IsEnabled))
+            if (Flags.IsSet(BodyFlags.IsEnabled))
             {
                 var broadPhase = _world.ContactManager.BroadPhase;
                 fixture.DestroyProxies(broadPhase);
@@ -739,7 +737,10 @@ namespace Box2DSharp.Dynamics
 
             // Reset the mass data.
             // 夹具销毁后重新计算物体质量
-            ResetMassData();
+            if (density > 0.0f)
+            {
+                ResetMassData();
+            }
         }
 
         /// Set the position of the body's origin and rotation.
@@ -769,6 +770,9 @@ namespace Box2DSharp.Dynamics
             {
                 f.Synchronize(broadPhase, Transform, Transform);
             }
+
+            // Check for new contacts the next step
+            World.HasNewContacts = true;
         }
 
         /// Get the body transform for the body's origin.
@@ -823,13 +827,13 @@ namespace Box2DSharp.Dynamics
                 return;
             }
 
-            if (wake && !Flags.HasFlag(BodyFlags.IsAwake))
+            if (wake && !Flags.IsSet(BodyFlags.IsAwake))
             {
                 IsAwake = true;
             }
 
             // Don't accumulate a force if the body is sleeping.
-            if (Flags.HasFlag(BodyFlags.IsAwake))
+            if (Flags.IsSet(BodyFlags.IsAwake))
             {
                 Force += force;
                 Torque += MathUtils.Cross(point - Sweep.C, force);
@@ -851,13 +855,13 @@ namespace Box2DSharp.Dynamics
                 return;
             }
 
-            if (wake && !Flags.HasFlag(BodyFlags.IsAwake))
+            if (wake && !Flags.IsSet(BodyFlags.IsAwake))
             {
                 IsAwake = true;
             }
 
             // Don't accumulate a force if the body is sleeping
-            if (Flags.HasFlag(BodyFlags.IsAwake))
+            if (Flags.IsSet(BodyFlags.IsAwake))
             {
                 Force += force;
             }
@@ -879,13 +883,13 @@ namespace Box2DSharp.Dynamics
                 return;
             }
 
-            if (wake && !Flags.HasFlag(BodyFlags.IsAwake))
+            if (wake && !Flags.IsSet(BodyFlags.IsAwake))
             {
                 IsAwake = true;
             }
 
             // Don't accumulate a force if the body is sleeping
-            if (Flags.HasFlag(BodyFlags.IsAwake))
+            if (Flags.IsSet(BodyFlags.IsAwake))
             {
                 Torque += torque;
             }
@@ -910,13 +914,13 @@ namespace Box2DSharp.Dynamics
                 return;
             }
 
-            if (wake && !Flags.HasFlag(BodyFlags.IsAwake))
+            if (wake && !Flags.IsSet(BodyFlags.IsAwake))
             {
                 IsAwake = true;
             }
 
             // Don't accumulate velocity if the body is sleeping
-            if (Flags.HasFlag(BodyFlags.IsAwake))
+            if (Flags.IsSet(BodyFlags.IsAwake))
             {
                 LinearVelocity += InvMass * impulse;
                 AngularVelocity += InverseInertia * MathUtils.Cross(point - Sweep.C, impulse);
@@ -938,13 +942,13 @@ namespace Box2DSharp.Dynamics
                 return;
             }
 
-            if (wake && !Flags.HasFlag(BodyFlags.IsAwake))
+            if (wake && !Flags.IsSet(BodyFlags.IsAwake))
             {
                 IsAwake = true;
             }
 
             // Don't accumulate velocity if the body is sleeping
-            if (Flags.HasFlag(BodyFlags.IsAwake))
+            if (Flags.IsSet(BodyFlags.IsAwake))
             {
                 LinearVelocity += InvMass * impulse;
             }
@@ -965,7 +969,7 @@ namespace Box2DSharp.Dynamics
                 return;
             }
 
-            if (wake && !Flags.HasFlag(BodyFlags.IsAwake))
+            if (wake && !Flags.IsSet(BodyFlags.IsAwake))
             {
                 IsAwake = true;
             }
@@ -979,9 +983,9 @@ namespace Box2DSharp.Dynamics
 
         /// Get the mass data of the body.
         /// @return a struct containing the mass, inertia and center of the body.
-        public void GetMassData(out MassData data)
+        public MassData GetMassData()
         {
-            data = new MassData
+            return new MassData
             {
                 Mass = _mass,
                 RotationInertia = _inertia + _mass * Vector2.Dot(Sweep.LocalCenter, Sweep.LocalCenter),
@@ -1019,7 +1023,7 @@ namespace Box2DSharp.Dynamics
 
             InvMass = 1.0f / _mass;
 
-            if (massData.RotationInertia > 0.0f && !Flags.HasFlag(BodyFlags.FixedRotation)) // 存在转动惯量且物体可旋转
+            if (massData.RotationInertia > 0.0f && !Flags.IsSet(BodyFlags.FixedRotation)) // 存在转动惯量且物体可旋转
             {
                 _inertia = massData.RotationInertia - _mass * Vector2.Dot(massData.Center, massData.Center);
                 Debug.Assert(_inertia > 0.0f);
@@ -1082,7 +1086,7 @@ namespace Box2DSharp.Dynamics
                 localCenter *= InvMass;
             }
 
-            if (_inertia > 0.0f && !Flags.HasFlag(BodyFlags.FixedRotation)) // 存在转动惯量且物体可旋转
+            if (_inertia > 0.0f && !Flags.IsSet(BodyFlags.FixedRotation)) // 存在转动惯量且物体可旋转
             {
                 // Center the inertia about the center of mass.
                 _inertia -= _mass * Vector2.Dot(localCenter, localCenter);
@@ -1155,32 +1159,7 @@ namespace Box2DSharp.Dynamics
         /// Dump this body to a log file
         public void Dump()
         {
-            var bodyIndex = IslandIndex;
-
-            DumpLogger.Log("{");
-            DumpLogger.Log("  b2BodyDef bd;");
-            DumpLogger.Log($"  bd.type = b2BodyType({_type});");
-            DumpLogger.Log($"  bd.position.Set({Transform.Position.X}, {Transform.Position.Y});");
-            DumpLogger.Log($"  bd.angle = {Sweep.A};");
-            DumpLogger.Log($"  bd.linearVelocity.Set({LinearVelocity.X}, {LinearVelocity.Y});");
-            DumpLogger.Log($"  bd.angularVelocity = {AngularVelocity};");
-            DumpLogger.Log($"  bd.linearDamping = {_linearDamping};");
-            DumpLogger.Log($"  bd.angularDamping = {_angularDamping};");
-            DumpLogger.Log($"  bd.allowSleep = bool({Flags.HasFlag(BodyFlags.AutoSleep)});");
-            DumpLogger.Log($"  bd.awake = bool({Flags.HasFlag(BodyFlags.IsAwake)});");
-            DumpLogger.Log($"  bd.fixedRotation = bool({Flags.HasFlag(BodyFlags.FixedRotation)});");
-            DumpLogger.Log($"  bd.bullet = bool({Flags.HasFlag(BodyFlags.IsBullet)});");
-            DumpLogger.Log($"  bd.active = bool({Flags.HasFlag(BodyFlags.IsEnabled)});");
-            DumpLogger.Log($"  bd.gravityScale = {GravityScale};");
-            DumpLogger.Log($"  bodies[{IslandIndex}] = m_world.CreateBody(&bd);");
-            foreach (var f in Fixtures)
-            {
-                DumpLogger.Log("  {");
-                f.Dump(bodyIndex);
-                DumpLogger.Log("  }");
-            }
-
-            DumpLogger.Log("}");
+            // Todo
         }
 
         /// <summary>
@@ -1190,7 +1169,7 @@ namespace Box2DSharp.Dynamics
         {
             var broadPhase = World.ContactManager.BroadPhase;
 
-            if (Flags.HasFlag(BodyFlags.IsAwake))
+            if (Flags.IsSet(BodyFlags.IsAwake))
             {
                 var xf1 = new Transform();
                 xf1.Rotation.Set(Sweep.A0);

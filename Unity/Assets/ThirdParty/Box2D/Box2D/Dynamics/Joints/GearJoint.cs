@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.Numerics;
 using Box2DSharp.Common;
@@ -67,7 +68,10 @@ namespace Box2DSharp.Dynamics.Joints
 
         private float _ratio;
 
-        public GearJoint(GearJointDef def) : base(def)
+        private float _tolerance;
+
+        public GearJoint(GearJointDef def)
+            : base(def)
         {
             _joint1 = def.Joint1;
             _joint2 = def.Joint2;
@@ -85,6 +89,9 @@ namespace Box2DSharp.Dynamics.Joints
             _bodyC = _joint1.BodyA;
             BodyA = _joint1.BodyB;
 
+            // Body B on joint1 must be dynamic
+            Debug.Assert(BodyA.BodyType == BodyType.DynamicBody);
+
             // Get geometry of joint1
             var xfA = BodyA.Transform;
             var aA = BodyA.Sweep.A;
@@ -93,17 +100,20 @@ namespace Box2DSharp.Dynamics.Joints
 
             if (_typeA == JointType.RevoluteJoint)
             {
-                var revolute = (RevoluteJoint) def.Joint1;
+                var revolute = (RevoluteJoint)def.Joint1;
                 _localAnchorC = revolute.LocalAnchorA;
                 _localAnchorA = revolute.LocalAnchorB;
                 _referenceAngleA = revolute.ReferenceAngle;
                 _localAxisC.SetZero();
 
                 coordinateA = aA - aC - _referenceAngleA;
+
+                // position error is measured in radians
+                _tolerance = Settings.AngularSlop;
             }
             else
             {
-                var prismatic = (PrismaticJoint) def.Joint1;
+                var prismatic = (PrismaticJoint)def.Joint1;
                 _localAnchorC = prismatic.LocalAnchorA;
                 _localAnchorA = prismatic.LocalAnchorB;
                 _referenceAngleA = prismatic.ReferenceAngle;
@@ -114,10 +124,16 @@ namespace Box2DSharp.Dynamics.Joints
                     xfC.Rotation,
                     MathUtils.Mul(xfA.Rotation, _localAnchorA) + (xfA.Position - xfC.Position));
                 coordinateA = Vector2.Dot(pA - pC, _localAxisC);
+
+                // position error is measured in meters
+                _tolerance = Settings.LinearSlop;
             }
 
             _bodyD = _joint2.BodyA;
             BodyB = _joint2.BodyB;
+
+            // Body B on joint2 must be dynamic
+            Debug.Assert(BodyB.BodyType == BodyType.DynamicBody);
 
             // Get geometry of joint2
             var xfB = BodyB.Transform;
@@ -127,7 +143,7 @@ namespace Box2DSharp.Dynamics.Joints
 
             if (_typeB == JointType.RevoluteJoint)
             {
-                var revolute = (RevoluteJoint) def.Joint2;
+                var revolute = (RevoluteJoint)def.Joint2;
                 _localAnchorD = revolute.LocalAnchorA;
                 _localAnchorB = revolute.LocalAnchorB;
                 _referenceAngleB = revolute.ReferenceAngle;
@@ -137,7 +153,7 @@ namespace Box2DSharp.Dynamics.Joints
             }
             else
             {
-                var prismatic = (PrismaticJoint) def.Joint2;
+                var prismatic = (PrismaticJoint)def.Joint2;
                 _localAnchorD = prismatic.LocalAnchorA;
                 _localAnchorB = prismatic.LocalAnchorB;
                 _referenceAngleB = prismatic.ReferenceAngle;
@@ -385,7 +401,6 @@ namespace Box2DSharp.Dynamics.Joints
             var qC = new Rotation(aC);
             var qD = new Rotation(aD);
 
-            var linearError = 0.0f;
 
             float coordinateA, coordinateB;
 
@@ -468,8 +483,7 @@ namespace Box2DSharp.Dynamics.Joints
             data.Positions[_indexD].Center = cD;
             data.Positions[_indexD].Angle = aD;
 
-            // TODO_ERIN not implemented
-            return linearError < Settings.LinearSlop;
+            return Math.Abs(C) < _tolerance;
         }
     }
 }
