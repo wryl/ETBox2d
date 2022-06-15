@@ -18,18 +18,24 @@ namespace ET.Server
             unit.AddComponent<MailBoxComponent>();
             unit.AddComponent<Player2D>();
             // 通知客户端创建My Unit
-            M2C_CreateMyUnit2D m2CCreateUnits = new M2C_CreateMyUnit2D();
-            m2CCreateUnits.Unit = Server.Unit2DHelper.CreateUnitInfo(unit);
-            MessageHelper.SendToClient(unit, m2CCreateUnits);
-            M2C_CreateUnit2Ds createUnits = new M2C_CreateUnit2Ds();
+            // M2C_CreateMyUnit2D m2CCreateUnits = new M2C_CreateMyUnit2D();
+            // m2CCreateUnits.Unit = Server.Unit2DHelper.CreateUnitInfo(unit);
+            // MessageHelper.SendToClient(unit, m2CCreateUnits);
+            // M2C_CreateUnit2Ds createUnits = new M2C_CreateUnit2Ds();
+            // foreach (Unit2D otherunit in unitComponent.Children.Values)
+            // {
+            //     if (otherunit.GetComponent<Boss2D>()!=null)
+            //     {
+            //         createUnits.Units.Add(Server.Unit2DHelper.CreateUnitInfo(otherunit));
+            //     }
+            // }
+            B2C_Create2DWorld createworld = new B2C_Create2DWorld();
             foreach (Unit2D otherunit in unitComponent.Children.Values)
             {
-                if (otherunit.GetComponent<Boss2D>()!=null)
-                {
-                    createUnits.Units.Add(Server.Unit2DHelper.CreateUnitInfo(otherunit));
-                }
+                createworld.Units.Add(Server.Unit2DHelper.CreateUnitInfo(otherunit));
             }
-            MessageHelper.SendToClient(unit, createUnits);
+            createworld.Unit=Server.Unit2DHelper.CreateUnitInfo(unit);
+            MessageHelper.SendToClient(unit, createworld);
             response.NewInstanceId = unit.InstanceId;
             reply();
         }

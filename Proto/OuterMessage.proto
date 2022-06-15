@@ -292,7 +292,8 @@ message B2DEntity
 }
 message B2C_Create2DWorld // IActorMessage
 {
-	repeated B2DEntity Entitys = 1;
+	UnitInfo Unit = 1;
+	repeated UnitInfo Units = 2;
 }
 message M2C_CreateMyUnit2D // IActorMessage
 {

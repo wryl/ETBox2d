@@ -618,7 +618,10 @@ namespace ET
 	public partial class B2C_Create2DWorld: Object, IActorMessage
 	{
 		[ProtoMember(1)]
-		public List<B2DEntity> Entitys = new List<B2DEntity>();
+		public UnitInfo Unit { get; set; }
+
+		[ProtoMember(2)]
+		public List<UnitInfo> Units = new List<UnitInfo>();
 
 	}
 
