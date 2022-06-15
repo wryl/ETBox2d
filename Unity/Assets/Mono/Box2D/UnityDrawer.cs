@@ -35,8 +35,7 @@ namespace Box2DSharp.Testbed.Unity.Inspection
 
             return drawLines;
         }
-
-
+        
 
         private void OnRenderObject()
         {
@@ -45,14 +44,13 @@ namespace Box2DSharp.Testbed.Unity.Inspection
             {
                 return;
             }
-            Log.Debug(this._lines.Count.ToString());
-
             if (!Camera.current.CompareTag(MainCameraTag) && Camera.current.name != SceneCameraName)
             {
                 return;
             }
             CreateLineMaterial();
             _lineMaterial.SetPass(0);
+            GL.PushMatrix();
             GL.Begin(GL.LINES);
             for (var i = 0; i < _lines.Count; i++)
             {
@@ -77,6 +75,7 @@ namespace Box2DSharp.Testbed.Unity.Inspection
             }
 
             GL.End();
+            GL.PopMatrix();
         }
 
         public void PostLines(List<(Vector3 begin, Vector3 end)> lines, Color color)

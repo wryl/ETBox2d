@@ -48,7 +48,7 @@ namespace ET
                 groundBodyDef.Position.Set(0.0f, -5f);
                 var groundBody = self.World.CreateBody(groundBodyDef);
                 var groundBox = new PolygonShape();
-                groundBox.SetAsBox(1000.0f, 5.0f);
+                groundBox.SetAsBox(1000.0f, 1.0f);
                 groundBody.CreateFixture(groundBox, 0.0f);
                 Game.EventSystem.Publish(self, new EventType.After2DWorldCreate() {});
                 self.FixedUpdate = new FixedUpdate(TimeSpan.FromSeconds(0.01d), () => { self.Step(); });
