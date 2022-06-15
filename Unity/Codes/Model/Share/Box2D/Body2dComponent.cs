@@ -11,8 +11,6 @@ namespace ET
 	public class Body2dComponent : Entity, IAwake, IUpdate, IDestroy
 	{
 		public Unit2D ParentUnit;
-		public System.Action<Body2dComponent,Body2dComponent> OnBeginContactAction { get; set; }
-		public System.Action<Body2dComponent,Body2dComponent> OnEndContactAction { get; set; }
 		public Body Body { get; set; }
 		/// <summary>
 		/// 是否受到力影响

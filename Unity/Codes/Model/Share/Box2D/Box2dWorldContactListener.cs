@@ -18,8 +18,8 @@ namespace ET
             {
                 var bodyA = this.worldComponent.bodyComponents[contact.FixtureA.Body];
                 var bodyB = this.worldComponent.bodyComponents[contact.FixtureB.Body];
-                bodyA.OnBeginContactAction?.Invoke(bodyA,bodyB);
-                bodyB.OnBeginContactAction?.Invoke(bodyB,bodyA);
+                Game.EventSystem.Callback(CallbackType.Box2DBeginContact,bodyA,bodyB);
+                Game.EventSystem.Callback(CallbackType.Box2DBeginContact,bodyB,bodyA);
             }
         }
 
@@ -29,8 +29,8 @@ namespace ET
             {
                 var bodyA = this.worldComponent.bodyComponents[contact.FixtureA.Body];
                 var bodyB = this.worldComponent.bodyComponents[contact.FixtureB.Body];
-                bodyA.OnEndContactAction?.Invoke(bodyA,bodyB);
-                bodyB.OnEndContactAction?.Invoke(bodyB,bodyA);
+                Game.EventSystem.Callback(CallbackType.Box2DEndContact,bodyA,bodyB);
+                Game.EventSystem.Callback(CallbackType.Box2DEndContact,bodyB,bodyA);
             }
         }
 

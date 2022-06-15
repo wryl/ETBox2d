@@ -43,15 +43,9 @@ namespace ET.Client
 	        var body2d=unit.AddComponent<Body2dComponent>();
 	        body2d.IsBeForce = true;
 	        body2d.CreateBody(0.2f,0.5f);
-	        body2d.OnBeginContactAction+= OnMyUnitBeginContactAction;
 	        Game.EventSystem.Publish(unit, new EventType.AfterUnitCreate2DMyself());
 	        Game.EventSystem.Publish(unit, new EventType.AfterUnitCreate2D());
 	        return unit;
-        }
-
-        private static void OnMyUnitBeginContactAction(Body2dComponent obja,Body2dComponent objb)
-        {
-	        Log.Debug("OnBeginContactAction:"+obja.Id);
         }
     }
 }

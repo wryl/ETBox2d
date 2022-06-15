@@ -51,7 +51,6 @@ namespace ET.Server
                     var body2d=monster.AddComponent<Body2dComponent>();
                     body2d.IsBeForce = true;
                     body2d.CreateBody(0.2f,0.5f);
-                    body2d.OnBeginContactAction += monster.GetComponent<Boss2D>().OnBeginContact;
                     monster.AddComponent<EntitySyncComponent>();
                     return monster;
                 default:

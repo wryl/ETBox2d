@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Numerics;
-using Vector3 = UnityEngine.Vector3;
 
 namespace ET.Server
 {
@@ -51,87 +49,6 @@ namespace ET.Server
 			M2M_Unit2DTransferResponse response = await ActorMessageSenderComponent.Instance.Call(sceneInstanceId, request) as M2M_Unit2DTransferResponse;
 			await LocationProxyComponent.Instance.UnLock(unit.Id, oldInstanceId, response.NewInstanceId);
 			unit.Domain.Dispose();
-		}
-	}
-
-	[ActorMessageHandler(SceneType.Box2dWorld)]
-	public class M2M_Unit2DTransferRequestHandler: AMActorRpcHandler<Scene, M2M_Unit2DTransferRequest, M2M_Unit2DTransferResponse>
-	{
-		protected override async ETTask Run(Scene scene, M2M_Unit2DTransferRequest request, M2M_Unit2DTransferResponse response, Action reply)
-		{
-			await ETTask.CompletedTask;
-			Unit2DComponent unitComponent = scene.GetComponent<Unit2DComponent>();
-			Unit2D unit = request.Unit;
-			unitComponent.AddChild(unit);
-			foreach (Entity entity in request.Entitys)
-			{
-				unit.AddComponent(entity);
-			}
-			//unit.Position = new Vector3(0, 0, 0);
-
-			unit.AddComponent<MailBoxComponent>();
-			unit.AddComponent<Player2D>();
-			// 通知客户端创建My Unit
-			M2C_CreateMyUnit2D m2CCreateUnits = new M2C_CreateMyUnit2D();
-			m2CCreateUnits.Unit = Server.Unit2DHelper.CreateUnitInfo(unit);
-			MessageHelper.SendToClient(unit, m2CCreateUnits);
-			M2C_CreateUnit2Ds createUnits = new M2C_CreateUnit2Ds();
-			foreach (Unit2D otherunit in unitComponent.Children.Values)
-			{
-				if (otherunit.GetComponent<Boss2D>()!=null)
-				{
-					createUnits.Units.Add(Server.Unit2DHelper.CreateUnitInfo(otherunit));
-				}
-			}
-			MessageHelper.SendToClient(unit, createUnits);
-			response.NewInstanceId = unit.InstanceId;
-			reply();
-		}
-
-		
-	}
-	[ActorMessageHandler(SceneType.Box2dWorld)]
-	public class C2B_AddForceHandler: AMActorLocationRpcHandler<Unit2D, C2B_AddForce, B2C_AddForce>
-	{
-		protected override async ETTask Run(Unit2D unit, C2B_AddForce request, B2C_AddForce response, Action reply)
-		{
-			await ETTask.CompletedTask;
-			Unit2DComponent unitComponent = unit.Domain.GetComponent<Unit2DComponent>();
-			foreach (Unit2D entity in unitComponent.Children.Values)
-			{
-				if (entity.GetComponent<Boss2D>()!=null)
-				{
-					entity.GetComponent<Body2dComponent>().Body.SetLinearVelocity(new Vector2(0,6));
-					//entity.GetComponent<Body2dComponent>().Body.ApplyForce(new Vector2(0,200),new Vector2(0,0),true);
-					//entity.GetComponent<Body2dComponent>().Body.ApplyLinearImpulseToCenter(new Vector2(0,1),true);
-				}
-			}
-			reply();
-		}
-
-		
-	}
-	[FriendClass(typeof (NumericComponent))]
-	public static class Unit2DHelper
-	{
-		public static UnitInfo CreateUnitInfo(Unit2D unit)
-		{
-			UnitInfo unitInfo = new UnitInfo();
-			NumericComponent nc = unit.GetComponent<NumericComponent>();
-			unitInfo.UnitId = unit.Id;
-			unitInfo.ConfigId = unit.ConfigId;
-			unitInfo.Type = (int) unit.Type;
-			Vector3 position = unit.Position;
-			unitInfo.X = position.x;
-			unitInfo.Y = position.y;
-			unitInfo.Z = position.z;
-			foreach ((int key, long value) in nc.NumericDic)
-			{
-				unitInfo.Ks.Add(key);
-				unitInfo.Vs.Add(value);
-			}
-
-			return unitInfo;
 		}
 	}
 }

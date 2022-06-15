@@ -21,5 +21,8 @@
         public const int MoveTimer = 201;
         public const int AITimer = 202;
         public const int SessionAcceptTimeout = 203;
+        
+        public const int Box2DBeginContact = 210;
+        public const int Box2DEndContact = 211;
     }
 }
