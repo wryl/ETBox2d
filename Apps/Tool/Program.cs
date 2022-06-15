@@ -30,7 +30,7 @@ namespace ET
 
                 Options.Instance = options;
 
-                Log.ILog = new NLogger(Game.Options.AppType.ToString());
+                Game.ILog = new NLogger(Game.Options.AppType.ToString());
 				
                 ProtobufHelper.Init();
                 MongoHelper.Register(Game.EventSystem.GetTypes());
