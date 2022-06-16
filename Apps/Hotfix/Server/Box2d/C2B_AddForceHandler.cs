@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Numerics;
+using UnityEngine;
+using Vector2 = System.Numerics.Vector2;
 
 namespace ET.Server
 {
@@ -21,7 +22,15 @@ namespace ET.Server
             }
             reply();
         }
+    }
+    [ActorMessageHandler(SceneType.Box2dWorld)]
+    public class C2B_OnSelfEntityChangedHandler: AMActorLocationHandler<Unit2D, C2B_OnSelfEntityChanged>
+    {
+        protected override async ETTask Run(Unit2D unit, C2B_OnSelfEntityChanged message)
+        {
+            unit.Position= new Vector3(message.X/100f, message.Y/100f, 0);       
+            await ETTask.CompletedTask;
+        }
 
-		
     }
 }

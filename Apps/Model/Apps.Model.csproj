@@ -95,6 +95,9 @@
         <Compile Include="..\..\Unity\Codes\Model\Share\**\*.cs">
             <Link>Share\%(RecursiveDir)%(FileName)%(Extension)</Link>
         </Compile>
+        <Compile Update="Server\Box2D\EntitySyncComponent.cs">
+          <Link>Client\Box2D\EntitySyncComponent.cs</Link>
+        </Compile>
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Core\Apps.Core.csproj" />

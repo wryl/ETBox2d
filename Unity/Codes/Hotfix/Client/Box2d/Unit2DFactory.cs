@@ -40,6 +40,7 @@ namespace ET.Client
 		        numericComponent.Set(unitInfo.Ks[i], unitInfo.Vs[i]);
 	        }
 	        unit.AddComponent<ObjectWait>();
+	        unit.AddComponent<EntitySyncComponent>();
 	        var body2d=unit.AddComponent<Body2dComponent>();
 	        body2d.IsBeForce = true;
 	        body2d.CreateBody(0.2f,0.5f);

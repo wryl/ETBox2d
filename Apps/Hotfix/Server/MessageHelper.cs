@@ -73,5 +73,20 @@ namespace ET.Server
                 }
             }
         }
+        public static void BroadcastToAllNotSelf(Entity domain,long id, IActorMessage message)
+        {
+            foreach (var unit in domain.GetComponent<Unit2DComponent>().Children)
+            {
+                if (unit.Value.Id==id)
+                {
+                    continue;
+                }
+                var gatesession = unit.Value.GetComponent<UnitGateComponent>()?.GateSessionActorId;
+                if (gatesession.HasValue)
+                {
+                    SendActor(gatesession.Value, message);
+                }
+            }
+        }
     }
 }

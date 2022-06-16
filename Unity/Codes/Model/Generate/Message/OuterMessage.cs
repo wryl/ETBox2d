@@ -542,6 +542,27 @@ namespace ET
 
 	}
 
+	[Message(OuterOpcode.C2B_OnSelfEntityChanged)]
+	[ProtoContract]
+	public partial class C2B_OnSelfEntityChanged: Object, IActorLocationMessage
+	{
+		[ProtoMember(1)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(3)]
+		public long Id { get; set; }
+
+		[ProtoMember(9)]
+		public int X { get; set; }
+
+		[ProtoMember(10)]
+		public int Y { get; set; }
+
+		[ProtoMember(12)]
+		public int AngleY { get; set; }
+
+	}
+
 	[Message(OuterOpcode.B2C_OnEntityChanged)]
 	[ProtoContract]
 	public partial class B2C_OnEntityChanged: Object, IActorMessage

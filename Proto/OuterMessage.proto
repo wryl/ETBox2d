@@ -261,6 +261,14 @@ message B2C_AddForce // IActorLocationResponse
 	int32 Error = 91;
 	string Message = 92;
 }
+message C2B_OnSelfEntityChanged // IActorLocationMessage
+{
+	int32 RpcId = 1;
+	int64 Id = 3;
+	int32 X = 9;
+	int32 Y = 10;
+	int32 AngleY = 12;
+}
 message B2C_OnEntityChanged // IActorMessage
 {
 	int32 RpcId = 1;

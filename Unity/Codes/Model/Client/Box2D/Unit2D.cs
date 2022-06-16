@@ -12,12 +12,9 @@ namespace ET
     }
     public class Unit2D: Entity, IAwake<int>
     {
-        public int ConfigId { get; set; } //配置表id
+        public int ConfigId { get; set; } //prefab id
 
-        [BsonIgnore]
-        public UnitConfig Config => UnitConfigCategory.Instance.Get(this.ConfigId);
-
-        public UnitType Type => (UnitType)UnitConfigCategory.Instance.Get(this.ConfigId).Type;
+        public UnitType Type { get; set; }
 
         [BsonElement]
         private Vector3 position; //坐标

@@ -70,7 +70,6 @@ namespace ET
             shape.SetAsBox(hx, hy, Vector2.Zero, 0);
             body.CreateFixture(shape, 1.0f);
             body.UserData = component;
-
             self.bodyComponents.Add(body, component);
             return body;
         }

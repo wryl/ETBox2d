@@ -12,7 +12,6 @@ namespace ET.Client
 			{
 				return;
 			}
-
 			Vector3 pos = new Vector3(message.X/100f, message.Y/100f, 0);
 			unit.GetComponent<PositionFollowComponent>().CalcLerp(unit.Position,pos);
 			await ETTask.CompletedTask;

@@ -4,30 +4,30 @@ using UnityEngine;
 
 namespace ET.Server
 {
-	public class EntitySyncComponentAwakeSystem : AwakeSystem<EntitySyncComponent>
+	public class ServerEntitySyncComponentAwakeSystem : AwakeSystem<ServerEntitySyncComponent>
 	{
-		public override void Awake(EntitySyncComponent self)
+		public override void Awake(ServerEntitySyncComponent self)
 		{
 			self.Awake();
 		}
 	}
 
-	public class EntitySyncComponentUpdateSystem : UpdateSystem<EntitySyncComponent>
+	public class ServerEntitySyncComponentUpdateSystem : UpdateSystem<ServerEntitySyncComponent>
 	{
-		public override void Update(EntitySyncComponent self)
+		public override void Update(ServerEntitySyncComponent self)
 		{
 			self.Update();
 		}
 	}
 
-	public static class EntitySyncComponentSystem
+	public static class ServerEntitySyncComponentSystem
 	{
-		public static void Awake(this EntitySyncComponent self)
+		public static void Awake(this ServerEntitySyncComponent self)
 		{
 			self.Interval = 1000 / self.Fps;
 		}
 
-		public static void Update(this EntitySyncComponent self)
+		public static void Update(this ServerEntitySyncComponent self)
 		{
 			if (TimeHelper.ServerNow() - self.Timer > self.Interval)
 			{
@@ -42,7 +42,7 @@ namespace ET.Server
 				msg.Id = self.Id;
 				msg.X = (int)(p.x * 100);
 				msg.Y = (int)(p.y * 100);
-				MessageHelper.BroadcastToAll(self.Domain, msg);
+				MessageHelper.BroadcastToAllNotSelf(self.Domain, self.Id, msg);
 			}
 		}
 	}
