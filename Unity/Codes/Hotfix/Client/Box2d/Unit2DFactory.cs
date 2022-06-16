@@ -23,6 +23,7 @@ namespace ET.Client
 	        if (!IsBeForce)
 	        {
 		        unit.AddComponent<PositionFollowComponent, Vector3>(unit.Position);
+		        Box2DHelper.ChangeGravityScale(body2d.Body,0);
 	        }
 			Game.EventSystem.Publish(unit, new EventType.AfterUnitCreate2D());
 	        return unit;
@@ -31,9 +32,7 @@ namespace ET.Client
         {
 	        Unit2DComponent unitComponent = currentScene.GetComponent<Unit2DComponent>();
 	        Unit2D unit = unitComponent.AddChildWithId<Unit2D, int>(unitInfo.UnitId, unitInfo.ConfigId);
-	        
 	        unit.Position = new Vector3(unitInfo.X, unitInfo.Y, unitInfo.Z);
-	        
 	        NumericComponent numericComponent = unit.AddComponent<NumericComponent>();
 	        for (int i = 0; i < unitInfo.Ks.Count; ++i)
 	        {

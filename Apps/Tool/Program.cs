@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using CommandLine;
 using NLog;
@@ -20,8 +21,14 @@ namespace ET
             SynchronizationContext.SetSynchronizationContext(ThreadSynchronizationContext.Instance);
 			
             try
-            {		
-                Game.EventSystem.Add(typeof(Game).Assembly);
+            {
+                Dictionary<string, Type> types = AssemblyHelper.GetAssemblyTypes(typeof (Game).Assembly);
+                    
+                Game.EventSystem.Add(types);
+                
+                ProtobufHelper.Init();
+                MongoHelper.Register(Game.EventSystem.GetTypes());
+				
                 // 命令行参数
                 Options options = null;
                 Parser.Default.ParseArguments<Options>(args)
@@ -31,12 +38,7 @@ namespace ET
                 Options.Instance = options;
 
                 Game.ILog = new NLogger(Game.Options.AppType.ToString());
-				
-                ProtobufHelper.Init();
-                MongoHelper.Register(Game.EventSystem.GetTypes());
-				
-
-                //LogManager.Configuration.Variables["appIdFormat"] = $"{Game.Options.Process:000000}";
+                LogManager.Configuration.Variables["appIdFormat"] = $"{Game.Options.Process:000000}";
 				
                 Log.Info($"server start........................ {Game.Scene.Id}");
 				

@@ -17,8 +17,5 @@ namespace ET.Client
         /// 跳跃
         /// </summary>
         public bool Jump;
-
-        public Vector2 LeftVector2 = new Vector2(-1, 0);
-        public Vector2 RightVector2 = new Vector2(1, 0);
     }
 }
