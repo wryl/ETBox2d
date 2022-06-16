@@ -32,7 +32,7 @@ namespace ET.Server
             MessageHelper.SendToClient(unit, createUnits);
             //这里通知其他人有unit创建
             M2C_CreateUnit2Ds createUnitsForOthers = new M2C_CreateUnit2Ds();
-            createUnits.Units.Add(unitserver);
+            createUnitsForOthers.Units.Add(unitserver);
             MessageHelper.BroadcastToAllNotSelf(scene,unit.Id,createUnitsForOthers);
             response.NewInstanceId = unit.InstanceId;
             reply();
