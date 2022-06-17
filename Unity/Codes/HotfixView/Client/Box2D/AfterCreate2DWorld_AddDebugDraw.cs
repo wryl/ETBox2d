@@ -1,6 +1,7 @@
 using Box2DSharp.Common;
 using Box2DSharp.Testbed.Unity;
 using Box2DSharp.Testbed.Unity.Inspection;
+using UnityEngine;
 
 namespace ET.Client
 {
@@ -10,6 +11,28 @@ namespace ET.Client
         protected override async ETTask Run(Box2dWorldComponent worldComponent, EventType.After2DWorldCreate args)
         {
             worldComponent.World.SetDebugDrawer(new DebugDrawer() { Drawer = UnityDrawer.GetDrawer(),Flags = DrawFlag.DrawShape });
+            await ETTask.CompletedTask;
+        }
+    }
+    [Event(SceneType.Current)]
+    public class UnitDashStartEvent: AEvent<Unit2D, EventType.UnitDashStart>
+    {
+        protected override async ETTask Run(Unit2D unit, EventType.UnitDashStart args)
+        {
+            //播放一些特效之类的
+            Log.Debug("EventType.UnitDashStart");
+           //unit.GetComponent<GameObjectComponent>().GameObject
+           await ETTask.CompletedTask;
+        }
+    }
+    [Event(SceneType.Current)]
+    public class UnitDashEndEvent: AEvent<Unit2D, EventType.UnitDashEnd>
+    {
+        protected override async ETTask Run(Unit2D unit, EventType.UnitDashEnd args)
+        {
+            //播放一些特效之类的
+            Log.Debug("EventType.UnitDashEnd");
+            //unit.GetComponent<GameObjectComponent>().GameObject
             await ETTask.CompletedTask;
         }
     }

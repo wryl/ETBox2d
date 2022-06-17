@@ -15,7 +15,7 @@
 		{
 		}
 	}
-	
+
 	public static class Unit2DComponentSystem
 	{
 

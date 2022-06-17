@@ -11,7 +11,7 @@ namespace ET
 {
 
 
-    [FriendClass(typeof(Box2dWorldComponent))]
+    [FriendOf(typeof(Box2dWorldComponent))]
     public static class WorldComponentSystem
     {
         public class WorldComponentDestroySystem: DestroySystem<Box2dWorldComponent>
@@ -20,23 +20,24 @@ namespace ET
             {
                 self.World.Dispose();
                 self.World = null;
-                self.FixedUpdate = null;
             }
         }
-        public class Box2dWorldComponentUpdateSystem : UpdateSystem<Box2dWorldComponent>
+        public class Box2dWorldComponentFixedUpdateSystem : FixedUpdateSystem<Box2dWorldComponent>
         {
-            public override void Update(Box2dWorldComponent self)
+            public override void FixedUpdate(Box2dWorldComponent self)
             {
-                self.FixedUpdate.Update();
-            }
-        }
-        public class Box2dWorldComponentLateUpdateSystem : LateUpdateSystem<Box2dWorldComponent>
-        {
-            public override void LateUpdate(Box2dWorldComponent self)
-            {
+                self.Step();
                 self.World.DebugDraw();
             }
+
         }
+        // public class Box2dWorldComponentLateUpdateSystem : LateUpdateSystem<Box2dWorldComponent>
+        // {
+        //     public override void LateUpdate(Box2dWorldComponent self)
+        //     {
+        //         
+        //     }
+        // }
         public class WorldComponentAwakeSystem: AwakeSystem<Box2dWorldComponent>
         {
             public override void Awake(Box2dWorldComponent self)
@@ -51,8 +52,6 @@ namespace ET
                 groundBox.SetAsBox(1000.0f, 1.0f);
                 groundBody.CreateFixture(groundBox, 0.0f);
                 Game.EventSystem.Publish(self, new EventType.After2DWorldCreate() {});
-                self.FixedUpdate = new FixedUpdate(TimeSpan.FromSeconds(0.01d), () => { self.Step(); });
-                self.FixedUpdate.Start();
             }
         }
        

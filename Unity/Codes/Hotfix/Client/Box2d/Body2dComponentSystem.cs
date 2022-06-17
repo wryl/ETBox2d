@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace ET
 {
-    [FriendClassAttribute(typeof(ET.Body2dComponent))]
+    [FriendOf(typeof(ET.Body2dComponent))]
     public static class Body2dComponentSystem
     {
         public class Body2dComponentAwakeSystem : AwakeSystem<Body2dComponent>

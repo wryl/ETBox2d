@@ -3,12 +3,12 @@ using System.Numerics;
 namespace ET.Client
 {
 	[ComponentOf(typeof(Unit2D))]
-	public class Controller2DComponent: Entity, IAwake, IUpdate
+	public class Controller2DComponent: Entity, IAwake, IUpdate,IFixedUpdate
     {
-        /// <summary>
-        /// 左右移动
-        /// </summary>
-        public float X;
+        public Unit2D MyUnit2D => this.GetParent<Unit2D>();
+        public Vector2 Velocity { get; set; }
+        public Vector2 laterDirection { get; set; }
+
         /// <summary>
         /// 突进
         /// </summary>
@@ -18,4 +18,6 @@ namespace ET.Client
         /// </summary>
         public bool Jump;
     }
+
+    
 }

@@ -55,7 +55,11 @@ namespace ET
             }
             FrameFinishCallback.Clear();
         }
-
+        
+        public static void FixedUpdate()
+        {
+            EventSystem.FixedUpdate();
+        }
         public static void Close()
         {
             scene?.Dispose();

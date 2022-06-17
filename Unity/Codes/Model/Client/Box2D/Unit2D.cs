@@ -3,13 +3,7 @@ using UnityEngine;
 
 namespace ET
 {
-    public class Unit2DSystem: AwakeSystem<Unit2D, int>
-    {
-        public override void Awake(Unit2D self, int configId)
-        {
-            self.ConfigId = configId;
-        }
-    }
+
     public class Unit2D: Entity, IAwake<int>
     {
         public int ConfigId { get; set; } //prefab id

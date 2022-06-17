@@ -100,7 +100,8 @@ namespace ET
 
         private Queue<long> lateUpdates = new();
         private Queue<long> lateUpdates2 = new();
-
+        private Queue<long> fixedUpdates = new();
+        private Queue<long> fixedUpdates2 = new();
         private EventSystem()
         {
         }
@@ -269,6 +270,14 @@ namespace ET
                 if (oneTypeSystems.ContainsKey(typeof (ILateUpdateSystem)))
                 {
                     this.lateUpdates.Enqueue(component.InstanceId);
+                }
+            }
+            
+            if (component is IFixedUpdate)
+            {
+                if (oneTypeSystems.ContainsKey(typeof (IFixedUpdateSystem)))
+                {
+                    this.fixedUpdates.Enqueue(component.InstanceId);
                 }
             }
         }
@@ -646,6 +655,46 @@ namespace ET
             ObjectHelper.Swap(ref this.lateUpdates, ref this.lateUpdates2);
         }
 
+        public void FixedUpdate()
+        {
+            while (this.fixedUpdates.Count > 0)
+            {
+                long instanceId = this.fixedUpdates.Dequeue();
+                Entity component;
+                if (!this.allEntities.TryGetValue(instanceId, out component))
+                {
+                    continue;
+                }
+
+                if (component.IsDisposed)
+                {
+                    continue;
+                }
+
+                List<object> iFixedUpdateSystems = this.typeSystems.GetSystems(component.GetType(), typeof (IFixedUpdateSystem));
+                if (iFixedUpdateSystems == null)
+                {
+                    continue;
+                }
+
+                this.fixedUpdates2.Enqueue(instanceId);
+
+                foreach (IFixedUpdateSystem iFixedUpdateSystem in iFixedUpdateSystems)
+                {
+                    try
+                    {
+                        iFixedUpdateSystem.Run(component);
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error(e);
+                    }
+                }
+            }
+
+            ObjectHelper.Swap(ref this.fixedUpdates, ref this.fixedUpdates2);
+        }
+        
         public async ETTask PublishAsync<E, T>(E entity, T a) where E: Entity where T : struct
         {
             List<EventInfo> iEvents;

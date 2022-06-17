@@ -4,7 +4,7 @@ using System.Net;
 
 namespace ET
 {
-    [FriendClass(typeof(NetP2PKcpComponent))]
+    [FriendOf(typeof(NetP2PKcpComponent))]
     public static class NetP2PKcpComponentSystem
     {
         [ObjectSystem]

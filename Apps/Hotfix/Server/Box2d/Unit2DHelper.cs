@@ -2,7 +2,7 @@
 
 namespace ET.Server
 {
-    [FriendClass(typeof (NumericComponent))]
+    [FriendOf(typeof (NumericComponent))]
     public static class Unit2DHelper
     {
         public static UnitInfo CreateUnitInfo(Unit2D unit)

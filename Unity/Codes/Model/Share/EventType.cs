@@ -74,5 +74,17 @@ namespace ET
         public struct After2DWorldCreate
         {
         }
+        public struct UnitDashStart
+        {
+        }
+        public struct UnitDashEnd
+        {
+        }
+        public struct UnitRunStart
+        {
+        }
+        public struct UnitRunEnd
+        {
+        }
     }
 }

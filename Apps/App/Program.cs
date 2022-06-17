@@ -43,12 +43,14 @@ namespace ET
 				Log.Console($"app start: {Game.Scene.Id} options: {JsonHelper.ToJson(Game.Options)} ");
 
 				Game.EventSystem.Publish(Game.Scene, new EventType.AppStart());
-				
+				FixedUpdate systemFixedUpdate = new FixedUpdate(TimeSpan.FromSeconds(0.01d), Game.FixedUpdate);
+				systemFixedUpdate.Start();
 				while (true)
 				{
 					try
 					{
 						Thread.Sleep(1);
+						systemFixedUpdate.Update();
 						Game.Update();
 						Game.LateUpdate();
 						Game.FrameFinish();

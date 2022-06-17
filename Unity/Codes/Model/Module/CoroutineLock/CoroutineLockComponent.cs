@@ -38,8 +38,8 @@ namespace ET
             }
         }
 
-        [FriendOf(typeof (CoroutineLock))]
-        public class CoroutineLockComponentUpdateSystem: UpdateSystem<CoroutineLockComponent>
+        [FriendOf(typeof(CoroutineLock))]
+        public class CoroutineLockComponentUpdateSystem : UpdateSystem<CoroutineLockComponent>
         {
             public override void Update(CoroutineLockComponent self)
             {
@@ -80,7 +80,7 @@ namespace ET
 
                     self.timeOutIds.Enqueue(k);
                 }
-            
+
                 self.timerOutTimer.Clear();
 
                 while (self.timeOutIds.Count > 0)
@@ -104,7 +104,7 @@ namespace ET
                     {
                         continue;
                     }
-                    
+
                     // 超时直接调用下一个锁
                     self.RunNextCoroutine(coroutineLock.coroutineLockType, coroutineLock.key, coroutineLock.level + 1);
                     coroutineLock.coroutineLockType = CoroutineLockType.None; // 上面调用了下一个, dispose不再调用

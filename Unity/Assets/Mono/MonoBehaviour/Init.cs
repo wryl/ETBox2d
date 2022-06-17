@@ -52,7 +52,10 @@ namespace ET
 		{
 			CodeLoader.Instance.LateUpdate();
 		}
-
+		private void FixedUpdate()
+		{
+			CodeLoader.Instance.FixedUpdate();
+		}
 		private void OnApplicationQuit()
 		{
 			CodeLoader.Instance.OnApplicationQuit();

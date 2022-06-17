@@ -40,6 +40,7 @@ namespace ET.Client
 	        }
 	        unit.AddComponent<ObjectWait>();
 	        unit.AddComponent<EntitySyncComponent>();
+	        unit.AddComponent<DashMoveComponent>();
 	        var body2d=unit.AddComponent<Body2dComponent>();
 	        body2d.IsBeForce = true;
 	        body2d.CreateBody(0.2f,0.5f);
