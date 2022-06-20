@@ -6,42 +6,29 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace ET.Client
 {
-    [FriendOf(typeof(Controller2DComponent))]
-    public static class Controller2DComponentSystem
+    [FriendOf(typeof(Input2DComponent))]
+    public static class Input2DComponentSystem
     {
         [ObjectSystem]
-        public class Controller2DComponentAwakeSystem : AwakeSystem<Controller2DComponent>
+        public class Input2DComponentAwakeSystem : AwakeSystem<Input2DComponent>
         {
-            public override void Awake(Controller2DComponent self)
+            public override void Awake(Input2DComponent self)
             {
-                self.Velocity = Vector2.Zero;
-                self.laterDirection = new Vector2(1,0);
+                self.MyUnit2D = self.GetParent<Unit2D>();
             }
         }
 
         [ObjectSystem]
-        public class Controller2DComponentUpdateSystem : UpdateSystem<Controller2DComponent>
+        public class Input2DComponentUpdateSystem : UpdateSystem<Input2DComponent>
         {
-            public override void Update(Controller2DComponent self)
+            public override void Update(Input2DComponent self)
             {
                 self.Update();
             }
         }
-        [ObjectSystem]
-        public class Controller2DComponentFixedUpdateSystem : FixedUpdateSystem<Controller2DComponent>
-        {
-            public override void FixedUpdate(Controller2DComponent self)
-            {
-                self.FixedUpdate();
-            }
-        }
+       
 
-        public static void FixedUpdate(this Controller2DComponent self)
-        {
-            
-        }
-
-        public static void Update(this Controller2DComponent self)
+        public static void Update(this Input2DComponent self)
         {
             var dir = Vector2.Zero;
             GameObject gameObject = self.Parent.GetComponent<GameObjectComponent>().GameObject;
@@ -67,7 +54,7 @@ namespace ET.Client
             }
             else if (Input.GetKeyDown(KeyCode.Space))
             {
-                self.Jump = true;
+                //self.Jump = true;
             }
         }
     }
