@@ -1,5 +1,14 @@
-﻿namespace ET.Client
+﻿namespace ET
 {
+    namespace EventType
+    {
+        public struct CharacterChangeFace
+        {
+            public bool FaceRight;
+        }
+
+    }
+
     public class CharacterStates 
     {
         public enum CharacterConditions

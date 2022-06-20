@@ -36,4 +36,21 @@ namespace ET.Client
             await ETTask.CompletedTask;
         }
     }
+    [Event(SceneType.Current)]
+    public class CharacterChangeFaceEvent: AEvent<Unit2D, EventType.CharacterChangeFace>
+    {
+        protected override async ETTask Run(Unit2D unit, EventType.CharacterChangeFace args)
+        {
+            await ETTask.CompletedTask;
+            GameObject gameObject = unit.GetComponent<GameObjectComponent>().GameObject;
+            if (args.FaceRight)
+            {
+                gameObject.transform.localScale = Vector3.one;
+            }
+            else
+            {
+                gameObject.transform.localScale = new Vector3(-1, 1, 1);
+            }
+        }
+    }
 }

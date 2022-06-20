@@ -24,7 +24,8 @@ namespace ET.Client
     {
         protected override async ETTask Run(Unit2D unit, EventType.AfterUnitCreate2DMyself args)
         {
-            unit.AddComponent<Controller2DComponent>();
+            unit.AddComponent<Input2DComponent>();
+            Log.Debug("AfterUnitCreate2DMyself");
             await ETTask.CompletedTask;
         }
     }

@@ -42,7 +42,7 @@ namespace ET
         {
             public override void Awake(Box2dWorldComponent self)
             {
-                self.World = new World(new Vector2(0, -5));
+                self.World = new World(new Vector2(0, 0));
                 self.World.AllowSleep = false;
                 self.World.SetContactListener(new Box2dWorldContactListener(self));
                 var groundBodyDef = new BodyDef {BodyType = BodyType.StaticBody};

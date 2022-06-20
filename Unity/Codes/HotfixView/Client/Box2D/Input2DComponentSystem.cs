@@ -7,6 +7,7 @@ using Vector3 = UnityEngine.Vector3;
 namespace ET.Client
 {
     [FriendOf(typeof(Input2DComponent))]
+    [FriendOfAttribute(typeof(CharacterhorizontalMoveComponent))]
     public static class Input2DComponentSystem
     {
         [ObjectSystem]
@@ -26,33 +27,35 @@ namespace ET.Client
                 self.Update();
             }
         }
-       
+
 
         public static void Update(this Input2DComponent self)
         {
-            var dir = Vector2.Zero;
             GameObject gameObject = self.Parent.GetComponent<GameObjectComponent>().GameObject;
             if (Input.GetKey(KeyCode.A))
             {
-                dir.X = -1;
+                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed = -3;
                 // self.Parent.GetComponent<Body2dComponent>().Body.SetLinearVelocity(new Vector2(-1,self.Parent.GetComponent<Body2dComponent>().Body.LinearVelocity.Y));
                 //  gameObject.GetComponent<SPUM_Prefabs>().PlayAnimation(1);
                 //  gameObject.transform.localScale = new Vector3(1,1,1);
             }
             else if (Input.GetKey(KeyCode.D))
             {
-                dir.X = 1;
+                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed = 3;
                 // self.Parent.GetComponent<Body2dComponent>().Body.SetLinearVelocity(new Vector2(1,self.Parent.GetComponent<Body2dComponent>().Body.LinearVelocity.Y));
                 // gameObject.GetComponent<SPUM_Prefabs>().PlayAnimation(1);
                 // gameObject.transform.localScale = new Vector3(-1,1,1);
 
             }
-
+            else
+            {
+                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed = 0;
+            }
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                self.MyUnit2D.GetComponent<DashMoveComponent>().StartDash().Coroutine();
+                self.MyUnit2D.GetComponent<CharacterDashComponent>().StartDash().Coroutine();
             }
-            else if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 //self.Jump = true;
             }
