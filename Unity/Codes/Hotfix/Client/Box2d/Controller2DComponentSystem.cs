@@ -39,7 +39,7 @@ namespace ET.Client
                     Game.EventSystem.Publish(self.MyUnit2D, new EventType.CharacterChangeFace() { FaceRight = self.DirectionLeft });
                 }
 
-                dir.Y = self.MyUnit2D.GetComponent<CharacterGravityComponent>().speed;
+                dir.Y = self.MyUnit2D.GetComponent<CharacterGravityComponent>().speed+self.MyUnit2D.GetComponent<CharacterJumpComponent>().GetValue();
                 self.MyUnit2D.GetComponent<Body2dComponent>().Body.SetLinearVelocity(dir);
             }
         }

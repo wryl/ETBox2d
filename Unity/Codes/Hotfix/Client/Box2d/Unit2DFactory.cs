@@ -45,6 +45,7 @@ namespace ET.Client
 	        unit.AddComponent<CharacterDashComponent>();
 	        unit.AddComponent<CharacterhorizontalMoveComponent>();
 	        unit.AddComponent<CharacterGravityComponent>();
+	        unit.AddComponent<CharacterJumpComponent>();
 	        var body2d=unit.AddComponent<Body2dComponent>();
 	        body2d.IsBeForce = true;
 	        body2d.CreateBody(0.2f,0.5f);

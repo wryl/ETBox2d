@@ -29,6 +29,6 @@ namespace ET
     [ComponentOf(typeof (Unit2D))]
     public class CharacterGravityComponent: Entity, IAwake
     {
-        public float speed { get; set; } = -10f;
+        public float speed { get; set; } = -5f;
     }
 }
