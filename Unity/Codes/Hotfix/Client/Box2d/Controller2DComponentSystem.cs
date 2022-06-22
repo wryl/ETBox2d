@@ -26,8 +26,15 @@ namespace ET.Client
             public override void Update(Controller2DComponent self)
             {
                 Vector2 dir = Vector2.Zero;
-                dir.X += self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed;
-                dir.X += self.MyUnit2D.GetComponent<CharacterDashComponent>().GetValue();
+                if (self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>()!=null)
+                {
+                    dir.X += self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed;
+                }
+
+                if (self.MyUnit2D.GetComponent<CharacterDashComponent>()!=null)
+                {
+                    dir.X += self.MyUnit2D.GetComponent<CharacterDashComponent>().GetValue();
+                }
                 if (dir.X > 0)
                 {
                     self.DirectionLeft = false;
@@ -39,7 +46,15 @@ namespace ET.Client
                     Game.EventSystem.Publish(self.MyUnit2D, new EventType.CharacterChangeFace() { FaceRight = self.DirectionLeft });
                 }
 
-                dir.Y = self.MyUnit2D.GetComponent<CharacterGravityComponent>().speed+self.MyUnit2D.GetComponent<CharacterJumpComponent>().GetValue();
+                if (self.MyUnit2D.GetComponent<CharacterJumpComponent>()!=null)
+                {
+                    dir.Y += self.MyUnit2D.GetComponent<CharacterJumpComponent>().GetValue();
+                }
+
+                if (self.MyUnit2D.GetComponent<CharacterGravityComponent>()!=null)
+                {
+                    dir.Y += self.MyUnit2D.GetComponent<CharacterGravityComponent>().speed;
+                }
                 self.MyUnit2D.GetComponent<Body2dComponent>().Body.SetLinearVelocity(dir);
             }
         }

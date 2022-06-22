@@ -52,7 +52,10 @@ namespace ET.Server
                     var body2d=monster.AddComponent<Body2dComponent>();
                     body2d.IsBeForce = true;
                     body2d.CreateBody(0.2f,0.5f);
+                    monster.AddComponent<CharacterGravityComponent>();
+                    monster.AddComponent<CharacterJumpComponent>();
                     monster.AddComponent<ServerEntitySyncComponent>();
+                    monster.AddComponent<Client.Controller2DComponent>();
                     return monster;
                 default:
                     throw new Exception($"not such unit type: {unitType}");

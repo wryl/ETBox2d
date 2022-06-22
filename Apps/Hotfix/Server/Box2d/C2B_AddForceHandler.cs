@@ -15,7 +15,7 @@ namespace ET.Server
             {
                 if (entity.GetComponent<Boss2D>()!=null)
                 {
-                    entity.GetComponent<Body2dComponent>().Body.SetLinearVelocity(new Vector2(0,6));
+                    entity.GetComponent<CharacterJumpComponent>().StartJumpStore().Coroutine();
                     //entity.GetComponent<Body2dComponent>().Body.ApplyForce(new Vector2(0,200),new Vector2(0,0),true);
                     //entity.GetComponent<Body2dComponent>().Body.ApplyLinearImpulseToCenter(new Vector2(0,1),true);
                 }

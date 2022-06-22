@@ -12,7 +12,7 @@ namespace ET
                 self.speed = 0;
                 self.BaseSpeed = 10;
                 self.MinJumpHold = 50;
-                self.MaxJumpHold = 120;
+                self.MaxJumpHold = 240;
             }
         }
         public static async ETTask StartJumpStore(this CharacterJumpComponent self)
@@ -38,9 +38,13 @@ namespace ET
             self.IsStoring = false;
             var gotime = Math.Max(self.MinJumpHold,self.EndTime - self.StartTime);
             self.speed = self.BaseSpeed * gotime / 100f;
-            if (await TimerComponent.Instance.WaitAsync(gotime))
+            if (gotime<self.MinJumpHold)
             {
-
+                await TimerComponent.Instance.WaitAsync(self.MinJumpHold);
+                self.IsRunning = false;
+            }
+            else
+            {
                 self.IsRunning = false;
             }
         }
@@ -64,14 +68,7 @@ namespace ET
         {
             if (self.IsRunning)
             {
-                if (self.IsStoring)
-                {
-                    return self.BaseSpeed *  Math.Max(self.MinJumpHold,(TimeHelper.ClientNow()-self.StartTime)) / 100f;
-                }
-                else
-                {
-                    return self.speed;
-                }
+                return self.BaseSpeed * Math.Min( Math.Max(self.MinJumpHold,(TimeHelper.ClientNow()-self.StartTime)),self.MaxJumpHold) / 100f;
             }
             return 0;
         }
