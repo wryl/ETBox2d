@@ -1,8 +1,4 @@
-﻿using Box2DSharp.Collision.Collider;
-using Box2DSharp.Collision.Shapes;
-using Box2DSharp.Common;
-using Box2DSharp.Dynamics;
-using Box2DSharp.Dynamics.Joints;
+﻿using Box2DSharp.Dynamics;
 using UnityEngine;
 
 namespace ET

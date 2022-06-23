@@ -10,7 +10,6 @@
         public bool IsRunning { get; set; }
         public bool IsStoring { get; set; }
         public float BaseSpeed { get; set; }
-        public float speed { get; set; }
         /// <summary>
         /// 最小跳跃时间.立刻松开也按照这个时间计算
         /// </summary>

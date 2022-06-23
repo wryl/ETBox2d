@@ -23,12 +23,13 @@ namespace ET
         public float speed;
     }
     /// <summary>
-    /// 水平移动模块.玩家操作
-    /// 主要作用是给父节点计算出要额外附加的速度
+    /// 重力
     /// </summary>
     [ComponentOf(typeof (Unit2D))]
     public class CharacterGravityComponent: Entity, IAwake
     {
         public float speed { get; set; } = -5f;
     }
+
+
 }

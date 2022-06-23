@@ -20,7 +20,7 @@
             Game.EventSystem.Publish(self.GetParent<Unit2D>(),new EventType.UnitDashStart());
             self.Token = new ETCancellationToken();
             self.IsRunning = true;
-            if (await TimerComponent.Instance.WaitAsync(100, self.Token))
+            if (await TimerComponent.Instance.WaitAsync(200, self.Token))
             {
                 self.IsRunning = false;
                 Game.EventSystem.Publish(self.GetParent<Unit2D>(),new EventType.UnitDashEnd());

@@ -9,7 +9,6 @@ namespace ET
         {
             public override void Awake(CharacterJumpComponent self)
             {
-                self.speed = 0;
                 self.BaseSpeed = 10;
                 self.MinJumpHold = 50;
                 self.MaxJumpHold = 240;
@@ -37,7 +36,6 @@ namespace ET
             self.EndTime = TimeHelper.ClientNow();
             self.IsStoring = false;
             var gotime = Math.Max(self.MinJumpHold,self.EndTime - self.StartTime);
-            self.speed = self.BaseSpeed * gotime / 100f;
             if (gotime<self.MinJumpHold)
             {
                 await TimerComponent.Instance.WaitAsync(self.MinJumpHold);

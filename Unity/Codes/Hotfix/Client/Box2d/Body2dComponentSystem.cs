@@ -33,8 +33,9 @@ namespace ET
             if (self.IsBeForce)
             {
                 var position = self.Body.GetPosition();
-                if (Math.Abs(position.X - self.ParentUnit.Position.x) > 0.0001f || Math.Abs(position.Y - self.ParentUnit.Position.y) > 0.0001f)
+                if (Math.Abs(position.X - self.ParentUnit.Position.x) > 0.001f || Math.Abs(position.Y - self.ParentUnit.Position.y) > 0.001f)
                 {
+                    self.ParentUnit.LastPosition = self.ParentUnit.Position;
                     self.ParentUnit.Position = new Vector2(position.X, position.Y);
                 }
                 self.Angle = self.Body.GetAngle();
