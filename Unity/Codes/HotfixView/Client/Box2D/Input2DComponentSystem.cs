@@ -65,6 +65,11 @@ namespace ET.Client
                 self.MyUnit2D.GetComponent<CharacterJumpComponent>().EndJumpStore();
                 //self.Jump = true;
             }
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                self.MyUnit2D.GetComponent<CharacterAttackComponent>().StartAtack().Coroutine();
+                //self.Jump = true;
+            }
         }
     }
 }

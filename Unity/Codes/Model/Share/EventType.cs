@@ -86,5 +86,9 @@ namespace ET
         public struct UnitRunEnd
         {
         }
+        public struct StateChangeEvent
+        {
+            
+        }
     }
 }

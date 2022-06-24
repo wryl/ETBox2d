@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace ET
 {
@@ -66,6 +67,7 @@ namespace ET
         {
             if (self.IsRunning)
             {
+                //Mathf.Clamp(TimeHelper.ClientNow()-self.StartTime),self.MinJumpHold,self.MaxJumpHold)
                 return self.BaseSpeed * Math.Min( Math.Max(self.MinJumpHold,(TimeHelper.ClientNow()-self.StartTime)),self.MaxJumpHold) / 100f;
             }
             return 0;
