@@ -35,6 +35,7 @@ namespace ET.Client
             if (Input.GetKey(KeyCode.A))
             {
                 self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed = -3;
+
                 // self.Parent.GetComponent<Body2dComponent>().Body.SetLinearVelocity(new Vector2(-1,self.Parent.GetComponent<Body2dComponent>().Body.LinearVelocity.Y));
                 //  gameObject.GetComponent<SPUM_Prefabs>().PlayAnimation(1);
                 //  gameObject.transform.localScale = new Vector3(1,1,1);
@@ -53,10 +54,13 @@ namespace ET.Client
             }
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                self.MyUnit2D.GetComponent<CharacterDashComponent>().StartDash().Coroutine();
+                self.MyUnit2D.GetComponent<StateMachine2D>().ChangeState(CharacterMovementStates.Dashing);
+                //self.MyUnit2D.GetComponent<CharacterDashComponent>().StartDash().Coroutine();
             }
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                self.MyUnit2D.GetComponent<StateMachine2D>().ChangeState(CharacterMovementStates.Jumping);
+
                 self.MyUnit2D.GetComponent<CharacterJumpComponent>().StartJumpStore().Coroutine();
                 //self.Jump = true;
             }

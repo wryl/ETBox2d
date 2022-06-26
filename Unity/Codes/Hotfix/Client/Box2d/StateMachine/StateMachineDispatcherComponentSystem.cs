@@ -30,14 +30,14 @@ namespace ET
         {
             public override void Destroy(StateMachineDispatcherComponent self)
             {
-                self.StateHandlers.Clear();
+                self.StateDictionary.Clear();
                 StateMachineDispatcherComponent.Instance = null;
             }
         }
         
         public static void Load(this StateMachineDispatcherComponent self)
         {
-            self.StateHandlers.Clear();
+            self.StateDictionary.Clear();
             
             var types = Game.EventSystem.GetTypes(typeof(StateMachineAttribute));
             foreach (Type type in types)
@@ -50,7 +50,7 @@ namespace ET
                     continue;
                 }
                 var att = type.GetCustomAttribute(typeof(StateMachineAttribute)) as StateMachineAttribute;
-                self.StateHandlers.Add(att.SelfState, state);
+                self.StateDictionary.Add(att.SelfState, state);
             }
         }
     }

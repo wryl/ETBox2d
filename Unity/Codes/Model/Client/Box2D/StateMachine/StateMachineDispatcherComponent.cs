@@ -7,6 +7,6 @@ namespace ET
     {
         public static StateMachineDispatcherComponent Instance;
         
-        public Dictionary<CharacterConditions, StateMachineState> StateHandlers = new Dictionary<CharacterConditions, StateMachineState>();
+        public Dictionary<CharacterMovementStates, StateMachineState> StateDictionary = new Dictionary<CharacterMovementStates, StateMachineState>();
     }
 }

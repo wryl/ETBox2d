@@ -90,5 +90,9 @@ namespace ET
         {
             
         }
+        public struct UnitChangeAnmi
+        {
+            public CharacterMovementStates MovementStates;
+        }
     }
 }
