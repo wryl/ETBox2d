@@ -41,22 +41,26 @@ namespace ET.Client
                     self.DirectionLeft = true;
                     Game.EventSystem.Publish(self.MyUnit2D, new EventType.CharacterChangeFace() { FaceRight = self.DirectionLeft });
                 }
-                if (self.MyUnit2D.GetComponent<CharacterDashComponent>()!=null)
-                {
-                    if (self.DirectionLeft)
-                    {
-                        dir.X -= self.MyUnit2D.GetComponent<CharacterDashComponent>().GetValue();
-                    }
-                    else
-                    {
-                        dir.X += self.MyUnit2D.GetComponent<CharacterDashComponent>().GetValue();
-                    }
-                }
-                if (self.MyUnit2D.GetComponent<CharacterJumpComponent>()!=null)
-                {
-                    dir.Y += self.MyUnit2D.GetComponent<CharacterJumpComponent>().GetValue();
-                }
 
+                switch (self.MyUnit2D.GetComponent<StateMachine2D>().CurrentState)
+                {
+                    case CharacterMovementStates.Dashing:
+                        if (self.MyUnit2D.GetComponent<CharacterDashComponent>()!=null)
+                        {
+                            if (self.DirectionLeft)
+                            {
+                                dir.X -= self.MyUnit2D.GetComponent<CharacterDashComponent>().GetValue();
+                            }
+                            else
+                            {
+                                dir.X += self.MyUnit2D.GetComponent<CharacterDashComponent>().GetValue();
+                            }
+                        }
+                        break;
+                    case CharacterMovementStates.Jumping:
+                        dir.Y += self.MyUnit2D.GetComponent<CharacterJumpComponent>().GetValue();
+                        break;
+                }
                 if (self.MyUnit2D.GetComponent<CharacterGravityComponent>()!=null)
                 {
                     dir.Y += self.MyUnit2D.GetComponent<CharacterGravityComponent>().speed;

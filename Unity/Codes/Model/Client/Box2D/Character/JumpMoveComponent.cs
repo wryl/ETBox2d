@@ -5,7 +5,7 @@
     /// 主要作用是给父节点计算出要额外附加的速度
     /// </summary>
     [ComponentOf(typeof(Unit2D))]
-    public class CharacterJumpComponent: Entity,IAwake
+    public class CharacterJumpComponent: Entity,IAwake,IUpdate
     {
         public bool IsRunning { get; set; }
         public bool IsStoring { get; set; }
@@ -17,6 +17,7 @@
         public int MaxJumpHold { get; set; }
         public long StartTime { get; set; }
         public long EndTime { get; set; }
+        public long JumpNum { get; set; }
         public ETCancellationToken Token { get; set; }
     }
 }

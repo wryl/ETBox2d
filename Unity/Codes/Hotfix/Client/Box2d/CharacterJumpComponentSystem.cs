@@ -13,22 +13,36 @@ namespace ET
                 self.BaseSpeed = 10;
                 self.MinJumpHold = 50;
                 self.MaxJumpHold = 240;
+                self.JumpNum = 1;
+            }
+        }
+        public class CharacterJumpComponentUpdateSystem: UpdateSystem<CharacterJumpComponent>
+        {
+            public override void Update(CharacterJumpComponent self)
+            {
+                //self.Domain.GetComponent<Box2dWorldComponent>().World.RayCast()
             }
         }
         public static async ETTask StartJumpStore(this CharacterJumpComponent self)
         {
+            if (self.JumpNum<0)
+            {
+                return;
+            }
             if (self.IsRunning)
             {
                 return;
             }
-            //Game.EventSystem.Publish(self.GetParent<Unit2D>(),new EventType.UnitDashStart());
+            if (!self.Parent.GetComponent<StateMachine2D>().ChangeState(CharacterMovementStates.Jumping))
+            {
+                return;
+            }
             self.Token = new ETCancellationToken();
             self.IsRunning = true;
             self.StartTime = TimeHelper.ClientNow();
             if (await TimerComponent.Instance.WaitAsync(self.MaxJumpHold, self.Token))
             {
                 self.EndJump().Coroutine();
-                //Game.EventSystem.Publish(self.GetParent<Unit2D>(),new EventType.UnitDashEnd());
             }
         }
 
@@ -40,6 +54,7 @@ namespace ET
             if (gotime<self.MinJumpHold)
             {
                 await TimerComponent.Instance.WaitAsync(self.MinJumpHold);
+                self.Parent.GetComponent<StateMachine2D>().ChangeState(CharacterMovementStates.Idle);
                 self.IsRunning = false;
             }
             else
@@ -59,9 +74,12 @@ namespace ET
             {
                 return;
             }
-            //Game.EventSystem.Publish(self.GetParent<Unit2D>(),new EventType.UnitDashStart());
             self.Token?.Cancel();
             self.EndJump().Coroutine();
+        }
+        public static void RestoreJumpNum(this CharacterJumpComponent self)
+        {
+            self.JumpNum = 1;
         }
         public static float GetValue(this CharacterJumpComponent self)
         {

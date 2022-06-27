@@ -13,17 +13,18 @@
         }
         public static async ETTask StartDash(this CharacterDashComponent self)
         {
-            if (self.IsRunning)
+
+            if (!self.Parent.GetComponent<StateMachine2D>().ChangeState(CharacterMovementStates.Dashing))
             {
                 return;
             }
-            Game.EventSystem.Publish(self.GetParent<Unit2D>(),new EventType.UnitDashStart());
+
             self.Token = new ETCancellationToken();
             self.IsRunning = true;
             if (await TimerComponent.Instance.WaitAsync(200, self.Token))
             {
+                self.Parent.GetComponent<StateMachine2D>().ChangeState(CharacterMovementStates.Idle);
                 self.IsRunning = false;
-                Game.EventSystem.Publish(self.GetParent<Unit2D>(),new EventType.UnitDashEnd());
             }
         }
 

@@ -54,25 +54,19 @@ namespace ET.Client
             }
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                self.MyUnit2D.GetComponent<StateMachine2D>().ChangeState(CharacterMovementStates.Dashing);
-                //self.MyUnit2D.GetComponent<CharacterDashComponent>().StartDash().Coroutine();
+                self.MyUnit2D.GetComponent<CharacterDashComponent>().StartDash().Coroutine();
             }
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                self.MyUnit2D.GetComponent<StateMachine2D>().ChangeState(CharacterMovementStates.Jumping);
-
                 self.MyUnit2D.GetComponent<CharacterJumpComponent>().StartJumpStore().Coroutine();
-                //self.Jump = true;
             }
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 self.MyUnit2D.GetComponent<CharacterJumpComponent>().EndJumpStore();
-                //self.Jump = true;
             }
             if (Input.GetKeyDown(KeyCode.J))
             {
                 self.MyUnit2D.GetComponent<CharacterAttackComponent>().StartAtack().Coroutine();
-                //self.Jump = true;
             }
         }
     }

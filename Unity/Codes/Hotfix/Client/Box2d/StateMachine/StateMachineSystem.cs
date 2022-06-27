@@ -13,21 +13,21 @@ namespace ET
                 self.TriggerEvents = true;
             }
         }
-        public static void ChangeState(this StateMachine2D self, CharacterMovementStates newState)
+        public static bool ChangeState(this StateMachine2D self, CharacterMovementStates newState)
         {
             if (newState.Equals(self.CurrentState))
             {
-                return;
+                return false;
             }
             StateMachineDispatcherComponent.Instance.StateDictionary.TryGetValue(newState, out var enterstate);
             if (enterstate == null)
             {
                 Log.Error($"not found state:{self.CurrentState}");
-                return;
+                return false;
             }
             if (!enterstate.CheckBeforeEnter(self))
             {
-                return;
+                return false;
             }
             self.PreviousState = self.CurrentState;
             self.CurrentState = newState;
@@ -40,6 +40,7 @@ namespace ET
             StateMachineDispatcherComponent.Instance.StateDictionary.TryGetValue(self.PreviousState, out StateMachineState exitstate);
             exitstate.OnExit(self);
             enterstate.OnEnter(self);
+            return true;
         }
     }
 }
