@@ -10,10 +10,9 @@ namespace ET
 
         public UnitType Type { get; set; }
 
-        [BsonElement]
+        [BsonIgnore]
         private Vector3 position; //坐标
         [BsonIgnore]
-
         public Vector3 LastPosition
         {
             get => this.lastPosition;
@@ -38,8 +37,7 @@ namespace ET
             set => this.angle = value;
         }
 
-        [BsonElement]
-
+        [BsonIgnore]
         private Vector3 lastPosition;
         private float angle;
 

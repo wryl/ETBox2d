@@ -5,7 +5,7 @@ using Vector2 = System.Numerics.Vector2;
 namespace ET
 {
 	[ComponentOf(typeof (Unit2D))]
-	public class RayCastDownComponent : Entity, IAwake, IUpdate, IDestroy
+	public class RayCastDownComponent : Entity, IAwake, IFixedUpdate, IDestroy
 	{
 		public Unit2D ParentUnit;
 		public Body Body;

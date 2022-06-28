@@ -30,13 +30,14 @@ namespace ET
             {
                 return false;
             }
+            Log.Debug("ChangeState"+newState.ToString());
             self.PreviousState = self.CurrentState;
             self.CurrentState = newState;
             self.OnStateChange?.Invoke();
             if (self.TriggerEvents)
             {
                 // 变更动画事件
-                Game.EventSystem.Publish(self, new UnitChangeAnmi(){MovementStates = self.CurrentState});
+                Game.EventSystem.Publish(self.GetParent<Unit2D>(), new UnitChangeAnmi(){MovementStates = self.CurrentState});
             }
             StateMachineDispatcherComponent.Instance.StateDictionary.TryGetValue(self.PreviousState, out StateMachineState exitstate);
             exitstate.OnExit(self);

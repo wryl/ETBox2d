@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 
 namespace ET.Server
 {
@@ -10,6 +11,7 @@ namespace ET.Server
             await ETTask.CompletedTask;
             Unit2DComponent unitComponent = scene.GetComponent<Unit2DComponent>();
             Unit2D unit = request.Unit;
+            unit.Position = new Vector3(RandomHelper.RandomNumber(-2,4), 5, 0);
             unitComponent.AddChild(unit);
             foreach (Entity entity in request.Entitys)
             {

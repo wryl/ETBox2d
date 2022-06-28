@@ -4,16 +4,13 @@ using ET.EventType;
 
 namespace ET
 {
-    [StateMachine(CharacterMovementStates.Running)]
-    public class StateMachineState_Run:StateMachineState
+    [StateMachine(CharacterMovementStates.Falling)]
+    public class StateMachineState_Falling:StateMachineState
     {
         public override bool CheckBeforeEnter(StateMachine2D stateMachine)
         {
             if (stateMachine.CurrentState is 
-                CharacterMovementStates.Dashing or 
-                CharacterMovementStates.Jumping or 
-                CharacterMovementStates.Falling
-                )
+                CharacterMovementStates.Dashing or CharacterMovementStates.Jumping)
             {
                 return false;
             }

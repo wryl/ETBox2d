@@ -14,11 +14,11 @@ namespace ET
                 self.ClosestGroundCallback = new RayCastClosestGroundCallback();
                 self.World = self.DomainScene().GetComponent<Box2dWorldComponent>().World;
                 self.Body = self.ParentUnit.GetComponent<Body2dComponent>().Body;
-                self.DownPosition = new Vector2(0, 0.25f);
-                self.TargetPosition = new Vector2(0, 0.28f);
+                self.DownPosition = new Vector2(0, 0.45f);
+                self.TargetPosition = new Vector2(0, 0.517f);
             }
         }
-        public class RayCastDwonComponentDestroySystem : DestroySystem<RayCastDownComponent>
+        public class RayCastDownComponentDestroySystem : DestroySystem<RayCastDownComponent>
         {
             public override void Destroy(RayCastDownComponent self)
             {
@@ -27,9 +27,9 @@ namespace ET
                 self.World = null;
             }
         }
-        public class RayCastDwonComponentUpdateSystem : UpdateSystem<RayCastDownComponent>
+        public class RayCastDwonComponentUpdateSystem : FixedUpdateSystem<RayCastDownComponent>
         {
-            public override void Update(RayCastDownComponent self)
+            public override void FixedUpdate(RayCastDownComponent self)
             {
                 self.Update();
             }
@@ -37,12 +37,16 @@ namespace ET
         public static void Update(this RayCastDownComponent self)
         {
             self.ClosestGroundCallback.Hit = false;
-            self.World.RayCast(self.ClosestGroundCallback,self.Body.GetPosition()-new Vector2(0,0),self.Body.GetPosition()-new Vector2(0,0.52f));
+            self.World.RayCast(self.ClosestGroundCallback,self.Body.GetPosition()-self.DownPosition,self.Body.GetPosition()-self.TargetPosition);
             bool lastState = self.ParentUnit.GetComponent<Controller2DComponent>().IsGround;
             self.ParentUnit.GetComponent<Controller2DComponent>().IsGround = self.ClosestGroundCallback.Hit;
-            Log.Debug("射线状态"+self.ClosestGroundCallback.Hit);
-
-            if (lastState==false&&self.ClosestGroundCallback.Hit==true)
+            //Log.Debug("射线状态"+self.ClosestGroundCallback.Hit);
+            // if (lastState==false&&self.ClosestGroundCallback.Hit==true)
+            // {
+            //     Log.Debug("重置跳跃");
+            //     self.ParentUnit.GetComponent<CharacterJumpComponent>().RestoreJumpNum();
+            // }
+            if (self.ClosestGroundCallback.Hit)
             {
                 Log.Debug("重置跳跃");
                 self.ParentUnit.GetComponent<CharacterJumpComponent>().RestoreJumpNum();
