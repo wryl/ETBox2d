@@ -25,7 +25,7 @@ namespace ET
         }
         public static async ETTask StartJumpStore(this CharacterJumpComponent self)
         {
-            if (self.JumpNum<0)
+            if (self.JumpNum<=0)
             {
                 return;
             }
@@ -39,6 +39,7 @@ namespace ET
             }
             self.Token = new ETCancellationToken();
             self.IsRunning = true;
+            self.JumpNum--;
             self.StartTime = TimeHelper.ClientNow();
             if (await TimerComponent.Instance.WaitAsync(self.MaxJumpHold, self.Token))
             {
@@ -59,6 +60,7 @@ namespace ET
             }
             else
             {
+                self.Parent.GetComponent<StateMachine2D>().ChangeState(CharacterMovementStates.Idle);
                 self.IsRunning = false;
             }
         }

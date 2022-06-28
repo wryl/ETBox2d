@@ -12,7 +12,7 @@ namespace ET.Client
             string prefabname = "Unit"+ $"{unit.ConfigId:D3}";
             GameObject bundleGameObject = (GameObject) ResourcesComponent.Instance.GetAsset("Unit.unity3d", prefabname);
             GameObject go = UnityEngine.Object.Instantiate(bundleGameObject, GlobalComponent.Instance.Unit, true);
-            go.transform.position = unit.Position;
+            go.transform.position =new Vector3(unit.Position.X,unit.Position.Y,unit.Position.Z);
             unit.AddComponent<GameObjectComponent>().GameObject = go;
             //unit.AddComponent<AnimatorComponent>();
             await ETTask.CompletedTask;

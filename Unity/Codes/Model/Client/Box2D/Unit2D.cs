@@ -1,5 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using UnityEngine;
+﻿using System.Numerics;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace ET
 {
@@ -12,6 +12,7 @@ namespace ET
 
         [BsonElement]
         private Vector3 position; //坐标
+        [BsonIgnore]
 
         public Vector3 LastPosition
         {
@@ -37,7 +38,8 @@ namespace ET
             set => this.angle = value;
         }
 
-       
+        [BsonElement]
+
         private Vector3 lastPosition;
         private float angle;
 

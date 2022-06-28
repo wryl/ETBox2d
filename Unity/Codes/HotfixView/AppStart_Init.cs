@@ -24,6 +24,7 @@ namespace ET.Client
             Game.Scene.AddComponent<GlobalComponent>();
             Game.Scene.AddComponent<NumericWatcherComponent>();
             Game.Scene.AddComponent<AIDispatcherComponent>();
+            Game.Scene.AddComponent<StateMachineDispatcherComponent>();
             await ResourcesComponent.Instance.LoadBundleAsync("unit.unity3d");
             
             Scene clientScene = Client.SceneFactory.CreateClientScene(1, "Game", Game.Scene);

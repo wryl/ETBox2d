@@ -17,7 +17,7 @@ namespace ET.Server
 			Scene scene = gateMapComponent.Scene;
 			
 			// 这里可以从DB中加载Unit
-			Unit2D unit = Server.UnitFactory.Create2D(scene, player.Id, UnitType.Player);
+			Unit2D unit = Server.Unit2DHelper.Create2D(scene, player.Id, UnitType.Player);
 			unit.AddComponent<UnitGateComponent, long>(session.InstanceId);
 			StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "Box2dWorld1");
 			response.MyId = unit.Id;

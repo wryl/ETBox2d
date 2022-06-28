@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using System.Numerics;
 
 namespace ET.Client
 {
@@ -40,7 +41,7 @@ namespace ET.Client
 	        }
 	        unit.AddComponent<ObjectWait>();
 	        unit.AddComponent<EntitySyncComponent>();
-	        
+	        unit.AddComponent<StateMachine2D>();
 	        unit.AddComponent<Controller2DComponent>();
 	        unit.AddComponent<CharacterDashComponent>();
 	        unit.AddComponent<CharacterhorizontalMoveComponent>();
@@ -50,6 +51,7 @@ namespace ET.Client
 	        var body2d=unit.AddComponent<Body2dComponent>();
 	        body2d.IsBeForce = true;
 	        body2d.CreateBody(0.2f,0.5f);
+	        unit.AddComponent<RayCastDownComponent>();
 	        Game.EventSystem.Publish(unit, new EventType.AfterUnitCreate2DMyself());
 	        Game.EventSystem.Publish(unit, new EventType.AfterUnitCreate2D());
 	        return unit;

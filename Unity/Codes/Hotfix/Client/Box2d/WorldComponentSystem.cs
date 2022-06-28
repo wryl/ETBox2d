@@ -46,7 +46,7 @@ namespace ET
                 self.World.AllowSleep = false;
                 self.World.SetContactListener(new Box2dWorldContactListener(self));
                 var groundBodyDef = new BodyDef {BodyType = BodyType.StaticBody};
-                groundBodyDef.Position.Set(0.0f, -5f);
+                groundBodyDef.Position.Set(0.0f, -1f);
                 var groundBody = self.World.CreateBody(groundBodyDef);
                 var groundBox = new PolygonShape();
                 groundBox.SetAsBox(1000.0f, 1.0f);

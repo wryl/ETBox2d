@@ -1,6 +1,6 @@
-using System.Collections.Generic;
-using System.Threading;
-using UnityEngine;
+
+
+using System.Numerics;
 
 namespace ET.Client
 {
@@ -40,8 +40,8 @@ namespace ET.Client
 				unit.LastPosition = p;
 				var msg = new C2B_OnSelfEntityChanged();
 				msg.Id = self.Id;
-				msg.X = (int)(p.x * 100);
-				msg.Y = (int)(p.y * 100);
+				msg.X = (int)(p.X * 100);
+				msg.Y = (int)(p.Y * 100);
 				msg.AngleY = (int) unit.Angle * 100;
 				unit.ClientScene().GetComponent<SessionComponent>().Session.Send(msg);
 			}

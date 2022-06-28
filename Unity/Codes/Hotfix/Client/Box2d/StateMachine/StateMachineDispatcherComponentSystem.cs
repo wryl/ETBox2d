@@ -40,6 +40,7 @@ namespace ET
             self.StateDictionary.Clear();
             
             var types = Game.EventSystem.GetTypes(typeof(StateMachineAttribute));
+            Log.Debug("StateMachineAttribute"+types.Count.ToString());
             foreach (Type type in types)
             { 
                 

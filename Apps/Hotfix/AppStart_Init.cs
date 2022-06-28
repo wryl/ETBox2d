@@ -28,6 +28,7 @@ namespace ET
             Game.Scene.AddComponent<NumericWatcherComponent>();
             
             Game.Scene.AddComponent<AIDispatcherComponent>();
+            Game.Scene.AddComponent<StateMachineDispatcherComponent>();
 
             #region 机器人使用
 

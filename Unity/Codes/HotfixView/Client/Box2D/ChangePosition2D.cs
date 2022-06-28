@@ -7,14 +7,13 @@ namespace ET.Client
     {
         protected override async ETTask Run(Unit2D unit, ET.EventType.ChangePosition2D args)
         {
-            Vector3 oldPos = args.OldPos;
             GameObjectComponent gameObjectComponent = unit.GetComponent<GameObjectComponent>();
             if (gameObjectComponent == null)
             {
                 return;
             }
             Transform transform = gameObjectComponent.GameObject.transform;
-            transform.position = unit.Position;
+            transform.position = new Vector3(unit.Position.X,unit.Position.Y,unit.Position.Z);
             await ETTask.CompletedTask;
         }
     }

@@ -11,6 +11,7 @@ namespace ET
             public override void Awake(StateMachine2D self)
             {
                 self.TriggerEvents = true;
+                self.CurrentState = CharacterMovementStates.Idle;
             }
         }
         public static bool ChangeState(this StateMachine2D self, CharacterMovementStates newState)
@@ -22,7 +23,7 @@ namespace ET
             StateMachineDispatcherComponent.Instance.StateDictionary.TryGetValue(newState, out var enterstate);
             if (enterstate == null)
             {
-                Log.Error($"not found state:{self.CurrentState}");
+                Log.Error($"not found state:{newState}");
                 return false;
             }
             if (!enterstate.CheckBeforeEnter(self))

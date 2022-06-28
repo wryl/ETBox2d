@@ -1,6 +1,5 @@
-using System.Collections.Generic;
-using System.Threading;
-using UnityEngine;
+
+using System.Numerics;
 
 namespace ET.Server
 {
@@ -40,8 +39,8 @@ namespace ET.Server
 				transform.LastPosition = p;
 				var msg = new B2C_OnEntityChanged();
 				msg.Id = self.Id;
-				msg.X = (int)(p.x * 100);
-				msg.Y = (int)(p.y * 100);
+				msg.X = (int)(p.X * 100);
+				msg.Y = (int)(p.Y * 100);
 				MessageHelper.BroadcastToAllNotSelf(self.Domain, self.Id, msg);
 			}
 		}
