@@ -42,20 +42,23 @@ namespace ET.Client
                     self.DirectionLeft = true;
                     Game.EventSystem.Publish(self.MyUnit2D, new EventType.CharacterChangeFace() { FaceRight = self.DirectionLeft });
                 }
-
+                
                 if (!self.IsGround)
                 {
                     self.MyUnit2D.GetComponent<StateMachine2D>().ChangeState(CharacterMovementStates.Falling);
-                }
-                else
-                {
-                    self.MyUnit2D.GetComponent<StateMachine2D>().ChangeState(CharacterMovementStates.Idle);
+
                 }
                 if (self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>()?.IsRunning==true)
                 {
                     self.MyUnit2D.GetComponent<StateMachine2D>().ChangeState(CharacterMovementStates.Running);
                 }
-                
+                else
+                {
+                    if (self.MyUnit2D.GetComponent<StateMachine2D>().CurrentState==CharacterMovementStates.Running)
+                    {
+                        self.MyUnit2D.GetComponent<StateMachine2D>().ChangeState(CharacterMovementStates.Idle);
+                    }
+                }
                 switch (self.MyUnit2D.GetComponent<StateMachine2D>().CurrentState)
                 {
                     case CharacterMovementStates.Dashing:
@@ -74,7 +77,7 @@ namespace ET.Client
                     case CharacterMovementStates.Jumping:
                         dir.Y += self.MyUnit2D.GetComponent<CharacterJumpComponent>().GetValue();
                         break;
-                    default:
+                    case CharacterMovementStates.Falling:
                         if (self.MyUnit2D.GetComponent<CharacterGravityComponent>()!=null)
                         {
                             dir.Y += self.MyUnit2D.GetComponent<CharacterGravityComponent>().speed;
