@@ -43,6 +43,7 @@ namespace ET.Client
 				msg.X = (int)(p.X * 100);
 				msg.Y = (int)(p.Y * 100);
 				msg.AngleY = (int) unit.Angle * 100;
+				msg.CharacterStates =(int)unit.GetComponent<StateMachine2D>().CurrentState;
 				unit.ClientScene().GetComponent<SessionComponent>().Session.Send(msg);
 			}
 		}

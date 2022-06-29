@@ -18,6 +18,7 @@ namespace ET.Client
 		        numericComponent.Set(unitInfo.Ks[i], unitInfo.Vs[i]);
 	        }
 	        unit.AddComponent<ObjectWait>();
+	        unit.AddComponent<StateMachine2D>();
 	        var body2d=unit.AddComponent<Body2dComponent>();
 	        body2d.IsBeForce = IsBeForce;
 	        body2d.CreateBody(0.2f,0.5f);
@@ -53,6 +54,36 @@ namespace ET.Client
 	        body2d.CreateBody(0.2f,0.5f);
 	        unit.AddComponent<RayCastDownComponent>();
 	        Game.EventSystem.Publish(unit, new EventType.AfterUnitCreate2DMyself());
+	        Game.EventSystem.Publish(unit, new EventType.AfterUnitCreate2D());
+	        return unit;
+        }
+        public static Unit2D CreateUnit2D(Scene currentScene, UnitInfo unitInfo,bool IsForce,bool IsSelf)
+        {
+	        Unit2DComponent unitComponent = currentScene.GetComponent<Unit2DComponent>();
+	        Unit2D unit = unitComponent.AddChildWithId<Unit2D, int>(unitInfo.UnitId, unitInfo.ConfigId);
+	        unit.Position = new Vector3(unitInfo.X, unitInfo.Y, unitInfo.Z);
+	        NumericComponent numericComponent = unit.AddComponent<NumericComponent>();
+	        for (int i = 0; i < unitInfo.Ks.Count; ++i)
+	        {
+		        numericComponent.Set(unitInfo.Ks[i], unitInfo.Vs[i]);
+	        }
+	        unit.AddComponent<ObjectWait>();
+	        unit.AddComponent<StateMachine2D>();
+	        unit.AddComponent<Controller2DComponent>();
+	        var body2d=unit.AddComponent<Body2dComponent>();
+	        body2d.IsBeForce = IsForce;
+	        body2d.CreateBody(0.2f,0.5f);
+	        if (IsSelf)
+	        {
+		        unit.AddComponent<RayCastDownComponent>();
+		        unit.AddComponent<CharacterGravityComponent>();
+		        unit.AddComponent<CharacterJumpComponent>();
+		        unit.AddComponent<CharacterDashComponent>();
+		        unit.AddComponent<CharacterhorizontalMoveComponent>();
+		        unit.AddComponent<CharacterAttackComponent>();
+		        unit.AddComponent<EntitySyncComponent>();
+		        Game.EventSystem.Publish(unit, new EventType.AfterUnitCreate2DMyself());
+	        }
 	        Game.EventSystem.Publish(unit, new EventType.AfterUnitCreate2D());
 	        return unit;
         }

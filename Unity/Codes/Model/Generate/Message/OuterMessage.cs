@@ -561,6 +561,9 @@ namespace ET
 		[ProtoMember(12)]
 		public int AngleY { get; set; }
 
+		[ProtoMember(13)]
+		public int CharacterStates { get; set; }
+
 	}
 
 	[Message(OuterOpcode.B2C_OnEntityChanged)]
@@ -581,6 +584,9 @@ namespace ET
 
 		[ProtoMember(12)]
 		public int AngleY { get; set; }
+
+		[ProtoMember(13)]
+		public int CharacterStates { get; set; }
 
 	}
 

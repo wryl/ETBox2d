@@ -41,6 +41,7 @@ namespace ET.Server
 				msg.Id = self.Id;
 				msg.X = (int)(p.X * 100);
 				msg.Y = (int)(p.Y * 100);
+				msg.CharacterStates = (int)transform.GetComponent<StateMachine2D>().CurrentState;
 				MessageHelper.BroadcastToAllNotSelf(self.Domain, self.Id, msg);
 			}
 		}

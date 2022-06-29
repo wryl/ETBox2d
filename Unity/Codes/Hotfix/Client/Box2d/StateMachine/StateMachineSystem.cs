@@ -14,7 +14,7 @@ namespace ET
                 self.CurrentState = CharacterMovementStates.Idle;
             }
         }
-        public static bool ChangeState(this StateMachine2D self, CharacterMovementStates newState)
+        public static bool ChangeState(this StateMachine2D self, CharacterMovementStates newState,bool Check=true)
         {
             if (newState.Equals(self.CurrentState))
             {
@@ -26,14 +26,18 @@ namespace ET
                 Log.Error($"not found state:{newState}");
                 return false;
             }
-            if (!enterstate.CheckBeforeEnter(self))
+
+            if (Check)
             {
-                return false;
+                if (!enterstate.CheckBeforeEnter(self))
+                {
+                    return false;
+                }
             }
+
             Log.Debug("ChangeState"+newState.ToString());
             self.PreviousState = self.CurrentState;
             self.CurrentState = newState;
-            self.OnStateChange?.Invoke();
             if (self.TriggerEvents)
             {
                 // 变更动画事件

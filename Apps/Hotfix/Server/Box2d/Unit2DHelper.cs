@@ -37,6 +37,7 @@ namespace ET.Server
                     NumericComponent numericComponent = unit.AddComponent<NumericComponent>();
                     numericComponent.Set(NumericType.Speed, 6f); // 速度是6米每秒
                     unit.AddComponent<ServerEntitySyncComponent>();
+                    unit.AddComponent<StateMachine2D>();
                     return unit;
                 }
                 case UnitType.Monster:
