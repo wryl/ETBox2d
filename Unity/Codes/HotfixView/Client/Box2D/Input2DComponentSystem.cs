@@ -36,19 +36,11 @@ namespace ET.Client
             {
                 self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed = -3;
                 self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().IsRunning = true;
-                // self.Parent.GetComponent<Body2dComponent>().Body.SetLinearVelocity(new Vector2(-1,self.Parent.GetComponent<Body2dComponent>().Body.LinearVelocity.Y));
-                //  gameObject.GetComponent<SPUM_Prefabs>().PlayAnimation(1);
-                //  gameObject.transform.localScale = new Vector3(1,1,1);
             }
             else if (Input.GetKey(KeyCode.D))
             {
                 self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed = 3;
                 self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().IsRunning = true;
-
-                // self.Parent.GetComponent<Body2dComponent>().Body.SetLinearVelocity(new Vector2(1,self.Parent.GetComponent<Body2dComponent>().Body.LinearVelocity.Y));
-                // gameObject.GetComponent<SPUM_Prefabs>().PlayAnimation(1);
-                // gameObject.transform.localScale = new Vector3(-1,1,1);
-
             }
             else
             {
