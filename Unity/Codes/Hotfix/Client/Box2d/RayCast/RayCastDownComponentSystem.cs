@@ -47,11 +47,6 @@ namespace ET
                 self.ParentUnit.GetComponent<CharacterJumpComponent>().RestoreJumpNum();
                 self.ParentUnit.GetComponent<StateMachine2D>().ChangeState(CharacterMovementStates.Idle);
             }
-            // if (self.ClosestGroundCallback.Hit)
-            // {
-            //     //Log.Debug(self.ClosestGroundCallback.Point.ToString());
-            //     self.ParentUnit.GetComponent<CharacterJumpComponent>().RestoreJumpNum();
-            // }
         }
     }
 }
