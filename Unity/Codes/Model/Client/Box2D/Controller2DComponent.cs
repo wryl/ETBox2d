@@ -12,5 +12,6 @@ namespace ET.Client
         public bool DirectionLeft { get; set; }
         public bool IsGround { get; set; }
         public CmdType CurrCmdType { get; set; }
+        public CmdType LastCmdType { get; set; }
     }
 }

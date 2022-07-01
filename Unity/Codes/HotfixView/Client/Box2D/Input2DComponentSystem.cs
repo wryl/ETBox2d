@@ -36,10 +36,12 @@ namespace ET.Client
             {
                 cmdType |= CmdType.A;
             }
-            else if (Input.GetKey(KeyCode.D))
+
+            if (Input.GetKey(KeyCode.D))
             {
                 cmdType |= CmdType.D;
             }
+
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 cmdType |= CmdType.LeftShift;

@@ -69,7 +69,7 @@ namespace ET.Client
                 self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed = 3;
                 self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().IsRunning = true;
             }
-            else
+            else if(self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().IsRunning)
             {
                 self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed = 0;
                 self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().IsRunning = false;
@@ -158,7 +158,10 @@ namespace ET.Client
 
         public static void SyncCmd(this Controller2DComponent self)
         {
-            self.MyUnit2D.GetComponent<EntitySyncComponent>()?.SyncToServer((int)self.CurrCmdType);
+            if (self.CurrCmdType!=CmdType.Idle)
+            {
+                self.MyUnit2D.GetComponent<EntitySyncComponent>()?.SyncToServer((int)self.CurrCmdType);
+            }
         }
 
         public static void CleanAfterUpdate(this Controller2DComponent self)

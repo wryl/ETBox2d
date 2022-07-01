@@ -11,7 +11,8 @@ namespace ET.Server
             // unit.GetComponent<StateMachine2D>().CurrentState = (CharacterMovementStates) message.CharacterStates;
             var msg = new B2C_OnEntityChanged();
             msg.CharacterCMD = message.CharacterCMD;
-            MessageHelper.BroadcastToAllNotSelf(unit.Domain, message.Id, msg);
+            msg.Id = unit.Id;
+            MessageHelper.BroadcastToAllNotSelf(unit.Domain, unit.Id, msg);
             await ETTask.CompletedTask;
         }
 
