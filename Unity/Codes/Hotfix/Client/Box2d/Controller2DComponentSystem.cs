@@ -6,7 +6,9 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace ET.Client
 {
-    [FriendOf(typeof(Controller2DComponent))]
+    [FriendOf(typeof(Controller2DComponent))]    
+    [FriendOf(typeof(CharacterhorizontalMoveComponent))]
+
     public static class Controller2DComponentSystem
     {
         [ObjectSystem]
@@ -19,13 +21,20 @@ namespace ET.Client
             }
         }
 
-        [FriendOfAttribute(typeof(ET.CharacterhorizontalMoveComponent))]
-        [FriendOfAttribute(typeof(ET.CharacterGravityComponent))]
-        public class Controller2DComponentUpdateSystem : UpdateSystem<Controller2DComponent>
+        public class Controller2DComponentUpdate: UpdateSystem<Controller2DComponent>
         {
             public override void Update(Controller2DComponent self)
             {
+                self.CmdSet();
+            }
+        }
 
+        [FriendOfAttribute(typeof(ET.CharacterhorizontalMoveComponent))]
+        [FriendOfAttribute(typeof(ET.CharacterGravityComponent))]
+        public class Controller2DComponentFixedUpdate : FixedUpdateSystem<Controller2DComponent>
+        {
+            public override void FixedUpdate(Controller2DComponent self)
+            {
                 Vector2 dir = Vector2.Zero;
                 if (self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>()!=null)
                 {
@@ -88,7 +97,43 @@ namespace ET.Client
                 self.MyUnit2D.GetComponent<Body2dComponent>().Body.SetLinearVelocity(dir);
             }
         }
-
-
+        /// <summary>
+        /// 根据操作调整各项组件
+        /// </summary>
+        /// <param name="self"></param>
+        public static void CmdSet(this Controller2DComponent self)
+        {
+            if ((self.CurrCmdType&CmdType.A)==CmdType.A)
+            {
+                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed = -3;
+                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().IsRunning = true;
+            }
+            else if ((self.CurrCmdType&CmdType.D)==CmdType.D)
+            {
+                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed = 3;
+                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().IsRunning = true;
+            }
+            else
+            {
+                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed = 0;
+                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().IsRunning = false;
+            }
+            if ((self.CurrCmdType&CmdType.LeftShift)==CmdType.LeftShift)
+            {
+                self.MyUnit2D.GetComponent<CharacterDashComponent>().StartDash().Coroutine();
+            }
+            if ((self.CurrCmdType&CmdType.Space)==CmdType.Space)
+            {
+                self.MyUnit2D.GetComponent<CharacterJumpComponent>().StartJumpStore().Coroutine();
+            }
+            if ((self.CurrCmdType&CmdType.SpaceUp)==CmdType.SpaceUp)
+            {
+                self.MyUnit2D.GetComponent<CharacterJumpComponent>().EndJumpStore();
+            }
+            if ((self.CurrCmdType&CmdType.J)==CmdType.J)
+            {
+                self.MyUnit2D.GetComponent<CharacterAttackComponent>().StartAtack().Coroutine();
+            }
+        }
     }
 }

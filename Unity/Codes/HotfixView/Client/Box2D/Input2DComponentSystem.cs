@@ -31,39 +31,32 @@ namespace ET.Client
 
         public static void Update(this Input2DComponent self)
         {
-            GameObject gameObject = self.Parent.GetComponent<GameObjectComponent>().GameObject;
+            CmdType cmdType = CmdType.Idle;
             if (Input.GetKey(KeyCode.A))
             {
-                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed = -3;
-                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().IsRunning = true;
+                cmdType |= CmdType.A;
             }
             else if (Input.GetKey(KeyCode.D))
             {
-                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed = 3;
-                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().IsRunning = true;
-            }
-            else
-            {
-                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed = 0;
-                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().IsRunning = false;
-
+                cmdType |= CmdType.D;
             }
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                self.MyUnit2D.GetComponent<CharacterDashComponent>().StartDash().Coroutine();
+                cmdType |= CmdType.LeftShift;
             }
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                self.MyUnit2D.GetComponent<CharacterJumpComponent>().StartJumpStore().Coroutine();
+                cmdType |= CmdType.Space;
             }
             if (Input.GetKeyUp(KeyCode.Space))
             {
-                self.MyUnit2D.GetComponent<CharacterJumpComponent>().EndJumpStore();
+                cmdType |= CmdType.SpaceUp;
             }
             if (Input.GetKeyDown(KeyCode.J))
             {
-                self.MyUnit2D.GetComponent<CharacterAttackComponent>().StartAtack().Coroutine();
+                cmdType |= CmdType.J;
             }
+            self.MyUnit2D.GetComponent<Controller2DComponent>().CurrCmdType = cmdType;
         }
     }
 }
