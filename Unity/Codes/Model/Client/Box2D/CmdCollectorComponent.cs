@@ -1,11 +1,38 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ET
 {
     [ComponentOf]
     public class CmdCollectorComponent : Entity, IAwake,IUpdate
     {
-        public CmdType Cmd { get; set; } 
+        public CmdType Cmd { get; set; }
+        public Queue<int> CmdQueue { get; set; } = new Queue<int>();
+
+
+    }
+
+    public static class CmdCollectorSystem
+    {
+        public class CmdCollectorComponentAwakeSystem : AwakeSystem<CmdCollectorComponent>
+        {
+            public override void Awake(CmdCollectorComponent self)
+            {
+               
+            }
+        }
+        public static void AddCmd(this CmdCollectorComponent self, int messageCharacterCmd)
+        {
+            self.CmdQueue.Enqueue(messageCharacterCmd);
+        }
+        public static CmdType GetCmd(this CmdCollectorComponent self)
+        {
+            if (self.CmdQueue.Count>0)
+            {
+                return (CmdType)self.CmdQueue.Dequeue();
+            }
+            return CmdType.Idle;
+        }
     }
 
     [Flags]

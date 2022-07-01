@@ -269,6 +269,9 @@ message C2B_OnSelfEntityChanged // IActorLocationMessage
 	int32 Y = 10;
 	int32 AngleY = 12;
 	int32 CharacterStates = 13;
+	int32 CharacterCMD = 14;
+	uint32 Frame = 15;
+	
 }
 message B2C_OnEntityChanged // IActorMessage
 {
@@ -278,6 +281,8 @@ message B2C_OnEntityChanged // IActorMessage
 	int32 Y = 10;
 	int32 AngleY = 12;
 	int32 CharacterStates = 13;
+	int32 CharacterCMD = 14;
+	uint32 Frame = 15;
 }
 //ResponseType G2C_Enter2D
 message C2G_Enter2D // IRequest

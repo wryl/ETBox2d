@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Numerics;
 using Vector2 = System.Numerics.Vector2;
 
 namespace ET.Server
@@ -16,22 +15,9 @@ namespace ET.Server
                 if (entity.GetComponent<Boss2D>()!=null)
                 {
                     entity.GetComponent<CharacterJumpComponent>().StartJumpStore().Coroutine();
-                    //entity.GetComponent<Body2dComponent>().Body.ApplyForce(new Vector2(0,200),new Vector2(0,0),true);
-                    //entity.GetComponent<Body2dComponent>().Body.ApplyLinearImpulseToCenter(new Vector2(0,1),true);
                 }
             }
             reply();
         }
-    }
-    [ActorMessageHandler(SceneType.Box2dWorld)]
-    public class C2B_OnSelfEntityChangedHandler: AMActorLocationHandler<Unit2D, C2B_OnSelfEntityChanged>
-    {
-        protected override async ETTask Run(Unit2D unit, C2B_OnSelfEntityChanged message)
-        {
-            unit.Position= new Vector3(message.X/100f, message.Y/100f, 0);
-            unit.GetComponent<StateMachine2D>().CurrentState = (CharacterMovementStates) message.CharacterStates;
-            await ETTask.CompletedTask;
-        }
-
     }
 }

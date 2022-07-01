@@ -35,8 +35,6 @@ namespace ET.Client
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            //unit.AddComponent<AnimatorComponent>();
             await ETTask.CompletedTask;
         }
     }

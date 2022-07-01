@@ -564,6 +564,9 @@ namespace ET
 		[ProtoMember(13)]
 		public int CharacterStates { get; set; }
 
+		[ProtoMember(14)]
+		public int CharacterCMD { get; set; }
+
 	}
 
 	[Message(OuterOpcode.B2C_OnEntityChanged)]
@@ -587,6 +590,9 @@ namespace ET
 
 		[ProtoMember(13)]
 		public int CharacterStates { get; set; }
+
+		[ProtoMember(14)]
+		public int CharacterCMD { get; set; }
 
 	}
 

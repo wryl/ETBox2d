@@ -15,7 +15,7 @@ namespace ET.Server
 	{
 		public override void Update(ServerEntitySyncComponent self)
 		{
-			self.Update();
+			//self.Update();
 		}
 	}
 

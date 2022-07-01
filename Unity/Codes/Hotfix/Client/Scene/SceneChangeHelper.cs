@@ -42,7 +42,7 @@
             // 等待CreateMyUnit的消息
             WaitType.Wait_CreateMyUnit2D waitCreateMyUnit = await zoneScene.GetComponent<ObjectWait>().Wait<WaitType.Wait_CreateMyUnit2D>();
             M2C_CreateMyUnit2D m2CCreateMyUnit = waitCreateMyUnit.Message;
-            Unit2D unit = Client.Unit2DFactory.CreateMyUnit2D(currentScene, m2CCreateMyUnit.Unit);
+            Unit2D unit = Client.Unit2DFactory.CreateUnit2D(currentScene, m2CCreateMyUnit.Unit,true);
             Game.EventSystem.Publish(currentScene, new EventType.SceneChangeFinish());
 
             // 通知等待场景切换的协程
