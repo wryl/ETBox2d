@@ -40,10 +40,12 @@ namespace ET
     {
         Idle = 0,
         A= 1<<1,
-        D= 1<<2,
-        LeftShift = 1<<3,
-        Space = 1<<4,
-        SpaceUp = 1<<5,
-        J = 1<<6
+        AUp = 1<<2,
+        D= 1<<3,
+        DUp = 1<<4,
+        LeftShift = 1<<5,
+        Space = 1<<6,
+        SpaceUp = 1<<7,
+        J = 1<<8
     }
 }

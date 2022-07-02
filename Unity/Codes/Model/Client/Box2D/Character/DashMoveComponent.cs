@@ -20,8 +20,10 @@ namespace ET
     [ComponentOf(typeof (Unit2D))]
     public class CharacterhorizontalMoveComponent: Entity, IAwake
     {
+        public bool Left=false;
+        public bool Right=false;
         public bool IsRunning;
-        public float speed;
+        public bool CurrFaceLeft = true;
     }
     /// <summary>
     /// 重力

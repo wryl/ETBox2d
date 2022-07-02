@@ -61,18 +61,19 @@ namespace ET.Client
         {
             if ((self.CurrCmdType&CmdType.A)==CmdType.A)
             {
-                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed = -3;
-                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().IsRunning = true;
+                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().Left=true;
             }
-            else if ((self.CurrCmdType&CmdType.D)==CmdType.D)
+            if ((self.CurrCmdType&CmdType.D)==CmdType.D)
             {
-                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed = 3;
-                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().IsRunning = true;
+                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().Right=true;
             }
-            else if(self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().IsRunning)
+            if ((self.CurrCmdType&CmdType.AUp)==CmdType.AUp)
             {
-                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed = 0;
-                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().IsRunning = false;
+                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().Left=false;
+            }
+            if ((self.CurrCmdType&CmdType.DUp)==CmdType.DUp)
+            {
+                self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().Right=false;
             }
             if ((self.CurrCmdType&CmdType.LeftShift)==CmdType.LeftShift)
             {
@@ -97,17 +98,12 @@ namespace ET.Client
              Vector2 dir = Vector2.Zero;
             if (self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>()!=null)
             {
-                dir.X += self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().speed;
+                dir.X += self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().GetValue();
             }
 
-            if (dir.X > 0)
+            if (self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().CurrFaceLeft!=self.DirectionLeft )
             {
-                self.DirectionLeft = false;
-                Game.EventSystem.Publish(self.MyUnit2D, new EventType.CharacterChangeFace() { FaceRight = self.DirectionLeft });
-            }
-            else if (dir.X < 0)
-            {
-                self.DirectionLeft = true;
+                self.DirectionLeft = self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>().CurrFaceLeft;
                 Game.EventSystem.Publish(self.MyUnit2D, new EventType.CharacterChangeFace() { FaceRight = self.DirectionLeft });
             }
             
@@ -158,9 +154,10 @@ namespace ET.Client
 
         public static void SyncCmd(this Controller2DComponent self)
         {
-            if (self.CurrCmdType!=CmdType.Idle)
+            if (self.CurrCmdType!=CmdType.Idle||self.LastCmdType!=CmdType.Idle)
             {
                 self.MyUnit2D.GetComponent<EntitySyncComponent>()?.SyncToServer((int)self.CurrCmdType);
+                self.LastCmdType = self.CurrCmdType;
             }
         }
 

@@ -28,37 +28,48 @@ namespace ET.Client
             }
         }
 
-
+        public static bool CmdContain(CmdType curr, CmdType target)
+        {
+             return (curr & target) == target;
+        }
         public static void Update(this Input2DComponent self)
         {
-            CmdType cmdType = CmdType.Idle;
-            if (Input.GetKey(KeyCode.A))
+            var currcmdtype = self.MyUnit2D.GetComponent<Controller2DComponent>().CurrCmdType;
+            if (Input.GetKeyDown(KeyCode.A)&&!CmdContain(currcmdtype,CmdType.A))
             {
-                cmdType |= CmdType.A;
+                currcmdtype |= CmdType.A;
             }
 
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.D)&&!CmdContain(currcmdtype,CmdType.D))
             {
-                cmdType |= CmdType.D;
+                currcmdtype |= CmdType.D;
+            }
+            if (Input.GetKeyUp(KeyCode.A)&&!CmdContain(currcmdtype,CmdType.AUp))
+            {
+                currcmdtype |= CmdType.AUp;
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyUp(KeyCode.D)&&!CmdContain(currcmdtype,CmdType.DUp))
             {
-                cmdType |= CmdType.LeftShift;
+                currcmdtype |= CmdType.DUp;
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.LeftShift)&&!CmdContain(currcmdtype,CmdType.LeftShift))
             {
-                cmdType |= CmdType.Space;
+                currcmdtype |= CmdType.LeftShift;
             }
-            if (Input.GetKeyUp(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space)&&!CmdContain(currcmdtype,CmdType.Space))
             {
-                cmdType |= CmdType.SpaceUp;
+                currcmdtype |= CmdType.Space;
             }
-            if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetKeyUp(KeyCode.Space)&&!CmdContain(currcmdtype,CmdType.SpaceUp))
             {
-                cmdType |= CmdType.J;
+                currcmdtype |= CmdType.SpaceUp;
             }
-            self.MyUnit2D.GetComponent<Controller2DComponent>().CurrCmdType = cmdType;
+            if (Input.GetKeyDown(KeyCode.J)&&!CmdContain(currcmdtype,CmdType.J))
+            {
+                currcmdtype |= CmdType.J;
+            }
+            self.MyUnit2D.GetComponent<Controller2DComponent>().CurrCmdType = currcmdtype;
         }
     }
 }
