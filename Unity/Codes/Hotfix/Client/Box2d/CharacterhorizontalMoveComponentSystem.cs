@@ -10,6 +10,7 @@ namespace ET
             public override void Awake(CharacterhorizontalMoveComponent self)
             {
                 self.IsRunning = false;
+                self.speed = 3;
             }
         }
         public static float GetValue(this CharacterhorizontalMoveComponent self)

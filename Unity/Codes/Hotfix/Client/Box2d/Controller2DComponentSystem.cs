@@ -110,7 +110,6 @@ namespace ET.Client
             if (!self.IsGround)
             {
                 self.MyUnit2D.GetComponent<StateMachine2D>().ChangeState(CharacterMovementStates.Falling);
-
             }
             if (self.MyUnit2D.GetComponent<CharacterhorizontalMoveComponent>()?.IsRunning==true)
             {
@@ -151,7 +150,10 @@ namespace ET.Client
 
             self.MyUnit2D.GetComponent<Body2dComponent>()?.Body.SetLinearVelocity(dir);
         }
-
+        /// <summary>
+        /// 网络同步命令,上一帧不是idle的话.同步一帧idle过去.让最后状态一致
+        /// </summary>
+        /// <param name="self"></param>
         public static void SyncCmd(this Controller2DComponent self)
         {
             if (self.CurrCmdType!=CmdType.Idle||self.LastCmdType!=CmdType.Idle)

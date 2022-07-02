@@ -24,6 +24,7 @@ namespace ET
         public bool Right=false;
         public bool IsRunning;
         public bool CurrFaceLeft = true;
+        public float speed;
     }
     /// <summary>
     /// 重力
