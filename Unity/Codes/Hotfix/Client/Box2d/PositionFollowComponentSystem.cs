@@ -10,7 +10,7 @@ namespace ET
             public override void Awake(PositionFollowComponent self, Vector3 targetposition)
             {
                 self.FrameTime = 50f;
-                self.TargetPoint = targetposition;
+                //self.TargetPoint = targetposition;
             }
         }
         public class PositionFollowComponentUpdateSystem : UpdateSystem<PositionFollowComponent>
@@ -18,21 +18,19 @@ namespace ET
             public override void Update(PositionFollowComponent self)
             {
                 long newtime = TimeHelper.ClientFrameTime() - self.StartTime;
+                var body = self.GetParent<Unit2D>().GetComponent<Body2dComponent>().Body;
                 if (newtime < self.FrameTime)
                 {
-                    self.GetParent<Unit2D>().Position = Vector3.Lerp(self.StartPoint, self.TargetPoint, newtime / self.FrameTime) ;
-                }
-                else if(Vector3.Distance(self.GetParent<Unit2D>().Position,self.TargetPoint)>0.01f)
-                {
-                    self.GetParent<Unit2D>().Position = self.TargetPoint;
+                    body.SetTransform(Vector2.Lerp(self.StartPoint, self.TargetPoint, newtime / self.FrameTime),0);
+                    //self.GetParent<Unit2D>().Position = Vector3.Lerp(self.StartPoint, self.TargetPoint, newtime / self.FrameTime) ;
                 }
             }
         }
 
 
-        public static void CalcLerp(this PositionFollowComponent self, Vector3 old, Vector3 newposiont)
+        public static void CalcLerp(this PositionFollowComponent self, Vector2 newposiont)
         {
-            self.StartPoint = old;
+            self.StartPoint = self.GetParent<Unit2D>().GetComponent<Body2dComponent>().Body.GetPosition();
             self.TargetPoint = newposiont;
             self.StartTime = TimeHelper.ClientFrameTime();
         }

@@ -14,11 +14,9 @@ namespace ET.Client
 				Log.Debug("not found unit");
 				return;
 			}
-
 			unit.GetComponent<CmdCollectorComponent>()?.AddCmd(message.CharacterCMD);
-			// Vector3 pos = new Vector3(message.X/100f, message.Y/100f, 0);
-			// unit.GetComponent<PositionFollowComponent>().CalcLerp(unit.Position,pos);
-			// unit.GetComponent<StateMachine2D>().ChangeState((CharacterMovementStates) message.CharacterStates,false);
+			Vector2 pos = new Vector2(message.X/1000f, message.Y/1000f);
+			unit.GetComponent<PositionFollowComponent>().CalcLerp(pos);
 			await ETTask.CompletedTask;
 		}
 	}

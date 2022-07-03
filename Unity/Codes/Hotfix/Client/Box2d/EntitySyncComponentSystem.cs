@@ -25,14 +25,15 @@ namespace ET.Client
         {
             self.Interval = 1000 / self.Fps;
             self.SyncMsg = new C2B_OnSelfEntityChanged();
+            self.SyncMsg.Id = self.Id;
         }
 
         public static void SyncToServer(this EntitySyncComponent self,int cmd)
         {
-            var msg = new C2B_OnSelfEntityChanged();
-            msg.Id = self.Id;
-            msg.CharacterCMD = cmd;
-            self.ClientScene().GetComponent<SessionComponent>().Session.Send(msg);
+            self.SyncMsg.CharacterCMD = cmd;
+            self.SyncMsg.X = (int)(self.GetParent<Unit2D>().Position.X * 1000);
+            self.SyncMsg.Y = (int)(self.GetParent<Unit2D>().Position.Y * 1000);
+            self.ClientScene().GetComponent<SessionComponent>().Session.Send(self.SyncMsg);
         }
 
         public static void Update(this EntitySyncComponent self)
