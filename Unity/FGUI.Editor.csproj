@@ -41,14 +41,14 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Packages\FairyGUI\Scripts\Editor\UIConfigEditor.cs" />
-     <Compile Include="Packages\FairyGUI\Scripts\Editor\StageCameraEditor.cs" />
      <Compile Include="Packages\FairyGUI\Scripts\Editor\UIContentScalerEditor.cs" />
-     <Compile Include="Packages\FairyGUI\Scripts\Editor\PackagesWindow.cs" />
-     <Compile Include="Packages\FairyGUI\Scripts\Editor\UIPanelEditor.cs" />
      <Compile Include="Packages\FairyGUI\Scripts\Editor\EditorToolSet.cs" />
-     <Compile Include="Packages\FairyGUI\Scripts\Editor\DisplayObjectEditor.cs" />
      <Compile Include="Packages\FairyGUI\Scripts\Editor\UIPainterEditor.cs" />
+     <Compile Include="Packages\FairyGUI\Scripts\Editor\UIPanelEditor.cs" />
+     <Compile Include="Packages\FairyGUI\Scripts\Editor\UIConfigEditor.cs" />
+     <Compile Include="Packages\FairyGUI\Scripts\Editor\DisplayObjectEditor.cs" />
+     <Compile Include="Packages\FairyGUI\Scripts\Editor\PackagesWindow.cs" />
+     <Compile Include="Packages\FairyGUI\Scripts\Editor\StageCameraEditor.cs" />
      <None Include="Packages\FairyGUI\Scripts\Editor\FairyGUI.Editor.asmdef" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.4f1c1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
@@ -306,31 +306,31 @@
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.4f1c1\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Burst.Unsafe">
-     <HintPath>F:\Project\ETBox2d\Unity\Library\PackageCache\com.unity.burst@1.6.5\Unity.Burst.Unsafe.dll</HintPath>
+     <HintPath>F:\project\ETBox2d\Unity\Library\PackageCache\com.unity.burst@1.6.5\Unity.Burst.Unsafe.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Burst.Cecil.Mdb">
-     <HintPath>F:\Project\ETBox2d\Unity\Library\PackageCache\com.unity.burst@1.6.5\Unity.Burst.CodeGen\Unity.Burst.Cecil.Mdb.dll</HintPath>
+     <HintPath>F:\project\ETBox2d\Unity\Library\PackageCache\com.unity.burst@1.6.5\Unity.Burst.CodeGen\Unity.Burst.Cecil.Mdb.dll</HintPath>
      </Reference>
      <Reference Include="CommandLine">
-     <HintPath>F:\Project\ETBox2d\Unity\Assets\Plugins\CommandLine.dll</HintPath>
+     <HintPath>F:\project\ETBox2d\Unity\Assets\Plugins\CommandLine.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Burst.Cecil.Pdb">
-     <HintPath>F:\Project\ETBox2d\Unity\Library\PackageCache\com.unity.burst@1.6.5\Unity.Burst.CodeGen\Unity.Burst.Cecil.Pdb.dll</HintPath>
+     <HintPath>F:\project\ETBox2d\Unity\Library\PackageCache\com.unity.burst@1.6.5\Unity.Burst.CodeGen\Unity.Burst.Cecil.Pdb.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Burst.Cecil">
-     <HintPath>F:\Project\ETBox2d\Unity\Library\PackageCache\com.unity.burst@1.6.5\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
+     <HintPath>F:\project\ETBox2d\Unity\Library\PackageCache\com.unity.burst@1.6.5\Unity.Burst.CodeGen\Unity.Burst.Cecil.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Burst.Cecil.Rocks">
-     <HintPath>F:\Project\ETBox2d\Unity\Library\PackageCache\com.unity.burst@1.6.5\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
+     <HintPath>F:\project\ETBox2d\Unity\Library\PackageCache\com.unity.burst@1.6.5\Unity.Burst.CodeGen\Unity.Burst.Cecil.Rocks.dll</HintPath>
      </Reference>
      <Reference Include="System.Runtime.CompilerServices.Unsafe">
-     <HintPath>F:\Project\ETBox2d\Unity\Assets\ThirdParty\Box2D\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+     <HintPath>F:\project\ETBox2d\Unity\Assets\ThirdParty\Box2D\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
      </Reference>
      <Reference Include="ICSharpCode.SharpZipLib">
-     <HintPath>F:\Project\ETBox2d\Unity\Assets\Plugins\ICSharpCode.SharpZipLib.dll</HintPath>
+     <HintPath>F:\project\ETBox2d\Unity\Assets\Plugins\ICSharpCode.SharpZipLib.dll</HintPath>
      </Reference>
      <Reference Include="nunit.framework">
-     <HintPath>F:\Project\ETBox2d\Unity\Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
+     <HintPath>F:\project\ETBox2d\Unity\Library\PackageCache\com.unity.ext.nunit@1.0.6\net35\unity-custom\nunit.framework.dll</HintPath>
      </Reference>
      <Reference Include="mscorlib">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.4f1c1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\mscorlib.dll</HintPath>
@@ -708,16 +708,16 @@
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.4f1c1\Editor\Data\UnityReferenceAssemblies\unity-4.8-api\Facades\System.Xml.XPath.XDocument.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor.UI">
-     <HintPath>F:\Project\ETBox2d\Unity\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+     <HintPath>F:\project\ETBox2d\Unity\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
      </Reference>
      <Reference Include="UnityEngine.UI">
-     <HintPath>F:\Project\ETBox2d\Unity\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+     <HintPath>F:\project\ETBox2d\Unity\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
      </Reference>
      <Reference Include="UnityEngine.TestRunner">
-     <HintPath>F:\Project\ETBox2d\Unity\Library\ScriptAssemblies\UnityEngine.TestRunner.dll</HintPath>
+     <HintPath>F:\project\ETBox2d\Unity\Library\ScriptAssemblies\UnityEngine.TestRunner.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor.TestRunner">
-     <HintPath>F:\Project\ETBox2d\Unity\Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
+     <HintPath>F:\project\ETBox2d\Unity\Library\ScriptAssemblies\UnityEditor.TestRunner.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>
