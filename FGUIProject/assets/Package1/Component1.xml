@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="800,600">
+  <displayList>
+    <text id="n0_bmwt" name="n0" xy="369,98" size="39,19" fontSize="12" text="11111"/>
+    <component id="n1_bmwt" name="n1" src="bmwt2" fileName="Button1.xml" xy="321,153" size="100,81"/>
+  </displayList>
+</component>

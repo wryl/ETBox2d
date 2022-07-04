@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.nkg.fgui": {
+      "version": "file:FairyGUI",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.burst": {
       "version": "1.6.5",
       "depth": 1,
