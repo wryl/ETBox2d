@@ -37,6 +37,10 @@ namespace ET.Analyzer
 
         private void Analyzer(SymbolAnalysisContext context)
         {
+            if (!AnalyzerHelper.IsAssemblyNeedAnalyze(context.Compilation.AssemblyName, AnalyzeAssembly.All))
+            {
+                return;
+            }
             if (!(context.Symbol is INamedTypeSymbol namedTypeSymbol))
             {
                 return;

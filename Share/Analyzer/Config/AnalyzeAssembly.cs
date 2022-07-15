@@ -14,10 +14,10 @@
 
         public const string UnityHotfixView = "Unity.HotfixView";
 
-        public static readonly string[] AllHotfix = { AppsHotfix, UnityHotfix, UnityHotfixView };
+        public static readonly string[] AllHotfix = { AppsHotfix, UnityHotfix};
 
-        public static readonly string[] AllModel = { AppsModel, UnityModel, UnityModelView };
+        public static readonly string[] AllModel = { AppsModel, UnityModel };
 
-        public static readonly string[] All = { AppsModel, AppsHotfix, UnityModel, UnityHotfix, UnityModelView, UnityHotfixView };
+        public static readonly string[] All = { AppsModel, AppsHotfix, UnityModel, UnityHotfix };
     }
 }

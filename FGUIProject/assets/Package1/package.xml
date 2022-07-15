@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<packageDescription id="2k4bu9x0">
-  <resources>
-    <component id="tz250" name="Component1.xml" path="/" exported="true"/>
-    <component id="bmwt1" name="Component2.xml" path="/"/>
-    <component id="bmwt2" name="Button1.xml" path="/"/>
-  </resources>
-  <publish name=""/>
-</packageDescription>

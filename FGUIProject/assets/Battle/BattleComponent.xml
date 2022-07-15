@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1920,1080">
+  <displayList>
+    <text id="n0_bmwt" name="n0" xy="80,17" size="81,19" fontSize="12" autoSize="none" text="11111"/>
+    <list id="n2_t32m" name="n2" xy="1525,970" size="82,85" layout="row" overflow="scroll" scroll="horizontal" lineGap="3" colGap="4" defaultItem="ui://2k4bu9x0t32m4" autoItemSize="false" align="center" vAlign="middle" scrollItemToViewOnClick="false">
+      <item title="0" name="0"/>
+      <item title="1" name="1"/>
+      <item title="2" name="2"/>
+      <item title="3" name="3"/>
+    </list>
+    <component id="n3_kyd6" name="n3" src="t32m3" fileName="AttackButton.xml" xy="1717,975"/>
+  </displayList>
+</component>

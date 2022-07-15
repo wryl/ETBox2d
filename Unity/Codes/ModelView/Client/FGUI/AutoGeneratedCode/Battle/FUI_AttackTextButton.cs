@@ -5,27 +5,30 @@ using System.Threading.Tasks;
 
 namespace ET
 {
-    public class FUI_Component1AwakeSystem : AwakeSystem<FUI_Component1, GObject>
+    public class FUI_AttackTextButtonAwakeSystem : AwakeSystem<FUI_AttackTextButton, GObject>
     {
-        public override void Awake(FUI_Component1 self, GObject go)
+        public override void Awake(FUI_AttackTextButton self, GObject go)
         {
             self.Awake(go);
         }
     }
         
-    public sealed class FUI_Component1 : FUI
+    public sealed class FUI_AttackTextButton : FUI
     {	
-        public const string UIPackageName = "Package1";
-        public const string UIResName = "Component1";
+        public const string UIPackageName = "Battle";
+        public const string UIResName = "AttackTextButton";
         
         /// <summary>
         /// {uiResName}的组件类型(GComponent、GButton、GProcessBar等)，它们都是GObject的子类。
         /// </summary>
-        public GComponent self;
+        public GButton self;
             
-    	public GTextField m_n0;
-    	public FUI_Button1 m_n1;
-    	public const string URL = "ui://2k4bu9x0tz250";
+    	public Controller m_button;
+    	public GGraph m_n0;
+    	public GGraph m_n1;
+    	public GGraph m_n2;
+    	public GTextField m_title;
+    	public const string URL = "ui://2k4bu9x0t32m4";
 
        
         private static GObject CreateGObject()
@@ -39,19 +42,19 @@ namespace ET
         }
         
        
-        public static FUI_Component1 CreateInstance(Entity parent)
+        public static FUI_AttackTextButton CreateInstance(Entity parent)
         {			
-            return parent.AddChild<FUI_Component1, GObject>(CreateGObject());
+            return parent.AddChild<FUI_AttackTextButton, GObject>(CreateGObject());
         }
         
        
-        public static ETTask<FUI_Component1> CreateInstanceAsync(Entity parent)
+        public static ETTask<FUI_AttackTextButton> CreateInstanceAsync(Entity parent)
         {
-            ETTask<FUI_Component1> tcs = ETTask<FUI_Component1>.Create(true);
+            ETTask<FUI_AttackTextButton> tcs = ETTask<FUI_AttackTextButton>.Create(true);
     
             CreateGObjectAsync((go) =>
             {
-                tcs.SetResult(parent.AddChild<FUI_Component1, GObject>(go));
+                tcs.SetResult(parent.AddChild<FUI_AttackTextButton, GObject>(go));
             });
     
             return tcs;
@@ -64,18 +67,18 @@ namespace ET
         /// <param name="domain"></param>
         /// <param name="go"></param>
         /// <returns></returns>
-        public static FUI_Component1 Create(Entity parent, GObject go)
+        public static FUI_AttackTextButton Create(Entity parent, GObject go)
         {
-            return parent.AddChild<FUI_Component1, GObject>(go);
+            return parent.AddChild<FUI_AttackTextButton, GObject>(go);
         }
             
        
         /// <summary>
         /// 通过此方法获取的FUI，在Dispose时不会释放GObject，需要自行管理（一般在配合FGUI的Pool机制时使用）。
         /// </summary>
-        public static FUI_Component1 GetFormPool(Entity domain, GObject go)
+        public static FUI_AttackTextButton GetFormPool(Entity domain, GObject go)
         {
-            var fui = go.Get<FUI_Component1>();
+            var fui = go.Get<FUI_AttackTextButton>();
         
             if(fui == null)
             {
@@ -101,7 +104,7 @@ namespace ET
                 Name = Id.ToString();
             }
             
-            self = (GComponent)go;
+            self = (GButton)go;
             
             self.Add(this);
             
@@ -110,8 +113,11 @@ namespace ET
             if(com != null)
             {	
                 
-    			m_n0 = (GTextField)com.GetChildAt(0);
-    			m_n1 = FUI_Button1.Create(this, com.GetChildAt(1));
+    			m_button = com.GetControllerAt(0);
+    			m_n0 = (GGraph)com.GetChildAt(0);
+    			m_n1 = (GGraph)com.GetChildAt(1);
+    			m_n2 = (GGraph)com.GetChildAt(2);
+    			m_title = (GTextField)com.GetChildAt(3);
     		}
     	}
            
@@ -127,9 +133,11 @@ namespace ET
             self.Remove();
             self = null;
             
+    		m_button = null;
     		m_n0 = null;
-    		m_n1.Dispose();
     		m_n1 = null;
+    		m_n2 = null;
+    		m_title = null;
     	}
     }
 }
