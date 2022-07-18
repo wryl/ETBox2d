@@ -318,3 +318,30 @@ message M2C_CreateUnit2Ds // IActorMessage
 {
 	repeated UnitInfo Units = 2;
 }
+//通知地图内建立P2P连接
+message M2C_StartP2P // IActorMessage
+{
+	string Address = 1;
+}
+// 连接到中转服务器
+message P2PStartMessage // IMessage
+{
+	int64 Key = 1;
+}
+//ResponseType P2PLoginResponse
+message P2PLoginRequest // IRequest
+{
+	int32 RpcId = 1;
+	int64 Key = 2;
+}
+message P2PLoginResponse // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+}
+message P2PTargetMessage // IMessage
+{
+	string TargetAddress = 1;
+	uint32 RemoteConn = 2;
+}

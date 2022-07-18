@@ -20,7 +20,6 @@ namespace ET
         c = 0,
         s = 1,
     }
-
     class HeadInfo
     {
         public string FieldAttribute;
@@ -94,6 +93,9 @@ namespace ET
         {
             try
             {
+                //防止编译时裁剪掉protobuf
+                ProtoBuf.WireType.Fixed64.ToString();
+                
                 template = File.ReadAllText("Template.txt");
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 

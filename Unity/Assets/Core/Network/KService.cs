@@ -19,6 +19,8 @@ namespace ET
         public const byte RouterReconnectACK = 6;
         public const byte RouterSYN = 7;
         public const byte RouterACK = 8;
+        public const byte P2PSYN = 10;
+        public const byte P2PACK = 11;
     }
 
     public enum ServiceType

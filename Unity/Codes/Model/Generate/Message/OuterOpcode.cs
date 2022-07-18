@@ -44,5 +44,10 @@ namespace ET
 		 public const ushort B2C_Create2DWorld = 10041;
 		 public const ushort M2C_CreateMyUnit2D = 10042;
 		 public const ushort M2C_CreateUnit2Ds = 10043;
+		 public const ushort M2C_StartP2P = 10044;
+		 public const ushort P2PStartMessage = 10045;
+		 public const ushort P2PLoginRequest = 10046;
+		 public const ushort P2PLoginResponse = 10047;
+		 public const ushort P2PTargetMessage = 10048;
 	}
 }

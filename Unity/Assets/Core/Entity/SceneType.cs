@@ -13,6 +13,7 @@
 		RouterManager = 8,
 		Robot = 9,
 		Box2dWorld = 10,
+		P2PServer = 11,
 		// 客户端Model层
 		Client = 31,
 		Current = 34,

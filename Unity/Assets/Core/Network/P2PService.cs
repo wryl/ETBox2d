@@ -124,7 +124,7 @@ namespace ET
             }
         }
 
-        public void ChangeAddress(long id, IPEndPoint address)
+        public void ChangeAddress(long id, IPEndPoint address,uint remoteConn)
         {
             P2PChannel P2PChannel = this.Get(id);
             if (P2PChannel == null)
@@ -134,6 +134,8 @@ namespace ET
 
             Log.Info($"channel change address: {id} {address}");
             P2PChannel.RemoteAddress = address;
+            P2PChannel.RemoteConn = remoteConn;
+            P2PChannel.IsP2PConnected = false;
         }
 
 
@@ -286,6 +288,22 @@ namespace ET
                                 p2PChannel.HandleConnnect();
                             }
 
+                            break;
+                        case KcpProtocalType.P2PACK: // connect返回
+                            // 长度!=9，不是connect消息
+                            if (messageLength != 9)
+                            {
+                                break;
+                            }
+                            remoteConn = BitConverter.ToUInt32(this.cache, 1);
+                            localConn = BitConverter.ToUInt32(this.cache, 5);
+                            p2PChannel = this.GetByLocalConn(localConn);
+                            if (p2PChannel != null)
+                            {
+                                Log.Info($"P2PService P2PACK: {p2PChannel.Id} {remoteConn} {localConn}");
+                                p2PChannel.RemoteConn = remoteConn;
+                                p2PChannel.HandleP2PConnnect();
+                            }
                             break;
                         case KcpProtocalType.FIN: // 断开
                             // 长度!=13，不是DisConnect消息

@@ -7,6 +7,8 @@
 "Map*Map2
 "
 Box2dWorld*Box2dWorld1
+ "	P2PServer*
+P2PServer10•N
 È"Robot*Robot01
 (¬"RouterManager*RouterManager0¼P
 ­"Router*Router010½P

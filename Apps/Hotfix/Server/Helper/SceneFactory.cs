@@ -51,6 +51,10 @@ namespace ET.Server
                     var world=scene.AddComponent<Box2dWorldComponent>();
                     // Unit2DHelper.Create2D(scene, IdGenerater.Instance.GenerateId(), UnitType.Monster);
                     break;
+                case SceneType.P2PServer:
+                    scene.AddComponent<P2PManager>();
+                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(startSceneConfig.OuterIPPort, CallbackType.SessionStreamDispatcherServerOuter);
+                    break;
             }
 
             return scene;

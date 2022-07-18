@@ -38,6 +38,10 @@ namespace ET.Server
             MessageHelper.BroadcastToAllNotSelf(scene,unit.Id,createUnitsForOthers);
             response.NewInstanceId = unit.InstanceId;
             reply();
+            if (unitComponent.Children.Count==2)
+            {
+                MessageHelper.BroadcastToAll(scene,new M2C_StartP2P(){Address = StartSceneConfigCategory.Instance.GetBySceneName(1,"P2PServer1").OuterIPPort.ToString()});
+            }
         }
 
 		

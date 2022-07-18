@@ -567,6 +567,9 @@ namespace ET
 		[ProtoMember(14)]
 		public int CharacterCMD { get; set; }
 
+		[ProtoMember(15)]
+		public uint Frame { get; set; }
+
 	}
 
 	[Message(OuterOpcode.B2C_OnEntityChanged)]
@@ -593,6 +596,9 @@ namespace ET
 
 		[ProtoMember(14)]
 		public int CharacterCMD { get; set; }
+
+		[ProtoMember(15)]
+		public uint Frame { get; set; }
 
 	}
 
@@ -673,6 +679,66 @@ namespace ET
 	{
 		[ProtoMember(2)]
 		public List<UnitInfo> Units = new List<UnitInfo>();
+
+	}
+
+//通知地图内建立P2P连接
+	[Message(OuterOpcode.M2C_StartP2P)]
+	[ProtoContract]
+	public partial class M2C_StartP2P: Object, IActorMessage
+	{
+		[ProtoMember(1)]
+		public string Address { get; set; }
+
+	}
+
+// 连接到中转服务器
+	[Message(OuterOpcode.P2PStartMessage)]
+	[ProtoContract]
+	public partial class P2PStartMessage: Object, IMessage
+	{
+		[ProtoMember(1)]
+		public long Key { get; set; }
+
+	}
+
+	[ResponseType(nameof(P2PLoginResponse))]
+	[Message(OuterOpcode.P2PLoginRequest)]
+	[ProtoContract]
+	public partial class P2PLoginRequest: Object, IRequest
+	{
+		[ProtoMember(1)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(2)]
+		public long Key { get; set; }
+
+	}
+
+	[Message(OuterOpcode.P2PLoginResponse)]
+	[ProtoContract]
+	public partial class P2PLoginResponse: Object, IResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
+	[Message(OuterOpcode.P2PTargetMessage)]
+	[ProtoContract]
+	public partial class P2PTargetMessage: Object, IMessage
+	{
+		[ProtoMember(1)]
+		public string TargetAddress { get; set; }
+
+		[ProtoMember(2)]
+		public uint RemoteConn { get; set; }
 
 	}
 
