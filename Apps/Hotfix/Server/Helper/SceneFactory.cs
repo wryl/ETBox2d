@@ -25,7 +25,7 @@ namespace ET.Server
                     );
                     break;
                 case SceneType.RouterManager:
-                    scene.AddComponent<HttpComponent, string>($"http://{startSceneConfig.OuterIPPort}/");
+                    scene.AddComponent<HttpComponent, string>($"http://*:{startSceneConfig.OuterPort}/");
                     break;
                 case SceneType.Realm:
                     scene.AddComponent<NetKcpComponent, IPEndPoint, int>(startSceneConfig.InnerIPOutPort, CallbackType.SessionStreamDispatcherServerOuter);

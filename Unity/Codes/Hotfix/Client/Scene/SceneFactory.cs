@@ -7,6 +7,7 @@ namespace ET.Client
             Scene clientScene = EntitySceneFactory.CreateScene(zone, SceneType.Client, name, parent);
             clientScene.AddComponent<ClientSceneFlagComponent>();
             clientScene.AddComponent<NetKcpComponent, int>(CallbackType.SessionStreamDispatcherClientOuter);
+            clientScene.AddComponent<NetP2PKcpComponent, int>(CallbackType.SessionStreamDispatcherClientP2POuter);
 			clientScene.AddComponent<CurrentScenesComponent>();
             clientScene.AddComponent<ObjectWait>();
             clientScene.AddComponent<PlayerComponent>();
@@ -23,7 +24,6 @@ namespace ET.Client
             Game.EventSystem.Publish(currentScene, new EventType.AfterCreateCurrentScene());
             return currentScene;
         }
-        
         
     }
 }

@@ -96,7 +96,7 @@ namespace ET
             long channelId = RandomHelper.RandInt64();
             Session session = self.AddChildWithId<Session, AService>(channelId, self.Service);
             session.RemoteAddress = realIPEndPoint;
-            session.AddComponent<SessionIdleCheckerComponent, int>(NetThreadComponent.checkInteral);
+            //session.AddComponent<SessionIdleCheckerComponent, int>(NetThreadComponent.checkInteral);
             
             self.Service.GetOrCreate(session.Id, realIPEndPoint);
 

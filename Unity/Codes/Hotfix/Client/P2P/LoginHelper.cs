@@ -8,11 +8,8 @@ namespace ET.Client
         {
             try
             {
-                Session session = null;
-
-                var p2PKcpComponent = clientScene.AddComponent<NetP2PKcpComponent, int>(CallbackType.SessionStreamDispatcherClientOuter);
-                // 获取路由跟realmDispatcher地址
-                session = p2PKcpComponent.Create(NetworkHelper.ToIPEndPoint(address));
+                var p2PKcpComponent = clientScene.GetComponent<NetP2PKcpComponent>();
+                Session session = p2PKcpComponent.Create(NetworkHelper.ToIPEndPoint(address));
                 session.Send(new P2PStartMessage());
             }
             catch (Exception e)

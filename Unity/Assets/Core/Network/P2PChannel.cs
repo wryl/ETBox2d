@@ -31,7 +31,7 @@ namespace ET
 		private readonly byte[] sendCache = new byte[2 * 1024];
 		
 		public bool IsConnected { get; private set; }
-		public bool IsP2PConnected { get; set; }
+		public bool IsP2PConnected { get; set; } = true;
 		public IPEndPoint P2PAddress { get; set; }
 
 		public string RealAddress { get; set; }
@@ -152,7 +152,7 @@ namespace ET
 			this.kcp = Kcp.KcpCreate(this.RemoteConn, IntPtr.Zero);
 			this.InitKcp();
 
-			Log.Info($"channel connected: {this.Id} {this.LocalConn} {this.RemoteConn} {this.RemoteAddress}");
+			Log.Info($"p2pchannel connected: {this.Id} {this.LocalConn} {this.RemoteConn} {this.RemoteAddress}");
 			this.IsConnected = true;
 			this.lastRecvTime = this.Service.TimeNow;
 			
@@ -177,20 +177,9 @@ namespace ET
 			this.kcp = Kcp.KcpCreate(this.RemoteConn, IntPtr.Zero);
 			this.InitKcp();
 
-			Log.Info($"channel p2pconnected: {this.Id} {this.LocalConn} {this.RemoteConn} {this.RemoteAddress}");
+			Log.Info($"p2pchannel p2pconnected: {this.Id} {this.LocalConn} {this.RemoteConn} {this.RemoteAddress}");
 			this.IsP2PConnected = true;
 			this.lastRecvTime = this.Service.TimeNow;
-			
-			// while (true)
-			// {
-			// 	if (this.sendBuffer.Count <= 0)
-			// 	{
-			// 		break;
-			// 	}
-			// 	
-			// 	KcpWaitPacket buffer = this.sendBuffer.Dequeue();
-			// 	this.KcpSend(buffer);
-			// }
 		}
 		/// <summary>
 		/// 发送请求连接消息
@@ -231,8 +220,8 @@ namespace ET
 				buffer.WriteTo(0, KcpProtocalType.P2PSYN);
 				buffer.WriteTo(1, this.LocalConn);
 				buffer.WriteTo(5, this.RemoteConn);
-				this.socket.SendTo(buffer, 0, 9, SocketFlags.None, this.P2PAddress);
-				Log.Info($"P2PChannel P2PConnect {this.Id} {this.LocalConn} {this.RemoteConn} {this.P2PAddress} {this.socket.LocalEndPoint}");
+				this.socket.SendTo(buffer, 0, 9, SocketFlags.None, this.RemoteAddress);
+				Log.Info($"P2PChannel P2PConnect {this.Id} {this.LocalConn} {this.RemoteConn} {this.RemoteAddress} {this.socket.LocalEndPoint}");
 				
 				// 300毫秒后再次update发送connect请求
 				this.Service.AddToUpdateNextTime(timeNow + 300, this.Id);

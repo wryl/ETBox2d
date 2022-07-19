@@ -5,6 +5,7 @@
         public const int SessionStreamDispatcherClientOuter = 1;
         public const int SessionStreamDispatcherServerOuter = 2;
         public const int SessionStreamDispatcherServerInner = 3;
+        public const int SessionStreamDispatcherClientP2POuter = 4;
 
         public const int GetAllConfigBytes = 11;
         public const int GetOneConfigBytes = 12;
