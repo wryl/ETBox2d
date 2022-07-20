@@ -153,7 +153,19 @@ namespace ET
             Log.Info($"channel change address: {id} {address}");
             kChannel.RemoteAddress = address;
         }
+        public void ChangeAddress(long id, IPEndPoint address,uint remoteConn)
+        {
+            KChannel kChannel = this.Get(id);
 
+            if (kChannel == null)
+            {
+                return;
+            }
+            Log.Info($"kChannel change address: {id} {address}");
+            kChannel.RemoteAddress = address;
+            kChannel.RemoteConn = remoteConn;
+            kChannel.IsP2PConnected = false;
+        }
 
         // 保存所有的channel
         private readonly Dictionary<long, KChannel> idChannels = new Dictionary<long, KChannel>();
@@ -373,6 +385,42 @@ namespace ET
                             }
 
                             break;
+                                                case KcpProtocalType.P2PSYN: // 连接
+                            // 长度!=9，不是connect消息
+                            if (messageLength != 9)
+                            {
+                                break;
+                            }
+                            remoteConn = BitConverter.ToUInt32(this.cache, 1);
+                            localConn = BitConverter.ToUInt32(this.cache, 5);
+                            kChannel = this.GetByLocalConn(localConn);
+                            if (kChannel != null)
+                            {
+                                byte[] buffer = this.cache;
+                                buffer.WriteTo(0, KcpProtocalType.P2PACK);
+                                buffer.WriteTo(1, kChannel.LocalConn);
+                                buffer.WriteTo(5, kChannel.RemoteConn);
+                                Log.Info($"P2PService syn: {kChannel.Id} {kChannel.RemoteConn} {kChannel.LocalConn}");
+                                this.socket.SendTo(buffer, 0, 9, SocketFlags.None, kChannel.RemoteAddress);
+                            }
+                            break;
+                        case KcpProtocalType.P2PACK: // connect返回
+                            // 长度!=9，不是connect消息
+                            if (messageLength != 9)
+                            {
+                                break;
+                            }
+                            remoteConn = BitConverter.ToUInt32(this.cache, 1);
+                            localConn = BitConverter.ToUInt32(this.cache, 5);
+                            Log.Info($"P2PService P2PACK:  {remoteConn} {localConn}");
+                            kChannel = this.GetByLocalConn(localConn);
+                            if (kChannel != null)
+                            {
+                                Log.Info($"P2PService P2PACK: {kChannel.Id} {remoteConn} {localConn}");
+                                kChannel.RemoteConn = remoteConn;
+                                kChannel.HandleP2PConnnect();
+                            }
+                            break;
                         case KcpProtocalType.FIN: // 断开
                             // 长度!=13，不是DisConnect消息
                             if (messageLength != 13)
@@ -410,7 +458,6 @@ namespace ET
                             // 处理chanel
                             remoteConn = BitConverter.ToUInt32(this.cache, 1);
                             localConn = BitConverter.ToUInt32(this.cache, 5);
-
                             kChannel = this.GetByLocalConn(localConn);
                             if (kChannel == null)
                             {

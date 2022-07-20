@@ -35,6 +35,7 @@ namespace ET
 		private readonly byte[] sendCache = new byte[2 * 1024];
 		
 		public bool IsConnected { get; private set; }
+		public bool IsP2PConnected { get; set; } = true;
 
 		public string RealAddress { get; set; }
 		
@@ -197,7 +198,44 @@ namespace ET
 				this.OnError(ErrorCore.ERR_SocketCantSend);
 			}
 		}
+		public void HandleP2PConnnect()
+		{
+			// 如果连接上了就不用处理了
+			if (this.IsP2PConnected)
+			{
+				return;
+			}
+			this.kcp = Kcp.KcpCreate(this.RemoteConn, IntPtr.Zero);
+			this.InitKcp();
 
+			Log.Info($"p2pchannel p2pconnected: {this.Id} {this.LocalConn} {this.RemoteConn} {this.RemoteAddress}");
+			this.IsP2PConnected = true;
+			this.lastRecvTime = this.Service.TimeNow;
+		}		
+		private void P2PConnect()
+		{
+			try
+			{
+				uint timeNow = this.Service.TimeNow;
+				
+				this.lastRecvTime = timeNow;
+				
+				byte[] buffer = sendCache;
+				buffer.WriteTo(0, KcpProtocalType.P2PSYN);
+				buffer.WriteTo(1, this.LocalConn);
+				buffer.WriteTo(5, this.RemoteConn);
+				this.socket.SendTo(buffer, 0, 9, SocketFlags.None, this.RemoteAddress);
+				Log.Info($"P2PChannel P2PConnect {this.Id} {this.LocalConn} {this.RemoteConn} {this.RemoteAddress} {this.socket.LocalEndPoint}");
+				
+				// 300毫秒后再次update发送connect请求
+				this.Service.AddToUpdateNextTime(timeNow + 300, this.Id);
+			}
+			catch (Exception e)
+			{
+				Log.Error(e);
+				this.OnError(ErrorCore.ERR_SocketCantSend);
+			}
+		}
 		public void Update()
 		{
 			if (this.IsDisposed)
@@ -225,7 +263,11 @@ namespace ET
 				}
 				return;
 			}
-
+			if (!this.IsP2PConnected)
+			{
+				this.P2PConnect();
+				return;
+			}
 			if (this.kcp == IntPtr.Zero)
 			{
 				return;

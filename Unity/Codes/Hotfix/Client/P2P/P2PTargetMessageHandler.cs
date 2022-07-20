@@ -9,7 +9,7 @@ namespace ET.Client
 	{
 		protected override async ETTask Run(Session session, P2PTargetMessage message)
 		{
-			((P2PService)session.AService).ChangeAddress(session.Id,NetworkHelper.ToIPEndPoint(message.TargetAddress),message.RemoteConn);
+			((KService)session.AService).ChangeAddress(session.Id,NetworkHelper.ToIPEndPoint(message.TargetAddress),message.RemoteConn);
 			await TimerComponent.Instance.WaitAsync(3000);
 			session.AddComponent<PingComponent>();
 			await ETTask.CompletedTask;
