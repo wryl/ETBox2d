@@ -20,18 +20,18 @@ namespace ET.Server
             switch (scene.SceneType)
             {
                 case SceneType.Router:
-                    scene.AddComponent<RouterComponent, IPEndPoint, string>(startSceneConfig.OuterIPPort,
+                    scene.AddComponent<RouterComponent, IPEndPoint, string>(new IPEndPoint(IPAddress.Any, startSceneConfig.OuterPort),
                         startSceneConfig.StartProcessConfig.InnerIP
                     );
                     break;
                 case SceneType.RouterManager:
-                    scene.AddComponent<HttpComponent, string>($"http://{startSceneConfig.OuterIPPort}/");
+                    scene.AddComponent<HttpComponent, string>($"http://*:{startSceneConfig.OuterPort}/");
                     break;
                 case SceneType.Realm:
-                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(startSceneConfig.InnerIPOutPort, CallbackType.SessionStreamDispatcherServerOuter);
+                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(new IPEndPoint(IPAddress.Any, startSceneConfig.OuterPort), CallbackType.SessionStreamDispatcherServerOuter);
                     break;
                 case SceneType.Gate:
-                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(startSceneConfig.InnerIPOutPort, CallbackType.SessionStreamDispatcherServerOuter);
+                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(new IPEndPoint(IPAddress.Any, startSceneConfig.OuterPort), CallbackType.SessionStreamDispatcherServerOuter);
                     scene.AddComponent<PlayerComponent>();
                     scene.AddComponent<GateSessionKeyComponent>();
                     break;
