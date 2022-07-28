@@ -20,7 +20,7 @@ namespace ET.Server
             switch (scene.SceneType)
             {
                 case SceneType.Router:
-                    scene.AddComponent<RouterComponent, IPEndPoint, string>(startSceneConfig.OuterIPPort,
+                    scene.AddComponent<RouterComponent, IPEndPoint, string>(new IPEndPoint(IPAddress.Any, startSceneConfig.OuterPort),
                         startSceneConfig.StartProcessConfig.InnerIP
                     );
                     break;
@@ -28,10 +28,10 @@ namespace ET.Server
                     scene.AddComponent<HttpComponent, string>($"http://*:{startSceneConfig.OuterPort}/");
                     break;
                 case SceneType.Realm:
-                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(startSceneConfig.InnerIPOutPort, CallbackType.SessionStreamDispatcherServerOuter);
+                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(new IPEndPoint(IPAddress.Any, startSceneConfig.OuterPort), CallbackType.SessionStreamDispatcherServerOuter);
                     break;
                 case SceneType.Gate:
-                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(startSceneConfig.InnerIPOutPort, CallbackType.SessionStreamDispatcherServerOuter);
+                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(new IPEndPoint(IPAddress.Any, startSceneConfig.OuterPort), CallbackType.SessionStreamDispatcherServerOuter);
                     scene.AddComponent<PlayerComponent>();
                     scene.AddComponent<GateSessionKeyComponent>();
                     break;
@@ -53,7 +53,7 @@ namespace ET.Server
                     break;
                 case SceneType.P2PServer:
                     scene.AddComponent<P2PManager>();
-                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(startSceneConfig.OuterIPPort, CallbackType.SessionStreamDispatcherServerOuter);
+                    scene.AddComponent<NetKcpComponent, IPEndPoint, int>(new IPEndPoint(IPAddress.Any, startSceneConfig.OuterPort), CallbackType.SessionStreamDispatcherServerOuter);
                     break;
             }
 

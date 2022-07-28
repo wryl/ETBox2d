@@ -2,7 +2,7 @@ namespace ET
 {
     public static class ConstValue
     {
-        public const string RouterHttpAddress = "192.168.0.163:10300";
+        public const string RouterHttpAddress = "118.195.250.65:40300";
         public const int SessionTimeoutTime = 30 * 1000;
         /// <summary>
         /// 固定间隔的目标FPS
