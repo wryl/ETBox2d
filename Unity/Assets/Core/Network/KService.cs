@@ -401,6 +401,7 @@ namespace ET
                                 buffer.WriteTo(1, kChannel.LocalConn);
                                 buffer.WriteTo(5, kChannel.RemoteConn);
                                 Log.Info($"P2PService syn: {kChannel.Id} {kChannel.RemoteConn} {kChannel.LocalConn}");
+                                kChannel.RemoteAddress = (IPEndPoint)this.ipEndPoint;
                                 this.socket.SendTo(buffer, 0, 9, SocketFlags.None, kChannel.RemoteAddress);
                             }
                             break;
